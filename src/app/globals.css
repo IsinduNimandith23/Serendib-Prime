@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   Serendib Prime — Design System
+   Warm gourmet palette: spice red + turmeric gold on cream.
+   Headings: Playfair Display · Body: Karla
+   ============================================================ */
+
+@theme {
+  /* ----------------------------------------------------------
+     SERENDIB PRIME — SPS palette
+     Navy #074A6D · Teal #229BA7 · Orange #F15B2B · Ink #231F20
+     Tokens keep their original semantic names so every component
+     re-skins from this one place.
+     ---------------------------------------------------------- */
+
+  /* Surfaces (cool near-whites) */
+  --color-cream: #f5f9fb;
+  --color-sand: #e7f1f3;
+  --color-parchment: #d8e8ea;
+  --color-clay: #c4d8dc;
+
+  /* Brand — "spice" = primary navy, "gold" = accent orange */
+  --color-spice: #074a6d;
+  --color-spice-dark: #05374f;
+  --color-ember: #229ba7;
+  --color-gold: #f15b2b;
+  --color-gold-dark: #c2410c;
+  --color-leaf: #229ba7;
+  --color-leaf-dark: #1b7c86;
+  --color-seafoam: #8fd6de;
+
+  /* Ink */
+  --color-cocoa: #231f20;
+  --color-cocoa-soft: #56676c;
+  --color-night: #06314a;
+
+  /* Fonts (wired from next/font in layout.tsx) */
+  --font-sans: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, "Times New Roman",
+    serif;
+
+  /* Easings & radii */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-card: 1.25rem;
+
+  /* Motion durations */
+  --animate-float: float 9s var(--ease-out-soft) infinite;
+  --animate-marquee: marquee 38s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-cocoa);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    background-color: var(--color-spice);
+    color: var(--color-cream);
+  }
+
+  /* Visible, on-brand keyboard focus */
+  :focus-visible {
+    outline: 2px solid var(--color-spice);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Smooth but interruptible scrolling for in-page anchors */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Uppercase tracked eyebrow label */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Frosted glass surface — used sparingly (nav, sticky bars) */
+  .glass {
+    background-color: color-mix(in srgb, var(--color-cream) 78%, transparent);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+  }
+
+  /* Subtle paper grain for large warm surfaces */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Reusable keyframes (transform/opacity only — GPU friendly) */
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -14px, 0); }
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* Respect reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
