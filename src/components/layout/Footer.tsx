@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/visual/Logo";
-import { LeafSprig } from "@/components/visual/SpiceMotif";
+import { FishMotif } from "@/components/visual/SeaMotif";
 import {
   IconInstagram,
   IconFacebook,
   IconWhatsApp,
-  IconMapPin,
   IconMail,
   IconPhone,
 } from "@/components/icons";
@@ -28,7 +27,7 @@ const COMPANY_LINKS = [
 export function Footer() {
   return (
     <footer className="relative mt-24 overflow-hidden bg-night text-cream/80">
-      <LeafSprig className="pointer-events-none absolute -right-8 -top-8 h-48 w-48 text-cream opacity-[0.04]" />
+      <FishMotif className="pointer-events-none absolute -right-8 -top-8 h-48 w-48 text-cream opacity-[0.04]" />
       <Container className="relative py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div className="max-w-xs">
@@ -63,10 +62,6 @@ export function Footer() {
           <div>
             <h3 className="eyebrow mb-4 text-seafoam">Get in touch</h3>
             <ul className="space-y-3 text-sm text-cream/70">
-              <li className="flex items-start gap-3">
-                <IconMapPin className="mt-0.5 h-4 w-4 shrink-0 text-seafoam" />
-                Negombo, Western Province, Sri Lanka
-              </li>
               <li className="flex items-center gap-3">
                 <IconPhone className="h-4 w-4 shrink-0 text-seafoam" />
                 <a href="tel:+94112345678" className="transition-colors hover:text-seafoam">

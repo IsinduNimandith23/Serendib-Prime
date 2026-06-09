@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/motion";
 import Image from "next/image";
-import { LeafSprig } from "@/components/visual/SpiceMotif";
+import { FishMotif } from "@/components/visual/SeaMotif";
 import { IconArrowRight, IconAward } from "@/components/icons";
 
 export function StorySection() {
@@ -11,7 +11,7 @@ export function StorySection() {
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative order-2 lg:order-1">
           <div className="grain relative overflow-hidden rounded-[2rem] border border-clay bg-gradient-to-br from-sand to-parchment p-10">
-            <LeafSprig className="absolute -right-6 -top-6 h-40 w-40 opacity-20" />
+            <FishMotif className="absolute -right-6 -top-6 h-40 w-40 opacity-20" />
             <div className="mx-auto aspect-square w-[82%]">
               <Image
                 src="/tempered-sprats.jpg"

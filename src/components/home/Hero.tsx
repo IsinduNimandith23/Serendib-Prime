@@ -6,8 +6,7 @@ import type { Product } from "@/lib/types";
 import { formatLKR } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/Button";
 import { ProductImage } from "@/components/product/ProductImage";
-import { LeafSprig, StarAnise } from "@/components/visual/SpiceMotif";
-import { Stars } from "@/components/product/Stars";
+import { FishMotif, Starfish } from "@/components/visual/SeaMotif";
 import { IconArrowRight, IconClock } from "@/components/icons";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -39,7 +38,7 @@ export function Hero({ products }: { products: Product[] }) {
         };
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative -mt-16 flex min-h-svh items-center overflow-hidden pt-16 sm:-mt-18 sm:pt-18">
       <div
         aria-hidden
         className="grain absolute inset-0"
@@ -91,14 +90,6 @@ export function Hero({ products }: { products: Product[] }) {
               Our story
             </Link>
           </motion.div>
-
-          <motion.div variants={item} className="mt-9 flex items-center gap-4">
-            <Stars rating={4.9} />
-            <span className="h-8 w-px bg-clay" />
-            <p className="text-sm text-cocoa-soft">
-              Loved by <strong className="text-cocoa">5,000+</strong> island kitchens
-            </p>
-          </motion.div>
         </motion.div>
 
         {/* Hero composition */}
@@ -114,8 +105,8 @@ export function Hero({ products }: { products: Product[] }) {
             }}
           />
 
-          <LeafSprig className="absolute right-2 top-2 h-24 w-24 rotate-12 opacity-30 sm:h-32 sm:w-32" />
-          <StarAnise className="absolute bottom-6 left-2 h-16 w-16 opacity-30 sm:h-20 sm:w-20" />
+          <FishMotif className="absolute right-2 top-2 h-24 w-24 rotate-12 opacity-30 sm:h-32 sm:w-32" />
+          <Starfish className="absolute bottom-6 left-2 h-16 w-16 opacity-30 sm:h-20 sm:w-20" />
 
           {third && (
             <motion.div

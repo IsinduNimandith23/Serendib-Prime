@@ -7,7 +7,7 @@ import { formatLKR } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/motion";
 import { ProductImage } from "@/components/product/ProductImage";
-import { LeafSprig } from "@/components/visual/SpiceMotif";
+import { FishMotif } from "@/components/visual/SeaMotif";
 import { Badge } from "@/components/product/Badge";
 import { ChilliMeter } from "@/components/product/ChilliMeter";
 import { Stars } from "@/components/product/Stars";
@@ -82,7 +82,7 @@ export default async function ProductDetailPage({
         <Reveal>
           <div className="lg:sticky lg:top-28">
             <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-clay bg-gradient-to-br from-cream to-sand">
-              <LeafSprig className="absolute -right-6 -top-6 h-40 w-40 opacity-15" />
+              <FishMotif className="absolute -right-6 -top-6 h-40 w-40 opacity-15" />
               <ProductImage
                 product={product}
                 sizes="(max-width: 1024px) 90vw, 45vw"

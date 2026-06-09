@@ -4,7 +4,6 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/motion";
 import { ContactForm } from "@/components/contact/ContactForm";
 import {
-  IconMapPin,
   IconPhone,
   IconMail,
   IconWhatsApp,
@@ -18,11 +17,6 @@ export const metadata: Metadata = {
 };
 
 const DETAILS = [
-  {
-    Icon: IconMapPin,
-    label: "Visit us",
-    value: "Negombo, Western Province, Sri Lanka",
-  },
   {
     Icon: IconPhone,
     label: "Call us",
@@ -94,7 +88,14 @@ export default function ContactPage() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <ContactForm />
+          <h2 className="font-display text-2xl font-semibold text-cocoa">Send us a message</h2>
+          <p className="mt-2 text-cocoa-soft">
+            Fill in the form below and we&apos;ll get back to you shortly.
+          </p>
+
+          <div className="mt-8">
+            <ContactForm />
+          </div>
         </Reveal>
       </Container>
     </>

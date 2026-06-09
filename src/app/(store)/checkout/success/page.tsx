@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { buttonClass } from "@/components/ui/Button";
 import { ClearCartOnMount } from "@/components/checkout/ClearCartOnMount";
-import { LeafSprig } from "@/components/visual/SpiceMotif";
+import { FishMotif } from "@/components/visual/SeaMotif";
 import {
   IconCheckCircle,
   IconArrowRight,
@@ -28,7 +28,7 @@ export default async function SuccessPage({
     <Container className="py-16 sm:py-24">
       <ClearCartOnMount />
       <div className="relative mx-auto max-w-xl overflow-hidden rounded-[2rem] border border-clay bg-cream p-8 text-center sm:p-12">
-        <LeafSprig className="pointer-events-none absolute -right-6 -top-6 h-36 w-36 opacity-10" />
+        <FishMotif className="pointer-events-none absolute -right-6 -top-6 h-36 w-36 opacity-10" />
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-leaf/10 text-leaf">
           <IconCheckCircle className="h-9 w-9" />
         </span>

@@ -17,7 +17,6 @@ const LINKS = [
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const items = useCart((s) => s.items);
@@ -25,29 +24,17 @@ export function Navbar() {
   const count = cartCount(items);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 transition-all duration-300",
-        scrolled ? "glass border-b border-clay/70 shadow-sm" : "bg-transparent",
-      )}
-    >
+    <header className="sticky top-0 z-40">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
         <Link href="/" className="text-cocoa" aria-label="Serendib Prime - home">
           <Logo className="h-11 sm:h-12" />
         </Link>
 
-        <div className="hidden items-center gap-9 md:flex">
+        <div className="hidden items-center gap-7 rounded-full glass border border-clay/60 px-7 py-2.5 shadow-sm md:flex">
           {LINKS.map((link) => {
             const active = pathname === link.href || pathname.startsWith(link.href + "/");
             return (
@@ -55,7 +42,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative text-sm font-medium tracking-wide text-cocoa transition-colors hover:text-spice",
+                  "relative text-base font-medium tracking-wide text-cocoa transition-colors hover:text-spice",
                   active && "text-spice",
                 )}
               >

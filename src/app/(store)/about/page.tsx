@@ -4,7 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import Image from "next/image";
-import { LeafSprig } from "@/components/visual/SpiceMotif";
+import { FishMotif } from "@/components/visual/SeaMotif";
 import { ValueProps } from "@/components/home/ValueProps";
 import { CTASection } from "@/components/home/CTASection";
 
@@ -33,7 +33,7 @@ export default function AboutPage() {
       <Container className="grid items-center gap-12 py-20 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative">
           <div className="grain relative overflow-hidden rounded-[2rem] border border-clay bg-gradient-to-br from-sand to-parchment p-10">
-            <LeafSprig className="absolute -left-6 -top-6 h-40 w-40 opacity-20" />
+            <FishMotif className="absolute -left-6 -top-6 h-40 w-40 opacity-20" />
             <div className="mx-auto aspect-square w-[82%]">
               <Image
                 src="/dried-sprats-curry-premium.jpg"
