@@ -33,7 +33,7 @@ export default async function SuccessPage({
           <IconCheckCircle className="h-9 w-9" />
         </span>
         <h1 className="mt-6 font-display text-3xl font-semibold text-cocoa sm:text-4xl">
-          Thank you — your order is confirmed!
+          Thank you - your order is confirmed!
         </h1>
         {order && (
           <p className="mt-3 text-cocoa-soft">
@@ -45,7 +45,7 @@ export default async function SuccessPage({
         {demo && (
           <p className="mt-5 rounded-2xl border border-gold/40 bg-gold/10 px-4 py-3 text-sm text-gold-dark">
             <strong>Demo checkout.</strong> No payment was taken. Add your PayHere
-            merchant keys to take real payments — see the setup guide.
+            merchant keys to take real payments - see the setup guide.
           </p>
         )}
 

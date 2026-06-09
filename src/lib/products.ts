@@ -1,7 +1,7 @@
 import type { Product } from "./types";
 
 /**
- * Seed catalogue — the single source of truth for the storefront until a
+ * Seed catalogue - the single source of truth for the storefront until a
  * Supabase `products` table is connected (see lib/data.ts). Three launch SKUs;
  * the range is built to expand. The Supabase migration in /supabase/schema.sql
  * mirrors these fields and /supabase/seed.sql inserts this exact data.
@@ -19,9 +19,9 @@ export const PRODUCTS: Product[] = [
     price: 690,
     weight: "400g",
     shortDescription:
-      "Golden dried sprats tempered with onions, chilli and curry leaves — bold, crunchy and ready the moment you open the tin.",
+      "Golden dried sprats tempered with onions, chilli and curry leaves - bold, crunchy and ready the moment you open the tin.",
     description:
-      "Our Tempered Sprats (haal messo thel dala) are the snack-and-side every Sri Lankan kitchen keeps on hand. Small dried sprats are flash-fried until crisp, then tempered with red onion, green chilli, dried chilli flakes, curry leaves and a squeeze of lime. Smoky, salty, gently fiery — perfect over rice and dhal, stuffed into bread, or eaten straight from the fork.",
+      "Our Tempered Sprats (haal messo thel dala) are the snack-and-side every Sri Lankan kitchen keeps on hand. Small dried sprats are flash-fried until crisp, then tempered with red onion, green chilli, dried chilli flakes, curry leaves and a squeeze of lime. Smoky, salty, gently fiery - perfect over rice and dhal, stuffed into bread, or eaten straight from the fork.",
     ingredients: [
       "Dried sprats / haal messo (58%)",
       "Red onion",
@@ -66,7 +66,7 @@ export const PRODUCTS: Product[] = [
     price: 790,
     weight: "400g",
     shortDescription:
-      "Dried sprats slow-simmered in a dark, roasted curry with goraka and chilli — deep, savoury and full of home.",
+      "Dried sprats slow-simmered in a dark, roasted curry with goraka and chilli - deep, savoury and full of home.",
     description:
       "Dried sprats braised the village way in a dark-roasted curry of coriander, fennel and pepper, sharpened with tart goraka and a backbone of curry leaves. The little fish drink up the gravy until every bite is intense and satisfying. The taste of a Sunday rice-and-curry table, sealed fresh and ready in two minutes.",
     ingredients: [
@@ -104,7 +104,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "dried-sprats-curry-premium",
     slug: "dried-sprats-curry-premium",
-    name: "Dried Sprats Curry — Premium",
+    name: "Dried Sprats Curry - Premium",
     nameSi: "වියළි හාල්මැස්සන් කරිය",
     nameTa: "நெத்தலி கருவாடு கறி",
     tagline: "Dried sprats in a creamy roasted-coconut gravy",
@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
     price: 890,
     weight: "400g",
     shortDescription:
-      "Our premium dried sprats curry, finished in a rich roasted-coconut milk gravy with whole spices — mellow, fragrant and indulgent.",
+      "Our premium dried sprats curry, finished in a rich roasted-coconut milk gravy with whole spices - mellow, fragrant and indulgent.",
     description:
       "The premium take on a classic. Dried sprats gently simmered in a smooth roasted-coconut milk gravy with cinnamon, cardamom, black pepper and fresh curry leaves. Rounder and creamier than the everyday curry, with the fish kept tender and whole. A little luxury from the Sri Lankan coast, ready whenever you are.",
     ingredients: [
@@ -139,7 +139,7 @@ export const PRODUCTS: Product[] = [
     accent: "#229ba7",
     prepSteps: [
       "Tip into a pan",
-      "Warm gently for 2–3 minutes — do not boil hard",
+      "Warm gently for 2–3 minutes - do not boil hard",
       "Serve with rice, hoppers or string hoppers",
     ],
     servingSuggestion: "Beautiful over steamed rice or with soft hoppers.",

@@ -6,7 +6,7 @@ import { ProductsExplorer } from "@/components/product/ProductsExplorer";
 export const metadata: Metadata = {
   title: "Shop the Pantry",
   description:
-    "Browse our range of ready-to-eat Sri Lankan tinned sprats — tempered sprats and dried sprats curries. Sealed fresh, ready in minutes.",
+    "Browse our range of ready-to-eat Sri Lankan tinned sprats - tempered sprats and dried sprats curries. Sealed fresh, ready in minutes.",
 };
 
 export default async function ProductsPage({
@@ -22,7 +22,7 @@ export default async function ProductsPage({
       <PageHero
         eyebrow="The range"
         title="Every tin, ready when you are"
-        intro="Three signature recipes — dried sprats tempered and curried the island way, sealed fresh. Filter and build your box."
+        intro="Three signature recipes - dried sprats tempered and curried the island way, sealed fresh. Filter and build your box."
       />
       <ProductsExplorer products={products} initialCategory={category} />
     </>

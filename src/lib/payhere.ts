@@ -4,7 +4,7 @@ import crypto from "crypto";
  * PayHere.lk integration helpers.
  *
  * Docs: https://support.payhere.lk/api-&-mobile-sdk/checkout-api
- * The merchant secret is used ONLY on the server to build/verify hashes —
+ * The merchant secret is used ONLY on the server to build/verify hashes -
  * it is never sent to the browser.
  */
 

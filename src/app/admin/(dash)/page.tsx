@@ -27,7 +27,7 @@ export default async function AdminDashboard() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-display text-3xl font-semibold text-cocoa">Dashboard</h1>
-          <p className="mt-1 text-cocoa-soft">Welcome back — here&apos;s your store at a glance.</p>
+          <p className="mt-1 text-cocoa-soft">Welcome back - here&apos;s your store at a glance.</p>
         </div>
         <Link href="/admin/products/new" className={buttonClass({ variant: "primary" })}>
           Add product

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     try {
       await admin.from("messages").insert({ name, email, message });
     } catch {
-      /* table optional — no-op */
+      /* table optional - no-op */
     }
   } else {
     console.log("Contact message (demo):", { name, email });

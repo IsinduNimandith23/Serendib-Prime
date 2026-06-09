@@ -10,12 +10,12 @@ The two priorities: **showcase the product details beautifully** and **take paym
 
 ## ✨ Features
 
-- **Elegant, fast storefront** — animated hero, bestsellers, story, categories, testimonials. Animations are transform/opacity only and respect `prefers-reduced-motion`, so they're smooth on any device.
-- **Rich product pages** — full descriptions, ingredients, nutrition table, prep steps, spice meter, ratings.
+- **Elegant, fast storefront** - animated hero, bestsellers, story, categories, testimonials. Animations are transform/opacity only and respect `prefers-reduced-motion`, so they're smooth on any device.
+- **Rich product pages** - full descriptions, ingredients, nutrition table, prep steps, spice meter, ratings.
 - **Cart + slide-out drawer** with free-shipping progress, persisted to `localStorage`.
-- **PayHere checkout** — server-side hash generation and a verified payment-notification webhook.
-- **Custom admin dashboard** — Supabase-auth login, product CRUD, order management.
-- **Self-contained visuals** — product packaging is rendered as crisp SVG (no external images to break or slow things down). Easily swapped for photography later.
+- **PayHere checkout** - server-side hash generation and a verified payment-notification webhook.
+- **Custom admin dashboard** - Supabase-auth login, product CRUD, order management.
+- **Self-contained visuals** - product packaging is rendered as crisp SVG (no external images to break or slow things down). Easily swapped for photography later.
 - SEO: metadata, Open Graph, `sitemap.xml`, `robots.txt`.
 
 ## 🧱 Tech stack
@@ -39,7 +39,7 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:3000>. That's it — the storefront works with the bundled catalogue and a demo checkout.
+Open <http://localhost:3000>. That's it - the storefront works with the bundled catalogue and a demo checkout.
 
 To enable the database, admin and real payments, copy the env template and fill it in:
 
@@ -52,12 +52,12 @@ cp .env.example .env.local
 ## 🗄️ Supabase setup (admin + database)
 
 1. Create a free project at [supabase.com](https://supabase.com).
-2. **Project Settings → API** — copy into `.env.local`:
+2. **Project Settings → API** - copy into `.env.local`:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY` (under "service_role" — keep secret)
+   - `SUPABASE_SERVICE_ROLE_KEY` (under "service_role" - keep secret)
 3. **SQL Editor** → run [`supabase/schema.sql`](supabase/schema.sql), then [`supabase/seed.sql`](supabase/seed.sql) to import the starter catalogue.
-4. **Authentication → Users → Add user** — create your admin email + password (and confirm it).
+4. **Authentication → Users → Add user** - create your admin email + password (and confirm it).
 5. Restart `npm run dev`, then sign in at **`/admin`**.
 
 When Supabase is connected, the storefront reads products from the DB and the admin manages them; otherwise it falls back to the seed in `src/lib/products.ts`.
@@ -67,7 +67,7 @@ When Supabase is connected, the storefront reads products from the DB and the ad
 ## 💳 PayHere setup (payments)
 
 1. Create a merchant account at [payhere.lk](https://www.payhere.lk) and complete verification.
-2. **Settings → Domains & Credentials** — add your domain (and `localhost` for local testing if allowed) to get approved. Copy your credentials into `.env.local`:
+2. **Settings → Domains & Credentials** - add your domain (and `localhost` for local testing if allowed) to get approved. Copy your credentials into `.env.local`:
    - `PAYHERE_MERCHANT_ID`
    - `PAYHERE_MERCHANT_SECRET`
    - `NEXT_PUBLIC_PAYHERE_MODE=sandbox` (switch to `live` when ready)
@@ -86,7 +86,7 @@ Until PayHere keys are present, checkout runs in **demo mode** (order recorded, 
 ## 🔐 Admin
 
 - URL: `/admin` (redirects to `/admin/login`).
-- Auth via Supabase email/password — any confirmed user can access.
+- Auth via Supabase email/password - any confirmed user can access.
 - Manage products (create / edit / delete / feature) and orders (update status).
 
 ---
@@ -102,10 +102,10 @@ Until PayHere keys are present, checkout runs in **demo mode** (order recorded, 
 
 ## 🎨 Customising
 
-- **Brand name / contact** — search for `Serendib Prime` and the Negombo address/phone in `src/components/layout/`.
-- **Colours / fonts** — design tokens live in `src/app/globals.css` (`@theme`) and fonts in `src/app/layout.tsx`.
-- **Real photography** — swap the `<CanVisual>` component (`src/components/visual/CanVisual.tsx`) usages for `next/image`; remember to add the host to `images.remotePatterns` in `next.config.ts`.
-- **Catalogue** — edit via the admin (DB) or `src/lib/products.ts` (seed).
+- **Brand name / contact** - search for `Serendib Prime` and the Negombo address/phone in `src/components/layout/`.
+- **Colours / fonts** - design tokens live in `src/app/globals.css` (`@theme`) and fonts in `src/app/layout.tsx`.
+- **Real photography** - swap the `<CanVisual>` component (`src/components/visual/CanVisual.tsx`) usages for `next/image`; remember to add the host to `images.remotePatterns` in `next.config.ts`.
+- **Catalogue** - edit via the admin (DB) or `src/lib/products.ts` (seed).
 
 ## 📁 Structure
 

@@ -180,7 +180,7 @@ export default async function ProductDetailPage({
                   ))}
                 </ol>
                 <p className="mt-4 rounded-2xl border border-clay bg-sand/50 p-4 text-sm italic text-cocoa-soft">
-                  Serving idea — {product.servingSuggestion}
+                  Serving idea - {product.servingSuggestion}
                 </p>
               </DetailBlock>
 

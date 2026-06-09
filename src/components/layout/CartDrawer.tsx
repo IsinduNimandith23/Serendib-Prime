@@ -74,7 +74,7 @@ export function CartDrawer() {
                 </div>
                 <p className="font-display text-lg text-cocoa">Your basket is empty</p>
                 <p className="text-sm text-cocoa-soft">
-                  Real Sri Lankan flavour, ready in minutes — let&apos;s fix that.
+                  Real Sri Lankan flavour, ready in minutes - let&apos;s fix that.
                 </p>
                 <Link
                   href="/products"

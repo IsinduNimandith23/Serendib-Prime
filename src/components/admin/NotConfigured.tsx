@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/visual/Logo";
 import { buttonClass } from "@/components/ui/Button";
 
-/** Shown when Supabase env vars are missing — guides the owner through setup. */
+/** Shown when Supabase env vars are missing - guides the owner through setup. */
 export function AdminNotConfigured() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-cream px-5 py-16">
@@ -33,7 +33,7 @@ export function AdminNotConfigured() {
         </ol>
         <p className="mt-5 rounded-2xl bg-sand/60 px-4 py-3 text-sm text-cocoa-soft">
           Full instructions are in <code className="text-cocoa">README.md</code>. The
-          storefront works without this — it falls back to the bundled catalogue.
+          storefront works without this - it falls back to the bundled catalogue.
         </p>
         <Link href="/" className={buttonClass({ variant: "outline", className: "mt-6" })}>
           Back to store

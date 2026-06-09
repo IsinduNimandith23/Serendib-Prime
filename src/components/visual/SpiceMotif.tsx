@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Decorative curry-leaf sprig — purely ornamental background flourish. */
+/** Decorative curry-leaf sprig - purely ornamental background flourish. */
 export function LeafSprig({ className }: { className?: string }) {
   return (
     <svg

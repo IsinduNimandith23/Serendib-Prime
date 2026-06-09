@@ -6,7 +6,7 @@ const STEPS = [
   {
     n: "01",
     title: "Choose your curries",
-    text: "Browse the pantry and build your box — mix signature curries, seafood and plant-based favourites.",
+    text: "Browse the pantry and build your box - mix signature curries, seafood and plant-based favourites.",
   },
   {
     n: "02",

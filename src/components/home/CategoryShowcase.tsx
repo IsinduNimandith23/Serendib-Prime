@@ -24,7 +24,7 @@ export function CategoryShowcase() {
         <SectionHeading
           eyebrow="Explore the pantry"
           title="Find your flavour"
-          intro="From gentle coconut dhal to fiery northern crab — there is a curry here for every craving."
+          intro="From gentle coconut dhal to fiery northern crab - there is a curry here for every craving."
         />
         <Stagger className="mt-14 grid gap-5 sm:grid-cols-2">
           {CATEGORIES.map((cat) => (

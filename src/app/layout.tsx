@@ -19,11 +19,11 @@ const karla = Karla({
 export const metadata: Metadata = {
   metadataBase: new URL("https://serendibprime.lk"),
   title: {
-    default: "Serendib Prime — Premium Sri Lankan Tinned Seafood, Ready in Minutes",
+    default: "Serendib Prime - Premium Sri Lankan Tinned Seafood, Ready in Minutes",
     template: "%s · Serendib Prime",
   },
   description:
-    "Premium ready-to-eat Sri Lankan tinned seafood. Dried sprats tempered and curried the island way — bold, authentic flavour sealed fresh, ready in minutes. Islandwide delivery.",
+    "Premium ready-to-eat Sri Lankan tinned seafood. Dried sprats tempered and curried the island way - bold, authentic flavour sealed fresh, ready in minutes. Islandwide delivery.",
   keywords: [
     "Sri Lankan food",
     "tinned fish",
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_LK",
     siteName: "Serendib Prime",
-    title: "Serendib Prime — Premium Sri Lankan Tinned Seafood",
+    title: "Serendib Prime - Premium Sri Lankan Tinned Seafood",
     description:
-      "Ready-to-eat Sri Lankan tinned sprats — tempered & curried, sealed fresh. Ready in minutes.",
+      "Ready-to-eat Sri Lankan tinned sprats - tempered & curried, sealed fresh. Ready in minutes.",
   },
 };
 

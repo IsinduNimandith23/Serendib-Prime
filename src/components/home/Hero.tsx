@@ -51,17 +51,9 @@ export function Hero({ products }: { products: Product[] }) {
 
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:py-24">
         <motion.div variants={container} initial="hidden" animate="show">
-          <motion.span
-            variants={item}
-            className="eyebrow inline-flex items-center gap-2 rounded-full border border-clay bg-cream/60 px-4 py-1.5 text-spice"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-spice" />
-            Premium Sri Lankan seafood
-          </motion.span>
-
           <motion.h1
             variants={item}
-            className="mt-5 text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-5xl lg:text-6xl"
+            className="text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-5xl lg:text-6xl"
           >
             Real Sri Lankan seafood,{" "}
             <span className="relative whitespace-nowrap text-spice">
@@ -86,8 +78,8 @@ export function Hero({ products }: { products: Product[] }) {
             variants={item}
             className="mt-7 max-w-md text-lg leading-relaxed text-cocoa-soft"
           >
-            Dried sprats tempered and curried the traditional way — bold, crispy,
-            full of spice — then sealed at their peak. No preservatives, no
+            Dried sprats tempered and curried the traditional way - bold, crispy,
+            full of spice - then sealed at their peak. No preservatives, no
             shortcuts. Just open, warm and savour.
           </motion.p>
 

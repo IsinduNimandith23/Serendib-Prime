@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Serendib Prime — Design System
+   Serendib Prime - Design System
    Warm gourmet palette: spice red + turmeric gold on cream.
    Headings: Playfair Display · Body: Karla
    ============================================================ */
 
 @theme {
   /* ----------------------------------------------------------
-     SERENDIB PRIME — SPS palette
+     SERENDIB PRIME - SPS palette
      Navy #074A6D · Teal #229BA7 · Orange #F15B2B · Ink #231F20
      Tokens keep their original semantic names so every component
      re-skins from this one place.
@@ -20,7 +20,7 @@
   --color-parchment: #d8e8ea;
   --color-clay: #c4d8dc;
 
-  /* Brand — "spice" = primary navy, "gold" = accent orange */
+  /* Brand - "spice" = primary navy, "gold" = accent orange */
   --color-spice: #074a6d;
   --color-spice-dark: #05374f;
   --color-ember: #229ba7;
@@ -98,7 +98,7 @@
     text-transform: uppercase;
   }
 
-  /* Frosted glass surface — used sparingly (nav, sticky bars) */
+  /* Frosted glass surface - used sparingly (nav, sticky bars) */
   .glass {
     background-color: color-mix(in srgb, var(--color-cream) 78%, transparent);
     backdrop-filter: saturate(140%) blur(14px);
@@ -119,7 +119,7 @@
   }
 }
 
-/* Reusable keyframes (transform/opacity only — GPU friendly) */
+/* Reusable keyframes (transform/opacity only - GPU friendly) */
 @keyframes float {
   0%, 100% { transform: translate3d(0, 0, 0); }
   50% { transform: translate3d(0, -14px, 0); }

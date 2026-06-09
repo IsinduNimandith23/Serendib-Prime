@@ -32,7 +32,7 @@ export function ContactForm() {
         </span>
         <h3 className="font-display text-2xl font-semibold text-cocoa">Message sent</h3>
         <p className="text-cocoa-soft">
-          Thank you for reaching out — we&apos;ll reply within one business day.
+          Thank you for reaching out - we&apos;ll reply within one business day.
         </p>
       </div>
     );

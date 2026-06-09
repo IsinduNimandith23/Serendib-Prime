@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * SERENDIB PRIME logo — renders the official artwork from /public/logo.png
+ * SERENDIB PRIME logo - renders the official artwork from /public/logo.png
  * (fish mark + wordmark). On dark surfaces pass `light` to render it white.
  * Set the height via `className` (e.g. "h-10").
  */

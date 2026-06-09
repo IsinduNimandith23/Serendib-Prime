@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
   const lastName = rest.join(" ") || firstName;
 
   if (!isPayHereConfigured()) {
-    // Demo mode — credentials not set. Allow the flow to complete for the demo.
+    // Demo mode - credentials not set. Allow the flow to complete for the demo.
     return NextResponse.json({ mode: "demo", orderRef, persisted, total });
   }
 

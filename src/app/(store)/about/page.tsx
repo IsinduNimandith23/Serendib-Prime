@@ -11,7 +11,7 @@ import { CTASection } from "@/components/home/CTASection";
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "Serendib Prime captures the everyday flavour of the Sri Lankan coast — dried sprats tempered and curried in small batches, then sealed fresh. Real island taste, ready in minutes.",
+    "Serendib Prime captures the everyday flavour of the Sri Lankan coast - dried sprats tempered and curried in small batches, then sealed fresh. Real island taste, ready in minutes.",
 };
 
 const STATS = [
@@ -27,7 +27,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="Our story"
         title="The taste of the coast, honestly made"
-        intro="We exist to capture the everyday flavour of Sri Lankan home cooking — and to put it within everyone's reach, anywhere in the world."
+        intro="We exist to capture the everyday flavour of Sri Lankan home cooking - and to put it within everyone's reach, anywhere in the world."
       />
 
       <Container className="grid items-center gap-12 py-20 lg:grid-cols-2 lg:gap-16">
@@ -52,13 +52,13 @@ export default function AboutPage() {
           </h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-cocoa-soft">
             <p>
-              On Sri Lanka&apos;s west coast, dried sprats — haal messo — have been a humble
+              On Sri Lanka&apos;s west coast, dried sprats - haal messo - have been a humble
               pantry staple for generations: tempered with onion and chilli, or simmered
               into a rich curry on the family stove. Simple, honest, unforgettable.
             </p>
             <p>
               Serendib Prime is our answer to a busy world. We source quality dried sprats
-              and cook them in small batches with hand-ground spices and fresh coconut —
+              and cook them in small batches with hand-ground spices and fresh coconut -
               then seal each recipe at its peak using gentle heat alone. No preservatives,
               no artificial anything.
             </p>

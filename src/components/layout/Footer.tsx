@@ -32,11 +32,11 @@ export function Footer() {
       <Container className="relative py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div className="max-w-xs">
-            <Link href="/" className="text-cream" aria-label="Serendib Prime — home">
+            <Link href="/" className="text-cream" aria-label="Serendib Prime - home">
               <Logo className="h-16" />
             </Link>
             <p className="mt-5 text-sm leading-relaxed text-cream/60">
-              Premium Sri Lankan tinned seafood — dried sprats tempered and
+              Premium Sri Lankan tinned seafood - dried sprats tempered and
               curried the island way, sealed fresh and ready in minutes.
             </p>
             <div className="mt-6 flex gap-3">

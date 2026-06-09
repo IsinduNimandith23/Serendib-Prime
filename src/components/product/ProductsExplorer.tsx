@@ -108,7 +108,7 @@ export function ProductsExplorer({
         <ProductGrid key={`${category}-${sort}`} products={visible} className="mt-6" />
       ) : (
         <p className="mt-16 text-center text-cocoa-soft">
-          No products in this category yet — check back soon.
+          No products in this category yet - check back soon.
         </p>
       )}
     </Container>

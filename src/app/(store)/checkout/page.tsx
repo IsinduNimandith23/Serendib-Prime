@@ -117,7 +117,7 @@ export default function CheckoutPage() {
   return (
     <Container className="py-12 sm:py-16">
       <h1 className="font-display text-4xl font-semibold text-cocoa">Checkout</h1>
-      <p className="mt-2 text-cocoa-soft">Almost there — tell us where to send your curries.</p>
+      <p className="mt-2 text-cocoa-soft">Almost there - tell us where to send your curries.</p>
 
       <form onSubmit={handleSubmit} className="mt-10 grid gap-10 lg:grid-cols-[1.4fr_1fr]" noValidate>
         {/* Delivery details */}

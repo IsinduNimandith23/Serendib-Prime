@@ -72,7 +72,7 @@ export async function markOrderStatus(
   return true;
 }
 
-/** Admin listing — relies on the authenticated session + RLS policy. */
+/** Admin listing - relies on the authenticated session + RLS policy. */
 export async function getOrders(): Promise<OrderRecord[]> {
   if (!isSupabaseConfigured()) return [];
   try {

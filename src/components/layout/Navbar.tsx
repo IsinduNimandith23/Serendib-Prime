@@ -43,7 +43,7 @@ export function Navbar() {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
-        <Link href="/" className="text-cocoa" aria-label="Serendib Prime — home">
+        <Link href="/" className="text-cocoa" aria-label="Serendib Prime - home">
           <Logo className="h-11 sm:h-12" />
         </Link>
 

@@ -21,7 +21,7 @@ const PROPS = [
   {
     Icon: IconShield,
     title: "No preservatives",
-    text: "Sealed fresh using gentle heat — never chemicals. The way your grandmother preserved her curries.",
+    text: "Sealed fresh using gentle heat - never chemicals. The way your grandmother preserved her curries.",
   },
   {
     Icon: IconTruck,

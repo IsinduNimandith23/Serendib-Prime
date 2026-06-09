@@ -43,15 +43,15 @@ export function StorySection() {
           </h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-cocoa-soft">
             <p>
-              Serendib Prime began on the west coast, where dried sprats —
-              haal messo — have been a pantry staple for generations. We set out
+              Serendib Prime began on the west coast, where dried sprats -
+              haal messo - have been a pantry staple for generations. We set out
               to capture that everyday island flavour in a tin, without losing a
               thing.
             </p>
             <p>
               We source quality dried sprats, temper and curry them in small
               batches with hand-ground spices and fresh coconut, then seal each
-              recipe at its peak using gentle heat alone — never chemicals. The
+              recipe at its peak using gentle heat alone - never chemicals. The
               tin you open tomorrow tastes exactly like the pan we cooked today.
             </p>
           </div>

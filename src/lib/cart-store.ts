@@ -73,7 +73,7 @@ export const useCart = create<CartState>()(
   ),
 );
 
-/** Derived totals — call inside a component for reactive updates. */
+/** Derived totals - call inside a component for reactive updates. */
 export function cartCount(items: CartItem[]): number {
   return items.reduce((n, i) => n + i.quantity, 0);
 }
