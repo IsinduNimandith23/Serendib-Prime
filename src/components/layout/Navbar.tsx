@@ -75,9 +75,9 @@ export function Navbar() {
           initial={{ opacity: 0 }}
           animate={reduce ? { opacity: 1 } : { y: hidden ? -110 : 0, opacity: 1 }}
           transition={{ y: { duration: 0.4, ease: EASE }, opacity: { duration: 0.3 } }}
-          className="will-change-transform"
+          className="pt-3 will-change-transform sm:pt-4"
         >
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
+        <nav className="mx-auto flex h-16 max-w-352 items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
           <Link href="/" className="text-cocoa" aria-label="Serendib Prime - home">
             <Logo className="h-11 sm:h-12" />
           </Link>

@@ -73,7 +73,7 @@ export function Hero({ products }: { products: Product[] }) {
   }
 
   return (
-    <section className="relative -mt-16 flex min-h-svh items-center overflow-hidden pt-16 sm:-mt-18 sm:pt-18">
+    <section className="relative -mt-19 flex min-h-svh items-center overflow-hidden pt-19 sm:-mt-22 sm:pt-22">
       <div
         aria-hidden
         className="grain absolute inset-0"
@@ -83,11 +83,11 @@ export function Hero({ products }: { products: Product[] }) {
         }}
       />
 
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:py-24">
+      <div className="relative mx-auto grid w-full max-w-352 items-center gap-10 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:py-24 xl:gap-16">
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.h1
             variants={item}
-            className="text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-5xl lg:text-6xl"
+            className="text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-5xl lg:text-6xl xl:text-7xl"
           >
             Real Sri Lankan seafood,{" "}
             <span className="relative whitespace-nowrap text-spice">
@@ -110,7 +110,7 @@ export function Hero({ products }: { products: Product[] }) {
 
           <motion.p
             variants={item}
-            className="mt-7 max-w-md text-lg leading-relaxed text-cocoa-soft"
+            className="mt-7 max-w-md text-lg leading-relaxed text-cocoa-soft xl:max-w-lg xl:text-xl"
           >
             Dried sprats tempered and curried the traditional way - bold, crispy,
             full of spice - then sealed at their peak. No preservatives, no
@@ -129,7 +129,7 @@ export function Hero({ products }: { products: Product[] }) {
 
         {/* Hero composition */}
         <div
-          className="relative h-[360px] sm:h-[460px] lg:h-[560px]"
+          className="relative h-[360px] sm:h-[460px] lg:h-[560px] xl:h-[620px]"
           onPointerMove={handlePointer}
           onPointerLeave={resetPointer}
         >

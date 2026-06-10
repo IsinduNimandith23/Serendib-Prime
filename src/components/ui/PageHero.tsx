@@ -16,7 +16,7 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-clay bg-sand/50">
+    <section className="relative -mt-19 overflow-hidden border-b border-clay bg-sand/50 pt-19 sm:-mt-22 sm:pt-22">
       <Parallax speed={50} className="pointer-events-none absolute -left-6 -top-6">
         <FishMotif className="h-40 w-40 opacity-15" />
       </Parallax>
