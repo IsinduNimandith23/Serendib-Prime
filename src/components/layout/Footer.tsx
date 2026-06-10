@@ -21,7 +21,6 @@ const COMPANY_LINKS = [
   { href: "/about", label: "Our Story" },
   { href: "/contact", label: "Contact" },
   { href: "/products", label: "Shop" },
-  { href: "/admin", label: "Admin" },
 ];
 
 export function Footer() {

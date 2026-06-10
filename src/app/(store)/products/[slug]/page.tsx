@@ -10,7 +10,7 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { FishMotif } from "@/components/visual/SeaMotif";
 import { Badge } from "@/components/product/Badge";
 import { ChilliMeter } from "@/components/product/ChilliMeter";
-import { Stars } from "@/components/product/Stars";
+import { StockStatus } from "@/components/product/StockStatus";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import {
@@ -111,10 +111,7 @@ export default async function ProductDetailPage({
         {/* Details */}
         <Reveal delay={0.1}>
           <div className="flex flex-col">
-            <div className="flex items-center justify-between gap-3">
-              <span className="eyebrow text-gold-dark">{product.category}</span>
-              <Stars rating={product.rating} reviews={product.reviews} />
-            </div>
+            <span className="eyebrow text-gold-dark">{product.category}</span>
 
             <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-cocoa sm:text-5xl">
               {product.name}
@@ -126,7 +123,7 @@ export default async function ProductDetailPage({
             )}
             <p className="mt-2 text-lg text-cocoa-soft">{product.tagline}</p>
 
-            <div className="mt-5 flex items-center gap-4">
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
               <span className="font-display text-3xl font-semibold text-spice">
                 {formatLKR(product.price)}
               </span>
@@ -134,6 +131,7 @@ export default async function ProductDetailPage({
                 Net {product.weight}
               </span>
               <ChilliMeter level={product.spiceLevel} />
+              <StockStatus inStock={product.inStock} className="text-sm" />
             </div>
 
             <p className="mt-6 text-base leading-relaxed text-cocoa">{product.description}</p>

@@ -3,7 +3,9 @@ import type { Product } from "@/lib/types";
 import { cn, formatLKR } from "@/lib/utils";
 import { ProductImage } from "./ProductImage";
 import { ChilliMeter } from "./ChilliMeter";
+import { StockStatus } from "./StockStatus";
 import { AddToCartMini } from "./AddToCartButton";
+import { buttonClass } from "@/components/ui/Button";
 import { IconArrowUpRight } from "@/components/icons";
 
 export function ProductCard({
@@ -26,12 +28,21 @@ export function ProductCard({
           <ProductImage
             product={product}
             sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-            className="p-3 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className={cn(
+              "px-3 pb-3 pt-7 transition-transform duration-500 ease-out group-hover:scale-[1.04]",
+              !product.inStock && "opacity-50 grayscale",
+            )}
           />
-          {product.featured && (
-            <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-night">
-              Bestseller
+          {!product.inStock ? (
+            <span className="absolute left-4 top-4 rounded-full bg-night/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-cream">
+              Out of stock
             </span>
+          ) : (
+            product.featured && (
+              <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-night">
+                Bestseller
+              </span>
+            )
           )}
           <span className="absolute right-4 top-4 flex h-9 w-9 translate-y-1 items-center justify-center rounded-full bg-cream/90 text-cocoa opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
             <IconArrowUpRight className="h-4 w-4" />
@@ -46,7 +57,7 @@ export function ProductCard({
           {product.nameSi && (
             <p className="-mt-1 text-sm text-cocoa-soft/90">{product.nameSi}</p>
           )}
-          <p className="line-clamp-2 text-sm leading-relaxed text-cocoa-soft">
+          <p className="line-clamp-2 min-h-[2.84rem] text-sm leading-relaxed text-cocoa-soft">
             {product.tagline}
           </p>
           <div className="mt-1 flex items-center justify-between">
@@ -55,6 +66,7 @@ export function ProductCard({
               Net {product.weight}
             </span>
           </div>
+          <StockStatus inStock={product.inStock} className="mt-0.5" />
         </div>
       </Link>
 
@@ -62,7 +74,20 @@ export function ProductCard({
         <span className="font-display text-xl font-semibold text-spice">
           {formatLKR(product.price)}
         </span>
-        <AddToCartMini product={product} />
+        {product.inStock ? (
+          <AddToCartMini product={product} />
+        ) : (
+          <span
+            aria-disabled="true"
+            className={buttonClass({
+              variant: "outline",
+              size: "sm",
+              className: "cursor-not-allowed rounded-full opacity-60",
+            })}
+          >
+            Sold out
+          </span>
+        )}
       </div>
     </div>
   );

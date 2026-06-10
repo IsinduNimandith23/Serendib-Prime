@@ -41,6 +41,22 @@ export const IconX = (p: IconProps) => (
   </Base>
 );
 
+export const IconSearch = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m21 21-4.35-4.35" />
+  </Base>
+);
+
+export const IconSliders = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M4 6h11M4 12h7M4 18h13" />
+    <circle cx="18" cy="6" r="2" />
+    <circle cx="14" cy="12" r="2" />
+    <circle cx="19" cy="18" r="2" />
+  </Base>
+);
+
 export const IconArrowRight = (p: IconProps) => (
   <Base {...p}>
     <path d="M5 12h14M13 6l6 6-6 6" />

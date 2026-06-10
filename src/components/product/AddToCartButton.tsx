@@ -11,12 +11,14 @@ export function AddToCartButton({
   quantity = 1,
   size = "md",
   full = false,
+  disabled = false,
   label = "Add to cart",
 }: {
   product: Product;
   quantity?: number;
   size?: "sm" | "md" | "lg";
   full?: boolean;
+  disabled?: boolean;
   label?: string;
 }) {
   const addItem = useCart((s) => s.addItem);
@@ -26,6 +28,20 @@ export function AddToCartButton({
     addItem(product, quantity);
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1600);
+  }
+
+  if (disabled) {
+    return (
+      <Button
+        variant="primary"
+        size={size}
+        disabled
+        className={full ? "w-full" : ""}
+        aria-label={`${product.name} is out of stock`}
+      >
+        <IconBag className="h-5 w-5" /> Out of stock
+      </Button>
+    );
   }
 
   return (
