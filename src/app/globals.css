@@ -52,6 +52,9 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    /* Always reserve the scrollbar gutter so the page doesn't reflow/"snap"
+       when it grows tall enough to need a scrollbar after load. */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -81,12 +84,8 @@
     border-radius: 4px;
   }
 
-  /* Smooth but interruptible scrolling for in-page anchors */
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
-  }
+  /* NOTE: no `scroll-behavior: smooth` here — it conflicts with Lenis and
+     can cause a scroll "snap" on load. Lenis handles smooth scrolling. */
 }
 
 @layer components {
@@ -144,4 +143,22 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }

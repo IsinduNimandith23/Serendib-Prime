@@ -14,6 +14,7 @@ import { buttonClass } from "@/components/ui/Button";
 import { ProductImage } from "@/components/product/ProductImage";
 import { QuantityStepper } from "@/components/product/QuantityStepper";
 import { IconX, IconBag, IconTrash, IconArrowRight, IconTruck } from "@/components/icons";
+import { startLenis, stopLenis } from "@/lib/smooth-scroll";
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, setQuantity, removeItem } = useCart();
@@ -24,8 +25,11 @@ export function CartDrawer() {
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) stopLenis();
+    else startLenis();
     return () => {
       document.body.style.overflow = "";
+      startLenis();
     };
   }, [isOpen]);
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/motion";
+import { Parallax } from "@/components/ui/Parallax";
 import Image from "next/image";
 import { FishMotif } from "@/components/visual/SeaMotif";
 import { IconArrowRight, IconAward } from "@/components/icons";
@@ -11,7 +12,9 @@ export function StorySection() {
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative order-2 lg:order-1">
           <div className="grain relative overflow-hidden rounded-[2rem] border border-clay bg-gradient-to-br from-sand to-parchment p-10">
-            <FishMotif className="absolute -right-6 -top-6 h-40 w-40 opacity-20" />
+            <Parallax speed={44} className="absolute -right-6 -top-6">
+              <FishMotif className="h-40 w-40 opacity-20" />
+            </Parallax>
             <div className="mx-auto aspect-square w-[82%]">
               <Image
                 src="/tempered-sprats.jpg"

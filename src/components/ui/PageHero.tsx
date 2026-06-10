@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Container } from "./Container";
 import { Reveal } from "./motion";
+import { Parallax } from "./Parallax";
 import { FishMotif, Starfish } from "@/components/visual/SeaMotif";
 
 export function PageHero({
@@ -16,8 +17,12 @@ export function PageHero({
 }) {
   return (
     <section className="relative overflow-hidden border-b border-clay bg-sand/50">
-      <FishMotif className="pointer-events-none absolute -left-6 -top-6 h-40 w-40 opacity-15" />
-      <Starfish className="pointer-events-none absolute -right-4 bottom-2 h-28 w-28 opacity-15" />
+      <Parallax speed={50} className="pointer-events-none absolute -left-6 -top-6">
+        <FishMotif className="h-40 w-40 opacity-15" />
+      </Parallax>
+      <Parallax speed={-40} className="pointer-events-none absolute -right-4 bottom-2">
+        <Starfish className="h-28 w-28 opacity-15" />
+      </Parallax>
       <Container className="relative py-14 text-center sm:py-20">
         <Reveal className="mx-auto flex max-w-2xl flex-col items-center gap-4">
           {eyebrow && (

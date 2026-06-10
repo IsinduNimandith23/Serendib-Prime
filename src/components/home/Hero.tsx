@@ -1,15 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
 import type { Product } from "@/lib/types";
-import { formatLKR } from "@/lib/utils";
+import { cn, formatLKR } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/Button";
-import { ProductImage } from "@/components/product/ProductImage";
 import { FishMotif, Starfish } from "@/components/visual/SeaMotif";
 import { IconArrowRight, IconClock } from "@/components/icons";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+// Cans hold back this long after load before revealing, so the headline lands
+// first and the can composition then animates in as its own smooth moment.
+const REVEAL = 0.55;
+
+function floatAnim(offset: number, reduce: boolean | null) {
+  return reduce
+    ? {}
+    : {
+        y: [0, -16, 0],
+        transition: {
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut" as const,
+          delay: offset,
+        },
+      };
+}
 
 export function Hero({ products }: { products: Product[] }) {
   const reduce = useReducedMotion();
@@ -24,18 +50,27 @@ export function Hero({ products }: { products: Product[] }) {
     show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
   };
 
-  const float = (offset: number) =>
-    reduce
-      ? {}
-      : {
-          y: [0, -16, 0],
-          transition: {
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-            delay: offset,
-          },
-        };
+  // Pointer-driven parallax: the front can drifts more than the ones behind it,
+  // creating real depth. The cans also fan out at slight angles (see `rotate`
+  // on each HeroCan) so the arrangement reads dynamic rather than flat.
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const springCfg = { stiffness: 80, damping: 20, mass: 0.6 };
+  const frontX = useSpring(useTransform(pointerX, [-0.5, 0.5], [28, -28]), springCfg);
+  const frontY = useSpring(useTransform(pointerY, [-0.5, 0.5], [20, -20]), springCfg);
+  const backX = useSpring(useTransform(pointerX, [-0.5, 0.5], [13, -13]), springCfg);
+  const backY = useSpring(useTransform(pointerY, [-0.5, 0.5], [9, -9]), springCfg);
+
+  function handlePointer(e: React.PointerEvent<HTMLDivElement>) {
+    if (reduce || e.pointerType !== "mouse") return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    pointerX.set((e.clientX - rect.left) / rect.width - 0.5);
+    pointerY.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+  function resetPointer() {
+    pointerX.set(0);
+    pointerY.set(0);
+  }
 
   return (
     <section className="relative -mt-16 flex min-h-svh items-center overflow-hidden pt-16 sm:-mt-18 sm:pt-18">
@@ -93,7 +128,11 @@ export function Hero({ products }: { products: Product[] }) {
         </motion.div>
 
         {/* Hero composition */}
-        <div className="relative h-[360px] sm:h-[460px] lg:h-[560px]">
+        <div
+          className="relative h-[360px] sm:h-[460px] lg:h-[560px]"
+          onPointerMove={handlePointer}
+          onPointerLeave={resetPointer}
+        >
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -108,50 +147,66 @@ export function Hero({ products }: { products: Product[] }) {
           <FishMotif className="absolute right-2 top-2 h-24 w-24 rotate-12 opacity-30 sm:h-32 sm:w-32" />
           <Starfish className="absolute bottom-6 left-2 h-16 w-16 opacity-30 sm:h-20 sm:w-20" />
 
+          {/* Cans reveal a beat after the headline settles, so the composition
+             assembles itself: the side cans fan in first (REVEAL + small stagger)
+             and the front hero can lands last, on top. */}
+
+          {/* Back layer — parallax drifts less than the front can */}
           {third && (
-            <motion.div
-              initial={{ opacity: 0, x: -30, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
-              className="absolute bottom-4 left-0 w-[34%] -rotate-6 sm:bottom-8 sm:left-2"
-            >
-              <motion.div animate={float(0.6)}>
-                <ProductImage product={third} sizes="(max-width: 640px) 32vw, 18vw" className="drop-shadow-[0_22px_28px_rgba(42,26,18,0.22)]" />
-              </motion.div>
-            </motion.div>
+            <HeroCan
+              product={third}
+              parallaxX={backX}
+              parallaxY={backY}
+              positionClassName="absolute bottom-4 left-0 w-[34%] sm:bottom-8 sm:left-2"
+              initial={{ opacity: 0, y: 38, x: -18, scale: 0.92 }}
+              delay={REVEAL}
+              rotate={-5}
+              floatOffset={0.6}
+              sizes="(max-width: 640px) 32vw, 18vw"
+              shadowClassName="drop-shadow-[0_16px_24px_rgba(7,49,74,0.20)]"
+              reduce={reduce}
+            />
           )}
 
           {second && (
-            <motion.div
-              initial={{ opacity: 0, x: 30, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
-              className="absolute right-0 top-6 w-[36%] rotate-6 sm:right-2"
-            >
-              <motion.div animate={float(1.1)}>
-                <ProductImage product={second} sizes="(max-width: 640px) 34vw, 19vw" className="drop-shadow-[0_22px_28px_rgba(42,26,18,0.22)]" />
-              </motion.div>
-            </motion.div>
+            <HeroCan
+              product={second}
+              parallaxX={backX}
+              parallaxY={backY}
+              positionClassName="absolute right-0 top-6 w-[36%] sm:right-2"
+              initial={{ opacity: 0, y: 38, x: 18, scale: 0.92 }}
+              delay={REVEAL + 0.12}
+              rotate={5}
+              floatOffset={1.1}
+              sizes="(max-width: 640px) 34vw, 19vw"
+              shadowClassName="drop-shadow-[0_16px_24px_rgba(7,49,74,0.20)]"
+              reduce={reduce}
+            />
           )}
 
+          {/* Front layer — the hero can sits closest and drifts most */}
           {hero && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.15, ease: EASE }}
-              className="absolute left-1/2 top-1/2 w-[52%] -translate-x-1/2 -translate-y-1/2"
-            >
-              <motion.div animate={float(0)}>
-                <ProductImage product={hero} priority sizes="(max-width: 640px) 50vw, 27vw" className="drop-shadow-[0_30px_38px_rgba(42,26,18,0.26)]" />
-              </motion.div>
-            </motion.div>
+            <div className="absolute left-1/2 top-1/2 w-[52%] -translate-x-1/2 -translate-y-1/2">
+              <HeroCan
+                product={hero}
+                parallaxX={frontX}
+                parallaxY={frontY}
+                initial={{ opacity: 0, y: 54, scale: 0.9 }}
+                delay={REVEAL + 0.26}
+                rotate={-2}
+                floatOffset={0}
+                sizes="(max-width: 640px) 50vw, 27vw"
+                shadowClassName="drop-shadow-[0_28px_36px_rgba(7,49,74,0.30)]"
+                reduce={reduce}
+              />
+            </div>
           )}
 
           {/* floating chips */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
+            transition={{ duration: 0.6, delay: REVEAL + 0.5, ease: EASE }}
             className="absolute right-3 bottom-10 flex items-center gap-2 rounded-2xl border border-clay bg-cream/90 px-3.5 py-2.5 shadow-lg backdrop-blur sm:right-6"
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-leaf/10 text-leaf">
@@ -167,7 +222,7 @@ export function Hero({ products }: { products: Product[] }) {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
+              transition={{ duration: 0.6, delay: REVEAL + 0.65, ease: EASE }}
               className="absolute left-2 top-8 rounded-2xl border border-clay bg-cream/90 px-3.5 py-2.5 shadow-lg backdrop-blur sm:left-0"
             >
               <p className="text-xs text-cocoa-soft">From</p>
@@ -179,5 +234,73 @@ export function Hero({ products }: { products: Product[] }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * A single hero can. The entrance animation only fires once the image has
+ * actually loaded (covering the cached case via `complete`), so the can fades
+ * and slides in smoothly with its pixels — never an empty box that pops in.
+ */
+function HeroCan({
+  product,
+  parallaxX,
+  parallaxY,
+  positionClassName,
+  initial,
+  delay,
+  rotate = 0,
+  floatOffset,
+  sizes,
+  shadowClassName,
+  reduce,
+}: {
+  product: Product;
+  parallaxX: MotionValue<number>;
+  parallaxY: MotionValue<number>;
+  positionClassName?: string;
+  initial: { opacity: number; y?: number; x?: number; scale?: number };
+  delay: number;
+  rotate?: number;
+  floatOffset: number;
+  sizes: string;
+  shadowClassName: string;
+  reduce: boolean | null;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
+
+  const hidden = reduce ? { opacity: 0 } : initial;
+  const shown = reduce ? { opacity: 1 } : { opacity: 1, x: 0, y: 0, scale: 1 };
+
+  return (
+    <motion.div style={{ x: parallaxX, y: parallaxY }} className={positionClassName}>
+      <motion.div
+        initial={hidden}
+        animate={loaded ? shown : hidden}
+        transition={{ duration: 0.85, delay, ease: EASE }}
+      >
+        <motion.div animate={floatAnim(floatOffset, reduce)} className="will-change-transform">
+          <Image
+            ref={imgRef}
+            src={product.image as string}
+            alt={product.name}
+            width={640}
+            height={620}
+            sizes={sizes}
+            priority
+            onLoad={() => setLoaded(true)}
+            // Standalone `rotate` (not `transform`) so the tilt composes with the
+            // parallax/float/entrance transforms on the wrapping elements.
+            style={{ rotate: `${rotate}deg` }}
+            className={cn("h-full w-full object-contain", shadowClassName)}
+          />
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
