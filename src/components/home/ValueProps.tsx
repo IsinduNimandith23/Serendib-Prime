@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import {
   IconLeaf,
   IconClock,
@@ -36,17 +37,16 @@ export function ValueProps() {
       <Container>
         <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PROPS.map(({ Icon, title, text }) => (
-            <StaggerItem
-              key={title}
-              className="rounded-3xl border border-clay bg-cream p-7 transition-colors hover:border-spice/30"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-spice/10 text-spice">
-                <Icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-5 font-display text-xl font-semibold text-cocoa">
-                {title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-cocoa-soft">{text}</p>
+            <StaggerItem key={title}>
+              <SpotlightCard className="h-full rounded-3xl border border-clay bg-cream p-7 transition-colors hover:border-spice/30">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-spice/10 text-spice transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-5 font-display text-xl font-semibold text-cocoa">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-cocoa-soft">{text}</p>
+              </SpotlightCard>
             </StaggerItem>
           ))}
         </Stagger>

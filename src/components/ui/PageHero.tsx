@@ -32,7 +32,7 @@ export function PageHero({
               <span className="h-px w-6 bg-current opacity-50" />
             </span>
           )}
-          <h1 className="text-balance text-4xl font-semibold leading-[1.05] text-cocoa sm:text-5xl">
+          <h1 className="text-balance text-5xl font-semibold leading-[1.05] text-cocoa sm:text-6xl md:text-7xl">
             {title}
           </h1>
           {intro && (

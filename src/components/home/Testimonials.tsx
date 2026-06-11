@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Stars } from "@/components/product/Stars";
 
 const REVIEWS = [
@@ -34,18 +35,17 @@ export function Testimonials() {
         />
         <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
           {REVIEWS.map((r) => (
-            <StaggerItem
-              key={r.name}
-              className="flex flex-col rounded-3xl border border-clay bg-cream p-7"
-            >
-              <Stars rating={5} />
-              <p className="mt-4 flex-1 text-base leading-relaxed text-cocoa">
-                “{r.quote}”
-              </p>
-              <div className="mt-6 border-t border-clay pt-4">
-                <p className="font-semibold text-cocoa">{r.name}</p>
-                <p className="text-sm text-cocoa-soft">{r.location}</p>
-              </div>
+            <StaggerItem key={r.name}>
+              <SpotlightCard className="flex h-full flex-col rounded-3xl border border-clay bg-cream p-7 transition-colors hover:border-spice/30">
+                <Stars rating={5} />
+                <p className="mt-4 flex-1 text-base leading-relaxed text-cocoa">
+                  “{r.quote}”
+                </p>
+                <div className="mt-6 border-t border-clay pt-4">
+                  <p className="font-semibold text-cocoa">{r.name}</p>
+                  <p className="text-sm text-cocoa-soft">{r.location}</p>
+                </div>
+              </SpotlightCard>
             </StaggerItem>
           ))}
         </Stagger>

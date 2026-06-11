@@ -113,7 +113,7 @@ export default async function ProductDetailPage({
           <div className="flex flex-col">
             <span className="eyebrow text-gold-dark">{product.category}</span>
 
-            <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-cocoa sm:text-5xl">
+            <h1 className="mt-3 font-display text-5xl font-semibold leading-[1.06] text-cocoa sm:text-6xl">
               {product.name}
             </h1>
             {(product.nameSi || product.nameTa) && (
@@ -216,7 +216,7 @@ export default async function ProductDetailPage({
       {/* Related */}
       {related.length > 0 && (
         <Container className="mt-24">
-          <h2 className="font-display text-2xl font-semibold text-cocoa sm:text-3xl">
+          <h2 className="font-display text-3xl font-semibold text-cocoa sm:text-4xl">
             You may also like
           </h2>
           <ProductGrid products={related} className="mt-8" />

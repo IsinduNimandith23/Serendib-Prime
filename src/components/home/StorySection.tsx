@@ -41,7 +41,7 @@ export function StorySection() {
           <span className="eyebrow inline-flex items-center gap-2 text-spice">
             <span className="h-px w-6 bg-current opacity-50" /> Our story
           </span>
-          <h2 className="mt-4 text-balance text-3xl font-semibold leading-[1.1] text-cocoa sm:text-4xl">
+          <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.08] text-cocoa sm:text-5xl">
             From the Sri Lankan coast to your table
           </h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-cocoa-soft">

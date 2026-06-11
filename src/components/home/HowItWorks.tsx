@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { GrowLine, Stagger, StaggerItem } from "@/components/ui/motion";
 
 const STEPS = [
   {
@@ -30,9 +30,9 @@ export function HowItWorks() {
           intro="No marinating, no simmering, no washing up. Just the real thing, made simple."
         />
         <div className="relative mt-14">
-          <div
-            aria-hidden
+          <GrowLine
             className="absolute left-0 right-0 top-9 hidden h-px bg-clay md:block"
+            delay={0.2}
           />
           <Stagger className="grid gap-10 md:grid-cols-3">
             {STEPS.map((step) => (

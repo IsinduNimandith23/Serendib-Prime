@@ -18,7 +18,7 @@ export function CTASection() {
             <Starfish className="h-36 w-36 text-cream opacity-[0.06]" />
           </Parallax>
           <span className="eyebrow text-seafoam">Dinner, sorted</span>
-          <h2 className="mx-auto mt-4 max-w-2xl text-balance text-3xl font-semibold leading-[1.1] text-cream sm:text-4xl md:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-3xl text-balance text-4xl font-semibold leading-[1.08] text-cream sm:text-5xl md:text-6xl">
             Bring Sri Lanka to your table tonight
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-cream/70 sm:text-lg">

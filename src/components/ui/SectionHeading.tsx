@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Reveal } from "./motion";
+import { Reveal, WordReveal } from "./motion";
 
 export function SectionHeading({
   eyebrow,
@@ -39,11 +39,11 @@ export function SectionHeading({
       )}
       <h2
         className={cn(
-          "max-w-2xl text-balance text-3xl font-semibold leading-[1.1] sm:text-4xl md:text-[2.75rem]",
+          "max-w-3xl text-balance text-4xl font-semibold leading-[1.08] sm:text-5xl md:text-6xl",
           light ? "text-cream" : "text-cocoa",
         )}
       >
-        {title}
+        {typeof title === "string" ? <WordReveal text={title} delay={0.1} /> : title}
       </h2>
       {intro && (
         <p

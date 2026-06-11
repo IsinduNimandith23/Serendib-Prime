@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="text-balance text-3xl font-semibold leading-[1.1] text-cocoa sm:text-4xl">
+          <h2 className="text-balance text-4xl font-semibold leading-[1.08] text-cocoa sm:text-5xl">
             It started by the sea
           </h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-cocoa-soft">

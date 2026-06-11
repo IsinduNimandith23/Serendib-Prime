@@ -87,7 +87,7 @@ export function Hero({ products }: { products: Product[] }) {
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.h1
             variants={item}
-            className="text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-5xl lg:text-6xl xl:text-7xl"
+            className="text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-6xl xl:text-7xl"
           >
             Real Sri Lankan seafood,{" "}
             <span className="relative whitespace-nowrap text-spice">
