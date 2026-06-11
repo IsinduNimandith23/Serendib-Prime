@@ -83,8 +83,13 @@ export function Hero({ products }: { products: Product[] }) {
         }}
       />
 
-      <div className="relative mx-auto grid w-full max-w-352 items-center gap-10 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:py-24 xl:gap-16">
-        <motion.div variants={container} initial="hidden" animate="show">
+      <div className="relative mx-auto grid w-full max-w-352 items-center gap-8 px-5 py-10 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:py-24 xl:gap-16">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="text-center lg:text-left"
+        >
           <motion.h1
             variants={item}
             className="text-balance text-4xl font-semibold leading-[1.04] text-cocoa sm:text-6xl xl:text-7xl"
@@ -110,14 +115,17 @@ export function Hero({ products }: { products: Product[] }) {
 
           <motion.p
             variants={item}
-            className="mt-7 max-w-md text-lg leading-relaxed text-cocoa-soft xl:max-w-lg xl:text-xl"
+            className="mx-auto mt-5 max-w-md text-base leading-relaxed text-cocoa-soft sm:mt-7 sm:text-lg lg:mx-0 xl:max-w-lg xl:text-xl"
           >
             Dried sprats tempered and curried the traditional way - bold, crispy,
             full of spice - then sealed at their peak. No preservatives, no
             shortcuts. Just open, warm and savour.
           </motion.p>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+          <motion.div
+            variants={item}
+            className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-8 lg:justify-start"
+          >
             <Link href="/products" className={buttonClass({ variant: "primary", size: "lg" })}>
               Shop the pantry <IconArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
             </Link>
@@ -129,7 +137,7 @@ export function Hero({ products }: { products: Product[] }) {
 
         {/* Hero composition */}
         <div
-          className="relative h-[360px] sm:h-[460px] lg:h-[560px] xl:h-[620px]"
+          className="relative h-82.5 sm:h-115 lg:h-140 xl:h-155"
           onPointerMove={handlePointer}
           onPointerLeave={resetPointer}
         >
