@@ -38,7 +38,7 @@ export function ReelsSection() {
           title="Watch it come together"
           intro="Short clips from our Colombo kitchen - the tempering, the sealing, and the two-minute plate at the end."
         />
-        <Stagger className="mt-14 grid grid-cols-[minmax(0,16rem)] justify-center gap-6 sm:grid-cols-[repeat(3,minmax(0,16rem))] lg:gap-10">
+        <Stagger className="mt-14 grid grid-cols-[minmax(0,19rem)] justify-center gap-6 sm:grid-cols-[repeat(3,minmax(0,19rem))] lg:gap-10">
           {REELS.map((reel) => (
             <StaggerItem key={reel.src}>
               <ReelCard reel={reel} activeVideo={activeVideo} />
