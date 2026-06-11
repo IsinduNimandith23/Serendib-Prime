@@ -16,8 +16,16 @@ const karla = Karla({
   display: "swap",
 });
 
+// Prefer the explicit app URL, then Vercel's production domain, so og:image
+// and other absolute URLs resolve even before serendibprime.lk goes live.
+const baseUrl =
+  process.env.NEXT_PUBLIC_APP_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://serendibprime.lk");
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://serendibprime.lk"),
+  metadataBase: new URL(baseUrl),
   title: {
     default: "Serendib Prime - Premium Sri Lankan Tinned Seafood, Ready in Minutes",
     template: "%s · Serendib Prime",
