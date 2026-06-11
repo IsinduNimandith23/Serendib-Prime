@@ -57,6 +57,26 @@ export const IconSliders = (p: IconProps) => (
   </Base>
 );
 
+export const IconPlay = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M8 5.5v13l11-6.5Z" fill="currentColor" />
+  </Base>
+);
+
+export const IconVolume = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+    <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+  </Base>
+);
+
+export const IconVolumeOff = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+    <path d="m16 9.5 5 5M21 9.5l-5 5" />
+  </Base>
+);
+
 export const IconArrowRight = (p: IconProps) => (
   <Base {...p}>
     <path d="M5 12h14M13 6l6 6-6 6" />

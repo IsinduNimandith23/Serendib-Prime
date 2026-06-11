@@ -293,20 +293,22 @@ function HeroCan({
         transition={{ duration: 0.85, delay, ease: EASE }}
       >
         <motion.div animate={floatAnim(floatOffset, reduce)} className="will-change-transform">
-          <Image
-            ref={imgRef}
-            src={product.image as string}
-            alt={product.name}
-            width={640}
-            height={620}
-            sizes={sizes}
-            priority
-            onLoad={() => setLoaded(true)}
-            // Standalone `rotate` (not `transform`) so the tilt composes with the
-            // parallax/float/entrance transforms on the wrapping elements.
-            style={{ rotate: `${rotate}deg` }}
-            className={cn("h-full w-full object-contain", shadowClassName)}
-          />
+          <Link href="/products" aria-label={`Shop ${product.name}`} className="block">
+            <Image
+              ref={imgRef}
+              src={product.image as string}
+              alt={product.name}
+              width={640}
+              height={620}
+              sizes={sizes}
+              priority
+              onLoad={() => setLoaded(true)}
+              // Standalone `rotate` (not `transform`) so the tilt composes with the
+              // parallax/float/entrance transforms on the wrapping elements.
+              style={{ rotate: `${rotate}deg` }}
+              className={cn("h-full w-full object-contain", shadowClassName)}
+            />
+          </Link>
         </motion.div>
       </motion.div>
     </motion.div>

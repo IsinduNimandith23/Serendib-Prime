@@ -1,15 +1,11 @@
 "use client";
 
-import { useRef } from "react";
 import {
   motion,
   useAnimationFrame,
   useMotionValue,
   useReducedMotion,
-  useScroll,
-  useSpring,
   useTransform,
-  useVelocity,
 } from "motion/react";
 import { IconSparkle } from "@/components/icons";
 
@@ -23,40 +19,25 @@ const ITEMS = [
   "Sealed at peak freshness",
 ];
 
-/** % per second the strip drifts at rest (matches the old 38s CSS loop). */
-const BASE_VELOCITY = 1.4;
+/** % per second the strip drifts. */
+const BASE_VELOCITY = 2;
 
 function wrap(min: number, max: number, v: number) {
   const range = max - min;
   return ((((v - min) % range) + range) % range) + min;
 }
 
-/**
- * Marquee that reacts to scrolling: it speeds up with scroll velocity and
- * flips direction when you scroll back up, then settles to a gentle drift.
- * Static under reduced motion.
- */
+/** Marquee that drifts left at a constant speed. Static under reduced motion. */
 export function Marquee() {
   const reduce = useReducedMotion();
   const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 4], {
-    clamp: false,
-  });
-  const direction = useRef(-1);
 
   // The row holds two copies, so wrapping at -50% loops seamlessly.
   const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
 
   useAnimationFrame((_, delta) => {
     if (reduce) return;
-    const vf = velocityFactor.get();
-    if (vf < 0) direction.current = 1;
-    else if (vf > 0) direction.current = -1;
-    const moveBy = direction.current * BASE_VELOCITY * (1 + Math.abs(vf)) * (delta / 1000);
-    baseX.set(baseX.get() + moveBy);
+    baseX.set(baseX.get() - BASE_VELOCITY * (delta / 1000));
   });
 
   return (
