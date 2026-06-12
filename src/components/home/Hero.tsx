@@ -15,6 +15,7 @@ import type { Product } from "@/lib/types";
 import { cn, formatLKR } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/Button";
 import { FishMotif, Starfish } from "@/components/visual/SeaMotif";
+import { usePreloaderDone } from "@/components/providers/Preloader";
 import { IconArrowRight, IconClock } from "@/components/icons";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -39,6 +40,9 @@ function floatAnim(offset: number, reduce: boolean | null) {
 
 export function Hero({ products }: { products: Product[] }) {
   const reduce = useReducedMotion();
+  // Hold the entrance until the preloader splash starts lifting, so the
+  // choreography plays as the page is revealed instead of behind it.
+  const ready = usePreloaderDone();
   const [hero, second, third] = products;
 
   const container = {
@@ -87,7 +91,7 @@ export function Hero({ products }: { products: Product[] }) {
         <motion.div
           variants={container}
           initial="hidden"
-          animate="show"
+          animate={ready ? "show" : "hidden"}
           className="text-center lg:text-left"
         >
           <motion.h1
@@ -143,7 +147,7 @@ export function Hero({ products }: { products: Product[] }) {
         >
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            animate={ready ? { scale: 1, opacity: 1 } : { scale: 0.85, opacity: 0 }}
             transition={{ duration: 0.9, ease: EASE }}
             className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
@@ -173,6 +177,7 @@ export function Hero({ products }: { products: Product[] }) {
               sizes="(max-width: 640px) 32vw, 18vw"
               shadowClassName="drop-shadow-[0_16px_24px_rgba(7,49,74,0.20)]"
               reduce={reduce}
+              ready={ready}
             />
           )}
 
@@ -189,6 +194,7 @@ export function Hero({ products }: { products: Product[] }) {
               sizes="(max-width: 640px) 34vw, 19vw"
               shadowClassName="drop-shadow-[0_16px_24px_rgba(7,49,74,0.20)]"
               reduce={reduce}
+              ready={ready}
             />
           )}
 
@@ -206,6 +212,7 @@ export function Hero({ products }: { products: Product[] }) {
                 sizes="(max-width: 640px) 50vw, 27vw"
                 shadowClassName="drop-shadow-[0_28px_36px_rgba(7,49,74,0.30)]"
                 reduce={reduce}
+                ready={ready}
               />
             </div>
           )}
@@ -213,7 +220,7 @@ export function Hero({ products }: { products: Product[] }) {
           {/* floating chips */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={ready ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.6, delay: REVEAL + 0.5, ease: EASE }}
             className="absolute right-3 bottom-10 flex items-center gap-2 rounded-2xl border border-clay bg-cream/90 px-3.5 py-2.5 shadow-lg backdrop-blur sm:right-6"
           >
@@ -229,7 +236,7 @@ export function Hero({ products }: { products: Product[] }) {
           {hero && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={ready ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.6, delay: REVEAL + 0.65, ease: EASE }}
               className="absolute left-2 top-8 rounded-2xl border border-clay bg-cream/90 px-3.5 py-2.5 shadow-lg backdrop-blur sm:left-0"
             >
@@ -262,6 +269,7 @@ function HeroCan({
   sizes,
   shadowClassName,
   reduce,
+  ready,
 }: {
   product: Product;
   parallaxX: MotionValue<number>;
@@ -274,6 +282,7 @@ function HeroCan({
   sizes: string;
   shadowClassName: string;
   reduce: boolean | null;
+  ready: boolean;
 }) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -289,7 +298,7 @@ function HeroCan({
     <motion.div style={{ x: parallaxX, y: parallaxY }} className={positionClassName}>
       <motion.div
         initial={hidden}
-        animate={loaded ? shown : hidden}
+        animate={loaded && ready ? shown : hidden}
         transition={{ duration: 0.85, delay, ease: EASE }}
       >
         <motion.div animate={floatAnim(floatOffset, reduce)} className="will-change-transform">

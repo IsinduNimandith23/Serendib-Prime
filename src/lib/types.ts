@@ -30,8 +30,6 @@ export interface Product {
   description: string;
   ingredients: string[];
   nutrition: NutritionFacts;
-  /** 0 = mild, 3 = fiery. Drives the chilli meter. */
-  spiceLevel: 0 | 1 | 2 | 3;
   badges: string[];
   /** Brand accent hex used by the product visual + detail page. */
   accent: string;

@@ -69,15 +69,6 @@ export function ProductForm({
             <input id="weight" name="weight" placeholder="400g" defaultValue={p?.weight} className={inputClass} />
           </div>
           <div>
-            <label htmlFor="spice_level" className={labelClass}>Spice level</label>
-            <select id="spice_level" name="spice_level" defaultValue={p?.spiceLevel ?? 1} className={inputClass}>
-              <option value="0">0 · Mild</option>
-              <option value="1">1 · Gentle</option>
-              <option value="2">2 · Medium</option>
-              <option value="3">3 · Fiery</option>
-            </select>
-          </div>
-          <div>
             <label htmlFor="accent" className={labelClass}>Accent colour</label>
             <input id="accent" name="accent" type="color" defaultValue={p?.accent ?? "#b5371f"} className="h-11 w-full cursor-pointer rounded-xl border border-clay bg-cream px-2" />
           </div>

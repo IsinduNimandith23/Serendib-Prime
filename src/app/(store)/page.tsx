@@ -6,7 +6,6 @@ import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ReelsSection } from "@/components/home/ReelsSection";
 import { StorySection } from "@/components/home/StorySection";
-import { CategoryShowcase } from "@/components/home/CategoryShowcase";
 import { Testimonials } from "@/components/home/Testimonials";
 import { CTASection } from "@/components/home/CTASection";
 
@@ -22,7 +21,6 @@ export default async function HomePage() {
       <HowItWorks />
       <ReelsSection />
       <StorySection />
-      <CategoryShowcase />
       <Testimonials />
       <CTASection />
     </>

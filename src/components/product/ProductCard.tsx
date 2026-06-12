@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { cn, formatLKR } from "@/lib/utils";
 import { ProductImage } from "./ProductImage";
-import { ChilliMeter } from "./ChilliMeter";
 import { StockStatus } from "./StockStatus";
 import { AddToCartMini } from "./AddToCartButton";
 import { buttonClass } from "@/components/ui/Button";
@@ -60,8 +59,7 @@ export function ProductCard({
           <p className="line-clamp-2 min-h-[2.84rem] text-sm leading-relaxed text-cocoa-soft">
             {product.tagline}
           </p>
-          <div className="mt-1 flex items-center justify-between">
-            <ChilliMeter level={product.spiceLevel} />
+          <div className="mt-1 flex items-center">
             <span className="text-xs font-medium text-cocoa-soft">
               Net {product.weight}
             </span>

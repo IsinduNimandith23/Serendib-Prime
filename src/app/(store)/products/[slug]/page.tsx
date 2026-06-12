@@ -9,7 +9,6 @@ import { Reveal } from "@/components/ui/motion";
 import { ProductImage } from "@/components/product/ProductImage";
 import { FishMotif } from "@/components/visual/SeaMotif";
 import { Badge } from "@/components/product/Badge";
-import { ChilliMeter } from "@/components/product/ChilliMeter";
 import { StockStatus } from "@/components/product/StockStatus";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { ProductGrid } from "@/components/product/ProductGrid";
@@ -130,7 +129,6 @@ export default async function ProductDetailPage({
               <span className="rounded-full bg-sand px-3 py-1 text-sm font-medium text-cocoa-soft">
                 Net {product.weight}
               </span>
-              <ChilliMeter level={product.spiceLevel} />
               <StockStatus inStock={product.inStock} className="text-sm" />
             </div>
 

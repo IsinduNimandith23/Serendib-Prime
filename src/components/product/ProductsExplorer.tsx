@@ -9,13 +9,6 @@ import { IconSearch, IconSliders, IconX } from "@/components/icons";
 
 const CATEGORIES = ["All", "Tempered", "Curries"] as const;
 
-const SPICE_OPTIONS: { level: number; label: string }[] = [
-  { level: 0, label: "Mild" },
-  { level: 1, label: "Gentle" },
-  { level: 2, label: "Medium" },
-  { level: 3, label: "Fiery" },
-];
-
 type Sort = "featured" | "price-asc" | "price-desc" | "rating";
 
 const SORTS: { value: Sort; label: string }[] = [
@@ -37,7 +30,6 @@ export function ProductsExplorer({
       ? (initialCategory ?? "All")
       : "All",
   );
-  const [spice, setSpice] = useState<number[]>([]);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<Sort>("featured");
@@ -45,19 +37,16 @@ export function ProductsExplorer({
 
   const counts = useMemo(() => {
     const byCategory: Record<string, number> = { All: products.length };
-    const bySpice: Record<number, number> = {};
     for (const p of products) {
       byCategory[p.category] = (byCategory[p.category] ?? 0) + 1;
-      bySpice[p.spiceLevel] = (bySpice[p.spiceLevel] ?? 0) + 1;
     }
-    return { byCategory, bySpice };
+    return { byCategory };
   }, [products]);
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     const filtered = products.filter((p) => {
       if (category !== "All" && p.category !== category) return false;
-      if (spice.length > 0 && !spice.includes(p.spiceLevel)) return false;
       if (inStockOnly && !p.inStock) return false;
       if (q) {
         const haystack = [
@@ -97,20 +86,13 @@ export function ProductsExplorer({
         );
     }
     return sorted;
-  }, [products, category, spice, inStockOnly, query, sort]);
+  }, [products, category, inStockOnly, query, sort]);
 
   const hasActiveFilters =
-    category !== "All" || spice.length > 0 || inStockOnly || query.trim() !== "";
-
-  function toggleSpice(level: number) {
-    setSpice((prev) =>
-      prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level],
-    );
-  }
+    category !== "All" || inStockOnly || query.trim() !== "";
 
   function resetAll() {
     setCategory("All");
-    setSpice([]);
     setInStockOnly(false);
     setQuery("");
   }
@@ -150,19 +132,6 @@ export function ProductsExplorer({
                   count={counts.byCategory[cat] ?? 0}
                   checked={category === cat}
                   onChange={() => setCategory(cat)}
-                />
-              ))}
-            </FilterGroup>
-
-            <FilterGroup title="Spice level">
-              {SPICE_OPTIONS.map((opt) => (
-                <OptionRow
-                  key={opt.level}
-                  type="checkbox"
-                  label={opt.label}
-                  count={counts.bySpice[opt.level] ?? 0}
-                  checked={spice.includes(opt.level)}
-                  onChange={() => toggleSpice(opt.level)}
                 />
               ))}
             </FilterGroup>
@@ -243,7 +212,7 @@ export function ProductsExplorer({
 
           {visible.length > 0 ? (
             <ProductGrid
-              key={`${category}-${sort}-${spice.join("")}-${inStockOnly}`}
+              key={`${category}-${sort}-${inStockOnly}`}
               products={visible}
               className="mt-6"
             />

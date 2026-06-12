@@ -40,7 +40,6 @@ export const PRODUCTS: Product[] = [
       fat: "11g",
       sodium: "640mg",
     },
-    spiceLevel: 3,
     badges: ["Ready to Eat", "No Preservatives", "High Protein"],
     accent: "#f15b2b",
     prepSteps: [
@@ -87,7 +86,6 @@ export const PRODUCTS: Product[] = [
       fat: "9g",
       sodium: "610mg",
     },
-    spiceLevel: 2,
     badges: ["Ready to Eat", "No Preservatives", "Heat & Serve"],
     accent: "#074a6d",
     prepSteps: [
@@ -134,7 +132,6 @@ export const PRODUCTS: Product[] = [
       fat: "15g",
       sodium: "560mg",
     },
-    spiceLevel: 2,
     badges: ["Premium", "Ready to Eat", "Coconut-Rich"],
     accent: "#229ba7",
     prepSteps: [

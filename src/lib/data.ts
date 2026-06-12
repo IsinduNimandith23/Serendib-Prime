@@ -27,7 +27,6 @@ function rowToProduct(row: any): Product {
       fat: "",
       sodium: "",
     },
-    spiceLevel: row.spice_level ?? 0,
     badges: row.badges ?? [],
     accent: row.accent ?? "#b5371f",
     prepSteps: row.prep_steps ?? [],

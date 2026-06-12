@@ -45,7 +45,6 @@ function buildProductRow(formData: FormData) {
     short_description: String(formData.get("short_description") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     accent: String(formData.get("accent") ?? "#b5371f"),
-    spice_level: Number(formData.get("spice_level") ?? 0),
     featured: formData.get("featured") === "on",
     active: formData.get("active") === "on",
     in_stock: formData.get("in_stock") === "on",
