@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/Button";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
 const CATEGORIES = ["Tempered", "Curries"];
 
@@ -17,156 +19,150 @@ export function ProductForm({
 }) {
   const p = product;
   return (
-    <form action={action} className="space-y-8">
-      {/* Basics */}
-      <section className="rounded-2xl border border-clay bg-cream p-6">
-        <h2 className="mb-4 font-display text-lg font-semibold text-cocoa">Basics</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="sm:col-span-2">
-            <label htmlFor="name" className={labelClass}>Name</label>
-            <input id="name" name="name" required defaultValue={p?.name} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="slug" className={labelClass}>Slug (auto if blank)</label>
-            <input id="slug" name="slug" defaultValue={p?.slug} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="category" className={labelClass}>Category</label>
-            <select id="category" name="category" defaultValue={p?.category ?? CATEGORIES[0]} className={inputClass}>
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>{c}</option>
-              ))}
-            </select>
-          </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="tagline" className={labelClass}>Tagline</label>
-            <input id="tagline" name="tagline" defaultValue={p?.tagline} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="name_si" className={labelClass}>Sinhala name</label>
-            <input id="name_si" name="name_si" defaultValue={p?.nameSi} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="name_ta" className={labelClass}>Tamil name</label>
-            <input id="name_ta" name="name_ta" defaultValue={p?.nameTa} className={inputClass} />
-          </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="image_url" className={labelClass}>Image URL</label>
-            <input
-              id="image_url"
-              name="image_url"
-              defaultValue={p?.image}
-              placeholder="/tempered-sprats.jpg or https://…"
-              className={inputClass}
-            />
-          </div>
-          <div>
-            <label htmlFor="price" className={labelClass}>Price (LKR)</label>
-            <input id="price" name="price" type="number" min="0" required defaultValue={p?.price} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="weight" className={labelClass}>Net weight</label>
-            <input id="weight" name="weight" placeholder="400g" defaultValue={p?.weight} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="accent" className={labelClass}>Accent colour</label>
-            <input id="accent" name="accent" type="color" defaultValue={p?.accent ?? "#b5371f"} className="h-11 w-full cursor-pointer rounded-xl border border-clay bg-cream px-2" />
-          </div>
-          <div>
-            <label htmlFor="sort_order" className={labelClass}>Sort order</label>
-            <input id="sort_order" name="sort_order" type="number" defaultValue={p?.sortOrder ?? 100} className={inputClass} />
-          </div>
-        </div>
-      </section>
-
-      {/* Descriptions */}
-      <section className="rounded-2xl border border-clay bg-cream p-6">
-        <h2 className="mb-4 font-display text-lg font-semibold text-cocoa">Descriptions</h2>
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="short_description" className={labelClass}>Short description (cards)</label>
-            <textarea id="short_description" name="short_description" rows={2} defaultValue={p?.shortDescription} className={`${inputClass} resize-none`} />
-          </div>
-          <div>
-            <label htmlFor="description" className={labelClass}>Full description</label>
-            <textarea id="description" name="description" rows={5} defaultValue={p?.description} className={`${inputClass} resize-none`} />
-          </div>
-          <div>
-            <label htmlFor="serving_suggestion" className={labelClass}>Serving suggestion</label>
-            <input id="serving_suggestion" name="serving_suggestion" defaultValue={p?.servingSuggestion} className={inputClass} />
-          </div>
-        </div>
-      </section>
-
-      {/* Lists */}
-      <section className="rounded-2xl border border-clay bg-cream p-6">
-        <h2 className="mb-1 font-display text-lg font-semibold text-cocoa">Details</h2>
-        <p className="mb-4 text-sm text-cocoa-soft">One item per line (or comma-separated).</p>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div>
-            <label htmlFor="badges" className={labelClass}>Badges</label>
-            <textarea id="badges" name="badges" rows={4} defaultValue={p?.badges.join("\n")} className={`${inputClass} resize-none`} />
-          </div>
-          <div>
-            <label htmlFor="ingredients" className={labelClass}>Ingredients</label>
-            <textarea id="ingredients" name="ingredients" rows={4} defaultValue={p?.ingredients.join("\n")} className={`${inputClass} resize-none`} />
-          </div>
-          <div>
-            <label htmlFor="prep_steps" className={labelClass}>Prep steps</label>
-            <textarea id="prep_steps" name="prep_steps" rows={4} defaultValue={p?.prepSteps.join("\n")} className={`${inputClass} resize-none`} />
-          </div>
-        </div>
-      </section>
-
-      {/* Nutrition */}
-      <section className="rounded-2xl border border-clay bg-cream p-6">
-        <h2 className="mb-4 font-display text-lg font-semibold text-cocoa">Nutrition</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {[
-            { name: "n_serving", label: "Serving size", value: p?.nutrition.servingSize },
-            { name: "n_calories", label: "Calories", value: p?.nutrition.calories, type: "number" },
-            { name: "n_protein", label: "Protein", value: p?.nutrition.protein },
-            { name: "n_carbs", label: "Carbohydrates", value: p?.nutrition.carbs },
-            { name: "n_fat", label: "Fat", value: p?.nutrition.fat },
-            { name: "n_sodium", label: "Sodium", value: p?.nutrition.sodium },
-          ].map((f) => (
-            <div key={f.name}>
-              <label htmlFor={f.name} className={labelClass}>{f.label}</label>
-              <input id={f.name} name={f.name} type={f.type ?? "text"} defaultValue={f.value} className={inputClass} />
+    <form action={action} className="space-y-6">
+      <div className="grid items-start gap-6 lg:grid-cols-3">
+        {/* Main column */}
+        <div className="space-y-6 lg:col-span-2">
+          <Section title="Basics">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <TextField name="name" label="Name" required defaultValue={p?.name} className="sm:col-span-2" />
+              <TextField name="slug" label="Slug (auto if blank)" defaultValue={p?.slug} />
+              <div>
+                <label htmlFor="category" className={labelClass}>Category</label>
+                <select id="category" name="category" defaultValue={p?.category ?? CATEGORIES[0]} className={inputClass}>
+                  {CATEGORIES.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+              <TextField name="tagline" label="Tagline" defaultValue={p?.tagline} className="sm:col-span-2" />
+              <TextField name="name_si" label="Sinhala name" defaultValue={p?.nameSi} />
+              <TextField name="name_ta" label="Tamil name" defaultValue={p?.nameTa} />
             </div>
-          ))}
-        </div>
-      </section>
+          </Section>
 
-      {/* Flags & ratings */}
-      <section className="rounded-2xl border border-clay bg-cream p-6">
-        <h2 className="mb-4 font-display text-lg font-semibold text-cocoa">Visibility &amp; ratings</h2>
-        <div className="flex flex-wrap gap-6">
-          <Checkbox name="active" label="Active (visible in store)" defaultChecked={p?.active ?? true} />
-          <Checkbox name="featured" label="Featured (bestseller)" defaultChecked={p?.featured ?? false} />
-          <Checkbox name="in_stock" label="In stock" defaultChecked={p?.inStock ?? true} />
-        </div>
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="rating" className={labelClass}>Rating (0–5)</label>
-            <input id="rating" name="rating" type="number" step="0.1" min="0" max="5" defaultValue={p?.rating ?? 4.8} className={inputClass} />
-          </div>
-          <div>
-            <label htmlFor="reviews" className={labelClass}>Review count</label>
-            <input id="reviews" name="reviews" type="number" min="0" defaultValue={p?.reviews ?? 0} className={inputClass} />
-          </div>
-        </div>
-      </section>
+          <Section title="Descriptions">
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="short_description" className={labelClass}>Short description (cards)</label>
+                <textarea id="short_description" name="short_description" rows={2} defaultValue={p?.shortDescription} className={cn(inputClass, "resize-none")} />
+              </div>
+              <div>
+                <label htmlFor="description" className={labelClass}>Full description</label>
+                <textarea id="description" name="description" rows={5} defaultValue={p?.description} className={cn(inputClass, "resize-none")} />
+              </div>
+              <TextField name="serving_suggestion" label="Serving suggestion" defaultValue={p?.servingSuggestion} />
+            </div>
+          </Section>
 
-      <div className="flex items-center gap-3">
-        <button type="submit" className={buttonClass({ variant: "primary", size: "lg" })}>
-          {p ? "Save changes" : "Create product"}
-        </button>
+          <Section title="Details" description="One item per line (or comma-separated).">
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div>
+                <label htmlFor="badges" className={labelClass}>Badges</label>
+                <textarea id="badges" name="badges" rows={4} defaultValue={p?.badges.join("\n")} className={cn(inputClass, "resize-none")} />
+              </div>
+              <div>
+                <label htmlFor="ingredients" className={labelClass}>Ingredients</label>
+                <textarea id="ingredients" name="ingredients" rows={4} defaultValue={p?.ingredients.join("\n")} className={cn(inputClass, "resize-none")} />
+              </div>
+              <div>
+                <label htmlFor="prep_steps" className={labelClass}>Prep steps</label>
+                <textarea id="prep_steps" name="prep_steps" rows={4} defaultValue={p?.prepSteps.join("\n")} className={cn(inputClass, "resize-none")} />
+              </div>
+            </div>
+          </Section>
+
+          <Section title="Nutrition">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                { name: "n_serving", label: "Serving size", value: p?.nutrition.servingSize },
+                { name: "n_calories", label: "Calories", value: p?.nutrition.calories, type: "number" },
+                { name: "n_protein", label: "Protein", value: p?.nutrition.protein },
+                { name: "n_carbs", label: "Carbohydrates", value: p?.nutrition.carbs },
+                { name: "n_fat", label: "Fat", value: p?.nutrition.fat },
+                { name: "n_sodium", label: "Sodium", value: p?.nutrition.sodium },
+              ].map((f) => (
+                <TextField key={f.name} name={f.name} label={f.label} type={f.type ?? "text"} defaultValue={f.value} />
+              ))}
+            </div>
+          </Section>
+        </div>
+
+        {/* Sidebar */}
+        <div className="space-y-6 lg:sticky lg:top-24">
+          <Section title="Image">
+            <ImageUploadField defaultUrl={p?.image} />
+          </Section>
+
+          <Section title="Pricing">
+            <div className="space-y-4">
+              <TextField name="price" label="Price (LKR)" type="number" min="0" required defaultValue={p?.price} />
+              <TextField name="weight" label="Net weight" placeholder="400g" defaultValue={p?.weight} />
+              <div>
+                <label htmlFor="accent" className={labelClass}>Accent colour</label>
+                <input id="accent" name="accent" type="color" defaultValue={p?.accent ?? "#b5371f"} className="h-11 w-full cursor-pointer rounded-xl border border-clay bg-cream px-2" />
+              </div>
+              <TextField name="sort_order" label="Sort order" type="number" defaultValue={p?.sortOrder ?? 100} />
+            </div>
+          </Section>
+
+          <Section title="Visibility">
+            <div className="space-y-3">
+              <Checkbox name="active" label="Active (visible in store)" defaultChecked={p?.active ?? true} />
+              <Checkbox name="featured" label="Featured (bestseller)" defaultChecked={p?.featured ?? false} />
+              <Checkbox name="in_stock" label="In stock" defaultChecked={p?.inStock ?? true} />
+            </div>
+          </Section>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center justify-end gap-3 border-t border-clay pt-6">
         <Link href="/admin/products" className={buttonClass({ variant: "outline", size: "lg" })}>
           Cancel
         </Link>
+        <button type="submit" className={buttonClass({ variant: "primary", size: "lg" })}>
+          {p ? "Save changes" : "Create product"}
+        </button>
       </div>
     </form>
+  );
+}
+
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-2xl border border-clay bg-cream p-6">
+      <h2 className="font-display text-lg font-semibold text-cocoa">{title}</h2>
+      {description && <p className="mt-1 text-sm text-cocoa-soft">{description}</p>}
+      <div className="mt-4">{children}</div>
+    </section>
+  );
+}
+
+/** Labelled text/number input. `className` styles the wrapper (e.g. column span). */
+function TextField({
+  name,
+  label,
+  className,
+  ...props
+}: {
+  name: string;
+  label: string;
+  className?: string;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <div className={className}>
+      <label htmlFor={name} className={labelClass}>{label}</label>
+      <input id={name} name={name} className={inputClass} {...props} />
+    </div>
   );
 }
 

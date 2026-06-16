@@ -6,6 +6,33 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { OrderStatus } from "@/lib/types";
 
+type AdminClient = NonNullable<ReturnType<typeof createSupabaseAdminClient>>;
+
+const IMAGE_BUCKET = "product-images";
+
+/**
+ * Resolves the product image to store. If the form carries an uploaded file,
+ * it is pushed to Supabase Storage and its public URL returned. Otherwise we
+ * fall back to whatever URL was typed (preserving the existing image on edit).
+ */
+async function resolveImageUrl(
+  formData: FormData,
+  slug: string,
+  admin: AdminClient,
+): Promise<string | null> {
+  const file = formData.get("image_file");
+  if (file instanceof File && file.size > 0) {
+    const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+    const path = `${slug || "product"}-${Date.now()}.${ext}`;
+    const { error } = await admin.storage
+      .from(IMAGE_BUCKET)
+      .upload(path, file, { contentType: file.type || undefined, upsert: true });
+    if (error) throw new Error(`Image upload failed: ${error.message}`);
+    return admin.storage.from(IMAGE_BUCKET).getPublicUrl(path).data.publicUrl;
+  }
+  return String(formData.get("image_url") ?? "").trim() || null;
+}
+
 async function requireUser() {
   const supabase = await createSupabaseServerClient();
   const {
@@ -37,7 +64,6 @@ function buildProductRow(formData: FormData) {
     slug,
     name_si: String(formData.get("name_si") ?? "").trim() || null,
     name_ta: String(formData.get("name_ta") ?? "").trim() || null,
-    image_url: String(formData.get("image_url") ?? "").trim() || null,
     tagline: String(formData.get("tagline") ?? "").trim(),
     category: String(formData.get("category") ?? "Tempered"),
     price: Number(formData.get("price") ?? 0),
@@ -60,8 +86,6 @@ function buildProductRow(formData: FormData) {
       fat: String(formData.get("n_fat") ?? "").trim(),
       sodium: String(formData.get("n_sodium") ?? "").trim(),
     },
-    rating: Number(formData.get("rating")) || 0,
-    reviews: Number(formData.get("reviews")) || 0,
     sort_order: Number(formData.get("sort_order")) || 100,
   };
 }
@@ -71,7 +95,9 @@ export async function createProduct(formData: FormData) {
   const admin = createSupabaseAdminClient();
   if (!admin) throw new Error("Supabase service role not configured.");
 
-  const { error } = await admin.from("products").insert(buildProductRow(formData));
+  const row = buildProductRow(formData);
+  const image_url = await resolveImageUrl(formData, row.slug, admin);
+  const { error } = await admin.from("products").insert({ ...row, image_url });
   if (error) throw new Error(error.message);
 
   revalidatePath("/admin/products");
@@ -84,9 +110,11 @@ export async function updateProduct(id: string, formData: FormData) {
   const admin = createSupabaseAdminClient();
   if (!admin) throw new Error("Supabase service role not configured.");
 
+  const row = buildProductRow(formData);
+  const image_url = await resolveImageUrl(formData, row.slug, admin);
   const { error } = await admin
     .from("products")
-    .update(buildProductRow(formData))
+    .update({ ...row, image_url })
     .eq("id", id);
   if (error) throw new Error(error.message);
 
