@@ -94,8 +94,8 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
           {query.trim() ? "No orders match your search." : "No orders in this view."}
         </div>
       ) : (
-        <div className="mt-4 overflow-hidden rounded-2xl border border-clay bg-cream">
-          <table className="w-full text-left text-[15px]">
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-clay bg-cream">
+          <table className="w-full min-w-180 text-left text-[15px]">
             <thead>
               <tr className="border-b border-clay text-xs font-semibold uppercase tracking-wide text-cocoa-soft">
                 <th className="px-5 py-3.5">Order</th>

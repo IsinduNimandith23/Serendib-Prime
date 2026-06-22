@@ -57,7 +57,7 @@ export default async function AdminDashboard() {
           </p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-[15px]">
+            <table className="w-full min-w-160 text-[15px]">
               <thead>
                 <tr className="text-left text-sm font-semibold text-cocoa-soft">
                   <th className="px-5 py-3.5">Order</th>
