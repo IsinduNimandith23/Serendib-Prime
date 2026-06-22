@@ -1,7 +1,7 @@
 import { createSupabaseAdminClient } from "./supabase/admin";
 import { createSupabaseServerClient } from "./supabase/server";
 import { isSupabaseConfigured } from "./supabase/config";
-import type { CartItem, OrderRecord, OrderStatus } from "./types";
+import type { CartItem, OrderRecord, OrderStatus, PaymentMethod } from "./types";
 
 export interface NewOrderInput {
   orderRef: string;
@@ -17,7 +17,13 @@ export interface NewOrderInput {
   subtotal: number;
   shipping: number;
   total: number;
+  paymentMethod: PaymentMethod;
+  /** Bank transfer only: chosen owner account label + receipt storage path. */
+  bankAccount?: string | null;
+  receiptPath?: string | null;
 }
+
+const RECEIPT_BUCKET = "payment-receipts";
 
 /**
  * Persist a pending order using the service-role client (bypasses RLS).
@@ -43,6 +49,9 @@ export async function createOrder(
     shipping: input.shipping,
     total: input.total,
     status: "pending" as OrderStatus,
+    payment_method: input.paymentMethod,
+    bank_account: input.bankAccount ?? null,
+    receipt_path: input.receiptPath ?? null,
   });
 
   if (error) {
@@ -70,6 +79,48 @@ export async function markOrderStatus(
     return false;
   }
   return true;
+}
+
+/**
+ * Read a single order by its public reference using the service-role client.
+ * Used by the checkout success page to show the real, webhook-confirmed status
+ * (PayHere passes no status to the return_url). Returns null when Supabase is
+ * not configured or the order doesn't exist.
+ */
+export async function getOrderByRef(
+  orderRef: string,
+): Promise<OrderRecord | null> {
+  const admin = createSupabaseAdminClient();
+  if (!admin) return null;
+
+  const { data, error } = await admin
+    .from("orders")
+    .select("*")
+    .eq("order_ref", orderRef)
+    .single();
+
+  if (error || !data) return null;
+  return data as OrderRecord;
+}
+
+/**
+ * Create a short-lived signed URL for a bank-transfer receipt in the private
+ * `payment-receipts` bucket. Used by the admin Orders page so staff can view a
+ * receipt without making the bucket public. Returns null when not configured.
+ */
+export async function getReceiptSignedUrl(
+  path: string,
+  expiresInSeconds = 60 * 30,
+): Promise<string | null> {
+  const admin = createSupabaseAdminClient();
+  if (!admin) return null;
+
+  const { data, error } = await admin.storage
+    .from(RECEIPT_BUCKET)
+    .createSignedUrl(path, expiresInSeconds);
+
+  if (error || !data) return null;
+  return data.signedUrl;
 }
 
 /** Admin listing - relies on the authenticated session + RLS policy. */

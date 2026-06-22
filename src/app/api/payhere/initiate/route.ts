@@ -3,7 +3,7 @@ import { getProducts } from "@/lib/data";
 import { createOrder } from "@/lib/orders";
 import { shippingFor } from "@/lib/shipping";
 import { makeOrderRef } from "@/lib/utils";
-import type { CartItem } from "@/lib/types";
+import type { CartItem, PaymentMethod } from "@/lib/types";
 import {
   CURRENCY,
   formatPayHereAmount,
@@ -25,7 +25,15 @@ interface InitiateBody {
     city: string;
     postalCode: string;
   };
+  paymentMethod?: PaymentMethod;
+  /** Bank transfer: ref shown to the customer as the payment reference. */
+  orderRef?: string;
+  bankAccount?: string;
+  receiptPath?: string | null;
 }
+
+const PAYMENT_METHODS: PaymentMethod[] = ["cod", "bank", "payhere"];
+const ORDER_REF_RE = /^SP-[A-Z0-9]{6}$/;
 
 function bad(message: string) {
   return NextResponse.json({ error: message }, { status: 400 });
@@ -43,6 +51,18 @@ export async function POST(request: NextRequest) {
   if (!Array.isArray(items) || items.length === 0) return bad("Your cart is empty.");
   if (!customer?.name || !customer?.email || !customer?.phone || !customer?.address || !customer?.city) {
     return bad("Please complete all required delivery fields.");
+  }
+  const paymentMethod: PaymentMethod = PAYMENT_METHODS.includes(body.paymentMethod as PaymentMethod)
+    ? (body.paymentMethod as PaymentMethod)
+    : "payhere";
+
+  // Bank transfers complete the payment up front: the customer must pick an
+  // account and upload a receipt before placing the order.
+  const bankAccount = paymentMethod === "bank" ? String(body.bankAccount ?? "").trim() : null;
+  const receiptPath =
+    paymentMethod === "bank" && body.receiptPath ? String(body.receiptPath).trim() : null;
+  if (paymentMethod === "bank" && !bankAccount) {
+    return bad("Please choose the bank account you transferred to.");
   }
 
   // Recompute prices server-side from the catalogue to prevent tampering.
@@ -67,7 +87,12 @@ export async function POST(request: NextRequest) {
   const subtotal = validated.reduce((s, i) => s + i.price * i.quantity, 0);
   const shipping = shippingFor(subtotal);
   const total = subtotal + shipping;
-  const orderRef = makeOrderRef();
+  // For bank transfers the customer already saw a reference and used it for the
+  // transfer, so honour that ref (if well-formed); otherwise mint a fresh one.
+  const orderRef =
+    paymentMethod === "bank" && body.orderRef && ORDER_REF_RE.test(body.orderRef)
+      ? body.orderRef
+      : makeOrderRef();
   const itemCount = validated.reduce((n, i) => n + i.quantity, 0);
 
   const { persisted } = await createOrder({
@@ -77,7 +102,16 @@ export async function POST(request: NextRequest) {
     subtotal,
     shipping,
     total,
+    paymentMethod,
+    bankAccount,
+    receiptPath,
   });
+
+  // COD / bank transfer skip the gateway entirely - the order is recorded as
+  // pending and confirmed manually by an admin once payment is received.
+  if (paymentMethod !== "payhere") {
+    return NextResponse.json({ mode: "manual", orderRef, persisted, total });
+  }
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || request.nextUrl.origin;
   const [firstName, ...rest] = customer.name.trim().split(/\s+/);

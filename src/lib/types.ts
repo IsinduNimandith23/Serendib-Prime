@@ -58,6 +58,9 @@ export interface CartItem {
 
 export type OrderStatus = "pending" | "paid" | "failed" | "cancelled";
 
+/** How the customer chose to pay. */
+export type PaymentMethod = "cod" | "bank" | "payhere";
+
 export interface OrderRecord {
   id: string;
   order_ref: string;
@@ -72,6 +75,11 @@ export interface OrderRecord {
   shipping: number;
   total: number;
   status: OrderStatus;
+  payment_method: PaymentMethod;
+  /** For bank transfers: which owner account the customer paid to. */
+  bank_account: string | null;
+  /** For bank transfers: storage path of the uploaded receipt (private bucket). */
+  receipt_path: string | null;
   payhere_payment_id: string | null;
   created_at: string;
 }

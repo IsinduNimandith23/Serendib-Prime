@@ -48,6 +48,9 @@ create table if not exists public.orders (
   shipping           numeric not null,
   total              numeric not null,
   status             text not null default 'pending',
+  payment_method     text not null default 'payhere',
+  bank_account       text,
+  receipt_path       text,
   payhere_payment_id text,
   created_at         timestamptz not null default now()
 );
@@ -107,3 +110,12 @@ create policy "auth_read_messages"
 -- Helpful index for catalogue ordering.
 create index if not exists products_sort_idx on public.products (sort_order);
 create index if not exists orders_created_idx on public.orders (created_at desc);
+
+-- ============================================================
+-- Storage buckets
+-- `payment-receipts` is PRIVATE: bank-transfer receipts are uploaded with the
+-- service-role key and only ever read by admins via short-lived signed URLs.
+-- ============================================================
+insert into storage.buckets (id, name, public)
+values ('payment-receipts', 'payment-receipts', false)
+on conflict (id) do nothing;
