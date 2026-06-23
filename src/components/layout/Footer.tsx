@@ -3,6 +3,11 @@ import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/visual/Logo";
 import { FishMotif } from "@/components/visual/SeaMotif";
 import {
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE_DISPLAY,
+  SUPPORT_PHONE_TEL,
+} from "@/components/legal/Legal";
+import {
   IconInstagram,
   IconFacebook,
   IconWhatsApp,
@@ -10,17 +15,17 @@ import {
   IconPhone,
 } from "@/components/icons";
 
-const SHOP_LINKS = [
-  { href: "/products", label: "All products" },
-  { href: "/products?category=Tempered", label: "Tempered Sprats" },
-  { href: "/products?category=Curries", label: "Sprats Curries" },
-  { href: "/about", label: "Our Story" },
-];
-
-const COMPANY_LINKS = [
+const EXPLORE_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/products", label: "Shop" },
   { href: "/about", label: "Our Story" },
   { href: "/contact", label: "Contact" },
-  { href: "/products", label: "Shop" },
+];
+
+const LEGAL_LINKS = [
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/refund-policy", label: "Refund & Return Policy" },
 ];
 
 export function Footer() {
@@ -55,22 +60,28 @@ export function Footer() {
             </div>
           </div>
 
-          <FooterColumn title="Shop" links={SHOP_LINKS} />
-          <FooterColumn title="Company" links={COMPANY_LINKS} />
+          <FooterColumn title="Explore" links={EXPLORE_LINKS} />
+          <FooterColumn title="Legal" links={LEGAL_LINKS} />
 
           <div>
             <h3 className="eyebrow mb-4 text-seafoam">Get in touch</h3>
             <ul className="space-y-3 text-sm text-cream/70">
               <li className="flex items-center gap-3">
                 <IconPhone className="h-4 w-4 shrink-0 text-seafoam" />
-                <a href="tel:+94112345678" className="transition-colors hover:text-seafoam">
-                  +94 11 234 5678
+                <a
+                  href={`tel:${SUPPORT_PHONE_TEL}`}
+                  className="transition-colors hover:text-seafoam"
+                >
+                  {SUPPORT_PHONE_DISPLAY}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <IconMail className="h-4 w-4 shrink-0 text-seafoam" />
-                <a href="mailto:hello@serendibprime.lk" className="transition-colors hover:text-seafoam">
-                  hello@serendibprime.lk
+                <a
+                  href={`mailto:${SUPPORT_EMAIL}`}
+                  className="transition-colors hover:text-seafoam"
+                >
+                  {SUPPORT_EMAIL}
                 </a>
               </li>
             </ul>

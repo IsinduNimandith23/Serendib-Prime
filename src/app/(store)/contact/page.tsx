@@ -4,6 +4,11 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/motion";
 import { ContactForm } from "@/components/contact/ContactForm";
 import {
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE_DISPLAY,
+  SUPPORT_PHONE_TEL,
+} from "@/components/legal/Legal";
+import {
   IconPhone,
   IconMail,
   IconWhatsApp,
@@ -20,20 +25,20 @@ const DETAILS = [
   {
     Icon: IconPhone,
     label: "Call us",
-    value: "+94 11 234 5678",
-    href: "tel:+94112345678",
+    value: SUPPORT_PHONE_DISPLAY,
+    href: `tel:${SUPPORT_PHONE_TEL}`,
   },
   {
     Icon: IconMail,
     label: "Email us",
-    value: "hello@serendibprime.lk",
-    href: "mailto:hello@serendibprime.lk",
+    value: SUPPORT_EMAIL,
+    href: `mailto:${SUPPORT_EMAIL}`,
   },
   {
     Icon: IconWhatsApp,
     label: "WhatsApp",
-    value: "+94 77 123 4567",
-    href: "https://wa.me/94771234567",
+    value: SUPPORT_PHONE_DISPLAY,
+    href: `https://wa.me/${SUPPORT_PHONE_TEL.replace("+", "")}`,
   },
 ];
 

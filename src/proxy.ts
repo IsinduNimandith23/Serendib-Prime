@@ -23,7 +23,15 @@ const COMING_SOON = process.env.COMING_SOON !== "false";
 const PREVIEW_COOKIE = "sp_preview";
 
 // Prefixes that stay reachable even while the gate is up.
-const ALLOWED_PREFIXES = ["/coming-soon", "/admin"];
+// The legal pages must stay public so payment providers (PayHere) can review
+// them during account activation, even before the storefront goes live.
+const ALLOWED_PREFIXES = [
+  "/coming-soon",
+  "/admin",
+  "/refund-policy",
+  "/privacy-policy",
+  "/terms",
+];
 
 export function proxy(request: NextRequest) {
   if (!COMING_SOON) return NextResponse.next();
