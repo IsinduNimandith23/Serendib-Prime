@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { IconX } from "@/components/icons";
 
-const MAX_BYTES = 5 * 1024 * 1024; // 5MB — matches the bucket limit
+const MAX_BYTES = 5 * 1024 * 1024; // 5MB - matches the bucket limit
 
 /**
  * Product image picker for the admin form. Lets the owner drag-and-drop or
@@ -57,7 +57,7 @@ export function ImageUploadField({ defaultUrl }: { defaultUrl?: string }) {
 
   return (
     <div>
-      {/* The real file input — visually hidden, driven by the drop zone. */}
+      {/* The real file input - visually hidden, driven by the drop zone. */}
       <input
         ref={inputRef}
         id="image_file"
@@ -142,7 +142,7 @@ export function ImageUploadField({ defaultUrl }: { defaultUrl?: string }) {
             Drag &amp; drop an image, or{" "}
             <span className="text-spice">browse</span>
           </span>
-          <span className="text-xs text-cocoa-soft">PNG, JPG or WebP — up to 5MB</span>
+          <span className="text-xs text-cocoa-soft">PNG, JPG or WebP - up to 5MB</span>
         </button>
       )}
 

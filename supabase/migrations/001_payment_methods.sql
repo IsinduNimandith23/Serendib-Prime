@@ -1,5 +1,5 @@
 -- ============================================================
--- Serendib Prime — Payment methods migration
+-- Serendib Prime - Payment methods migration
 -- Adds COD / bank-transfer support to an EXISTING database.
 -- Safe to run multiple times (idempotent). Paste into the
 -- Supabase SQL Editor and run.

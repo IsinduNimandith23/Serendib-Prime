@@ -71,6 +71,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Run on everything except API routes, Next internals, and static files
-  // (any path containing a "." — e.g. /logo.svg, /favicon.ico, images).
+  // (any path containing a "." - e.g. /logo.svg, /favicon.ico, images).
   matcher: ["/((?!api|_next/static|_next/image|.*\\..*).*)"],
 };

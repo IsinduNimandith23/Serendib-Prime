@@ -6,7 +6,7 @@ import { setLenis } from "@/lib/smooth-scroll";
 
 /**
  * Buttery momentum scrolling via Lenis. Disabled entirely when the user
- * prefers reduced motion — native scrolling takes over.
+ * prefers reduced motion - native scrolling takes over.
  */
 export function SmoothScroll() {
   useEffect(() => {

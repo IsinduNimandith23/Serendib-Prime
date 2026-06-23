@@ -163,7 +163,7 @@ export function Hero({ products }: { products: Product[] }) {
              assembles itself: the side cans fan in first (REVEAL + small stagger)
              and the front hero can lands last, on top. */}
 
-          {/* Back layer — parallax drifts less than the front can */}
+          {/* Back layer - parallax drifts less than the front can */}
           {third && (
             <HeroCan
               product={third}
@@ -198,7 +198,7 @@ export function Hero({ products }: { products: Product[] }) {
             />
           )}
 
-          {/* Front layer — the hero can sits closest and drifts most */}
+          {/* Front layer - the hero can sits closest and drifts most */}
           {hero && (
             <div className="absolute left-1/2 top-1/2 w-[52%] -translate-x-1/2 -translate-y-1/2">
               <HeroCan
@@ -255,7 +255,7 @@ export function Hero({ products }: { products: Product[] }) {
 /**
  * A single hero can. The entrance animation only fires once the image has
  * actually loaded (covering the cached case via `complete`), so the can fades
- * and slides in smoothly with its pixels — never an empty box that pops in.
+ * and slides in smoothly with its pixels - never an empty box that pops in.
  */
 function HeroCan({
   product,

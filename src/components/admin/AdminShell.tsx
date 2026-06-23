@@ -110,7 +110,7 @@ export function AdminShell({
           </button>
         </div>
 
-        {/* Mobile menu panel — animates open/closed via a collapsing grid row */}
+        {/* Mobile menu panel - animates open/closed via a collapsing grid row */}
         <div
           className={cn(
             "grid overflow-hidden transition-all duration-300 ease-out-soft lg:hidden",

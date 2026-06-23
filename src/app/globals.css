@@ -84,7 +84,7 @@
     border-radius: 4px;
   }
 
-  /* NOTE: no `scroll-behavior: smooth` here — it conflicts with Lenis and
+  /* NOTE: no `scroll-behavior: smooth` here - it conflicts with Lenis and
      can cause a scroll "snap" on load. Lenis handles smooth scrolling. */
 }
 

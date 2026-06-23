@@ -38,7 +38,7 @@ const EMPTY: Customer = {
   postalCode: "",
 };
 
-const RECEIPT_MAX_BYTES = 5 * 1024 * 1024; // 5MB — matches the bucket limit
+const RECEIPT_MAX_BYTES = 5 * 1024 * 1024; // 5MB - matches the bucket limit
 const RECEIPT_TYPES = ["image/png", "image/jpeg", "image/webp", "application/pdf"];
 
 type PaymentOption = { value: PaymentMethod; label: string; description: string };
@@ -397,10 +397,10 @@ export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }
                       className="flex w-full flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-clay bg-cream px-6 py-7 text-center transition-colors hover:border-spice/60"
                     >
                       <span className="text-sm font-medium text-cocoa">
-                        Upload receipt — <span className="text-spice">browse</span>
+                        Upload receipt - <span className="text-spice">browse</span>
                       </span>
                       <span className="text-xs text-cocoa-soft">
-                        Photo or PDF of your transfer — up to 5MB
+                        Photo or PDF of your transfer - up to 5MB
                       </span>
                     </button>
                   )}
@@ -569,7 +569,7 @@ function BankAccountSelect({
           {selected ? (
             <>
               <span className="font-medium">{selected.bankName}</span>
-              <span className="text-cocoa-soft"> — {selected.accountNumber}</span>
+              <span className="text-cocoa-soft"> - {selected.accountNumber}</span>
             </>
           ) : (
             "Select an account"
@@ -605,7 +605,7 @@ function BankAccountSelect({
                     <span className="font-medium">{a.bankName}</span>
                     <span className={active ? "text-spice/80" : "text-cocoa-soft"}>
                       {" "}
-                      — {a.accountNumber}
+                      - {a.accountNumber}
                     </span>
                   </span>
                   {active && <IconCheck className="h-4 w-4 shrink-0" />}

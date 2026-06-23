@@ -133,7 +133,7 @@ export default async function SuccessPage({
               Thanks for your transfer of{" "}
               <strong className="text-cocoa">{formatLKR(total)}</strong>
               {bankAccount ? ` to ${bankAccount}` : ""}. We&apos;ll verify your payment and confirm
-              your order shortly — keep{" "}
+              your order shortly - keep{" "}
               <strong className="text-cocoa">{order}</strong> as your reference.
             </p>
           </div>
