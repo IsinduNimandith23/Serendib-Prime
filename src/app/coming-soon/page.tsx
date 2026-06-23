@@ -43,7 +43,7 @@ export default function ComingSoonPage() {
 
         <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-cocoa-soft">
           We&rsquo;re putting the finishing touches on our online store. Premium
-          ready-to-eat Sri Lankan tinned seafood &mdash; tempered &amp; curried
+          ready-to-eat Sri Lankan tinned seafood - tempered &amp; curried
           the island way, sealed fresh and ready in minutes.
         </p>
 
