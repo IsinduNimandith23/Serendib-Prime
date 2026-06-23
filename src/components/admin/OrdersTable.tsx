@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { cn, formatLKR } from "@/lib/utils";
+import { cn, formatLKR, formatSLDate, formatSLTime } from "@/lib/utils";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { IconArrowRight, IconSearch } from "@/components/icons";
 import type { CartItem, OrderRecord, OrderStatus, PaymentMethod } from "@/lib/types";
@@ -110,7 +110,6 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
             <tbody>
               {paginated.map((o) => {
                 const items = (o.items as CartItem[]) ?? [];
-                const created = new Date(o.created_at);
                 return (
                   <tr
                     key={o.id}
@@ -124,12 +123,9 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
                       <div className="text-sm text-cocoa-soft">{o.email}</div>
                     </td>
                     <td className="px-5 py-4 font-medium text-cocoa">
-                      <div>{created.toLocaleDateString("en-LK")}</div>
+                      <div>{formatSLDate(o.created_at)}</div>
                       <div className="text-sm font-normal text-cocoa-soft">
-                        {created.toLocaleTimeString("en-LK", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
+                        {formatSLTime(o.created_at)}
                       </div>
                     </td>
                     <td className="px-5 py-4 font-semibold text-cocoa">

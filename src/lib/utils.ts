@@ -20,6 +20,24 @@ export function formatLKR(amount: number): string {
     .replace("Rs ", "Rs ");
 }
 
+/** Sri Lanka time zone - timestamps render the same regardless of where the
+ * code runs (Vercel servers are UTC, so without this they'd show UTC). */
+const SL_TIME_ZONE = "Asia/Colombo";
+
+/** Format a timestamp as a Sri Lanka calendar date, e.g. "23/06/2026". */
+export function formatSLDate(value: string | Date): string {
+  return new Date(value).toLocaleDateString("en-LK", { timeZone: SL_TIME_ZONE });
+}
+
+/** Format a timestamp as a Sri Lanka wall-clock time, e.g. "12:18 AM". */
+export function formatSLTime(value: string | Date): string {
+  return new Date(value).toLocaleTimeString("en-LK", {
+    timeZone: SL_TIME_ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 /** Generate a human-friendly order reference, e.g. "CPC-7F3K9Q". */
 export function makeOrderRef(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

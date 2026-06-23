@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-import type { OrderStatus } from "@/lib/types";
+import { allowedStatusOptions } from "@/lib/order-status";
+import type { OrderStatus, PaymentMethod } from "@/lib/types";
 
 type AdminClient = NonNullable<ReturnType<typeof createSupabaseAdminClient>>;
 
@@ -160,6 +161,26 @@ export async function updateOrderStatusAction(formData: FormData) {
   const status = String(formData.get("status")) as OrderStatus;
   const admin = createSupabaseAdminClient();
   if (!admin) throw new Error("Supabase service role not configured.");
+
+  // Guardrail: PayHere payment status is gateway-owned. Re-read the order and
+  // reject any transition that isn't allowed for its method/current status so
+  // the restriction can't be bypassed by tampering with the form.
+  const { data: existing, error: readError } = await admin
+    .from("orders")
+    .select("status, payment_method")
+    .eq("order_ref", orderRef)
+    .single();
+  if (readError || !existing) throw new Error("Order not found.");
+
+  const allowed = allowedStatusOptions(
+    existing.status as OrderStatus,
+    existing.payment_method as PaymentMethod,
+  );
+  if (!allowed.includes(status)) {
+    throw new Error(
+      `Cannot change a ${existing.payment_method} order from "${existing.status}" to "${status}".`,
+    );
+  }
 
   const { error } = await admin
     .from("orders")

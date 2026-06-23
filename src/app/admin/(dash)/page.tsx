@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getOrders } from "@/lib/orders";
 import { getAdminProducts } from "@/lib/data";
-import { formatLKR } from "@/lib/utils";
+import { formatLKR, formatSLDate } from "@/lib/utils";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { IconBag, IconTruck, IconClock, IconArrowRight } from "@/components/icons";
 
@@ -77,7 +77,7 @@ export default async function AdminDashboard() {
                       <StatusBadge status={o.status} />
                     </td>
                     <td className="px-5 py-3.5 font-medium text-cocoa-soft">
-                      {new Date(o.created_at).toLocaleDateString("en-LK")}
+                      {formatSLDate(o.created_at)}
                     </td>
                   </tr>
                 ))}

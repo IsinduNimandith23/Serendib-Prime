@@ -3,11 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { IconChevronDown } from "@/components/icons";
+import { ALL_ORDER_STATUSES } from "@/lib/order-status";
 import type { OrderStatus } from "@/lib/types";
 
-const OPTIONS: OrderStatus[] = ["pending", "paid", "failed", "cancelled"];
-
-export function StatusSelect({ defaultValue }: { defaultValue: OrderStatus }) {
+export function StatusSelect({
+  defaultValue,
+  options = ALL_ORDER_STATUSES,
+}: {
+  defaultValue: OrderStatus;
+  options?: OrderStatus[];
+}) {
   const [value, setValue] = useState<OrderStatus>(defaultValue);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -36,7 +41,7 @@ export function StatusSelect({ defaultValue }: { defaultValue: OrderStatus }) {
 
       {open && (
         <ul className="absolute z-10 mt-2 w-44 overflow-hidden rounded-2xl border border-clay bg-cream p-1 shadow-lg shadow-cocoa/5">
-          {OPTIONS.map((opt) => {
+          {options.map((opt) => {
             const active = opt === value;
             return (
               <li key={opt}>

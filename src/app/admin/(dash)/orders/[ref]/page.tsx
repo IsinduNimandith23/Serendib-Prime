@@ -4,7 +4,8 @@ import { getOrderByRef, getReceiptSignedUrl } from "@/lib/orders";
 import { updateOrderStatusAction } from "@/app/admin/actions";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { StatusSelect } from "@/components/admin/StatusSelect";
-import { formatLKR } from "@/lib/utils";
+import { allowedStatusOptions } from "@/lib/order-status";
+import { formatLKR, formatSLDate, formatSLTime } from "@/lib/utils";
 import { IconArrowRight } from "@/components/icons";
 import type { CartItem, PaymentMethod } from "@/lib/types";
 
@@ -54,7 +55,6 @@ export default async function AdminOrderDetailPage({
   if (!order) notFound();
 
   const items = (order.items as CartItem[]) ?? [];
-  const created = new Date(order.created_at);
   const receiptUrl = order.receipt_path
     ? await getReceiptSignedUrl(order.receipt_path)
     : null;
@@ -112,7 +112,10 @@ export default async function AdminOrderDetailPage({
           <Card title="Update order status">
             <form action={updateOrderStatusAction} className="flex flex-wrap items-center gap-2">
               <input type="hidden" name="order_ref" value={order.order_ref} />
-              <StatusSelect defaultValue={order.status} />
+              <StatusSelect
+                defaultValue={order.status}
+                options={allowedStatusOptions(order.status, order.payment_method)}
+              />
               <button
                 type="submit"
                 className="cursor-pointer rounded-full bg-spice px-5 py-2 text-[15px] font-semibold text-cream transition-colors hover:bg-spice-dark"
@@ -168,14 +171,8 @@ export default async function AdminOrderDetailPage({
           </Card>
 
           <Card title="Order info">
-            <Row label="Placed" value={created.toLocaleDateString("en-LK")} />
-            <Row
-              label="Time"
-              value={created.toLocaleTimeString("en-LK", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            />
+            <Row label="Placed" value={formatSLDate(order.created_at)} />
+            <Row label="Time" value={formatSLTime(order.created_at)} />
             <Row
               label="Order ID"
               value={<span className="font-mono text-xs">{order.id}</span>}
