@@ -1,15 +1,10 @@
 /**
  * Bank-transfer payment accounts.
  *
- * Accounts are read from server-side env vars so the real numbers never land in
- * the repo. Supports multiple owner accounts via a numbered scheme so the
- * checkout can offer a dropdown:
- *
- *   BANK_1_NAME, BANK_1_ACCOUNT_NAME, BANK_1_ACCOUNT_NUMBER, BANK_1_BRANCH
- *   BANK_2_NAME, ...
- *
- * The legacy single-account vars (BANK_NAME, BANK_ACCOUNT_NUMBER, …) are still
- * honoured and surface as the first account.
+ * These numbers are displayed to customers at checkout so they can pay us —
+ * they're public by design, so we keep them in the repo as plain config rather
+ * than env vars. Add or edit entries below; ids are assigned automatically in
+ * declaration order, so the checkout dropdown stays stable.
  */
 export interface BankAccount {
   /** Stable id used as the <select> value, e.g. "1". */
@@ -20,31 +15,24 @@ export interface BankAccount {
   branch: string;
 }
 
-const MAX_ACCOUNTS = 10;
-
-function readAccount(prefix: string): Omit<BankAccount, "id"> | null {
-  const bankName = process.env[`${prefix}_NAME`];
-  const accountNumber = process.env[`${prefix}_ACCOUNT_NUMBER`];
-  if (!bankName || !accountNumber) return null;
-  return {
-    bankName,
-    accountName: process.env[`${prefix}_ACCOUNT_NAME`] || "",
-    accountNumber,
-    branch: process.env[`${prefix}_BRANCH`] || "",
-  };
-}
+const ACCOUNTS: Omit<BankAccount, "id">[] = [
+  {
+    bankName: "Bank of Ceylon",
+    accountName: "Serendib Prime (Pvt) Ltd",
+    accountNumber: "0012345678",
+    branch: "Colombo Main",
+  },
+  {
+    bankName: "Commercial Bank",
+    accountName: "Serendib Prime (Pvt) Ltd",
+    accountNumber: "0012387654",
+    branch: "Homagama",
+  },
+];
 
 /** All configured owner accounts, in declaration order. */
 export function getBankAccounts(): BankAccount[] {
-  const accounts: BankAccount[] = [];
-  const push = (a: Omit<BankAccount, "id"> | null) => {
-    if (a) accounts.push({ ...a, id: String(accounts.length + 1) });
-  };
-
-  push(readAccount("BANK")); // legacy single-account vars
-  for (let i = 1; i <= MAX_ACCOUNTS; i++) push(readAccount(`BANK_${i}`));
-
-  return accounts;
+  return ACCOUNTS.map((a, i) => ({ ...a, id: String(i + 1) }));
 }
 
 /** Look up one account by its id (the <select> value). */
