@@ -30,14 +30,16 @@ export default function ComingSoonPage() {
         {/* Logo */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/logo.svg"
+          src="/logo.png"
           alt="Serendib Prime"
           className="mb-10 h-36 w-auto md:h-44"
         />
 
-        <span className="eyebrow text-gold">Launching Soon</span>
+        <span className="my-6 font-display text-4xl font-extrabold uppercase tracking-widest text-gold sm:text-5xl md:text-6xl">
+          Launching Soon
+        </span>
 
-        <h1 className="mt-5 text-balance font-display text-4xl leading-[1.1] text-spice sm:text-5xl md:text-6xl">
+        <h1 className="mt-5 text-balance font-display text-2xl leading-[1.15] text-spice sm:text-3xl md:text-4xl">
           Something delicious is on its way.
         </h1>
 
