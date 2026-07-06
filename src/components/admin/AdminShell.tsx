@@ -39,7 +39,7 @@ export function AdminShell({
   return (
     <div className="min-h-screen bg-cream">
       <header className="sticky top-0 z-30 border-b border-clay bg-cream/90 backdrop-blur">
-        <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-16 w-full max-w-400 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           {/* Centered label (mobile only) */}
           <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-lg font-semibold text-cocoa lg:hidden">
             Admin
@@ -55,7 +55,7 @@ export function AdminShell({
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-full px-3.5 py-2 text-[15px] font-semibold transition-colors",
+                    "rounded-full px-3.5 py-2 text-base font-semibold transition-colors",
                     isActive(item)
                       ? "bg-spice text-cream"
                       : "text-cocoa hover:bg-cocoa/5",
@@ -71,17 +71,17 @@ export function AdminShell({
           <div className="hidden items-center gap-3 lg:flex">
             <Link
               href="/"
-              className="flex cursor-pointer items-center gap-1.5 rounded-full border border-clay bg-sand/40 px-3.5 py-2 text-[15px] font-semibold text-cocoa transition-colors hover:border-spice hover:bg-spice/10 hover:text-spice"
+              className="flex cursor-pointer items-center gap-1.5 rounded-full border border-clay bg-sand/40 px-3.5 py-2 text-base font-semibold text-cocoa transition-colors hover:border-spice hover:bg-spice/10 hover:text-spice"
             >
               View store <IconArrowUpRight className="h-4 w-4" />
             </Link>
-            <span className="hidden text-[15px] font-medium text-cocoa-soft xl:inline">
+            <span className="hidden text-base font-medium text-cocoa-soft xl:inline">
               {email}
             </span>
             <button
               type="button"
               onClick={signOut}
-              className="cursor-pointer rounded-full border border-clay px-3.5 py-2 text-[15px] font-semibold text-cocoa transition-colors hover:border-spice hover:text-spice"
+              className="cursor-pointer rounded-full border border-clay px-3.5 py-2 text-base font-semibold text-cocoa transition-colors hover:border-spice hover:text-spice"
             >
               Sign out
             </button>
@@ -120,14 +120,14 @@ export function AdminShell({
           )}
         >
           <div className="min-h-0 overflow-hidden border-t border-clay bg-cream">
-            <nav className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
+            <nav className="mx-auto flex w-full max-w-400 flex-col gap-1 px-4 py-3 sm:px-6">
               {NAV.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
                   className={cn(
-                    "rounded-xl px-4 py-2.5 text-[15px] font-semibold transition-colors",
+                    "rounded-xl px-4 py-2.5 text-base font-semibold transition-colors",
                     isActive(item)
                       ? "bg-spice text-cream"
                       : "text-cocoa hover:bg-cocoa/5",
@@ -146,14 +146,14 @@ export function AdminShell({
                 <Link
                   href="/"
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-center gap-1.5 rounded-full border border-clay bg-sand/40 px-3.5 py-2.5 text-[15px] font-semibold text-cocoa transition-colors hover:border-spice hover:bg-spice/10 hover:text-spice"
+                  className="flex items-center justify-center gap-1.5 rounded-full border border-clay bg-sand/40 px-3.5 py-2.5 text-base font-semibold text-cocoa transition-colors hover:border-spice hover:bg-spice/10 hover:text-spice"
                 >
                   View store <IconArrowUpRight className="h-4 w-4" />
                 </Link>
                 <button
                   type="button"
                   onClick={signOut}
-                  className="cursor-pointer rounded-full border border-clay px-3.5 py-2.5 text-[15px] font-semibold text-cocoa transition-colors hover:border-spice hover:text-spice"
+                  className="cursor-pointer rounded-full border border-clay px-3.5 py-2.5 text-base font-semibold text-cocoa transition-colors hover:border-spice hover:text-spice"
                 >
                   Sign out
                 </button>
@@ -163,7 +163,7 @@ export function AdminShell({
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
+      <main className="mx-auto max-w-400 px-4 py-8 sm:px-6 lg:px-8">{children}</main>
     </div>
   );
 }

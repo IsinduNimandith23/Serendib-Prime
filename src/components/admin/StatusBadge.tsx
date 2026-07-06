@@ -12,7 +12,7 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize",
+        "inline-flex rounded-full px-3 py-1 text-[13px] font-semibold capitalize",
         STYLES[status] ?? STYLES.pending,
       )}
     >

@@ -79,7 +79,7 @@ export function Navbar() {
         >
         <nav className="mx-auto flex h-16 max-w-352 items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
           <Link href="/" className="text-cocoa" aria-label="Serendib Prime - home">
-            <Logo className="h-11 sm:h-12" />
+            <Logo className="h-14 sm:h-16" />
           </Link>
 
           <div className="hidden items-center gap-1 rounded-full glass border border-clay/60 px-3 py-2 shadow-sm md:flex">
@@ -113,9 +113,9 @@ export function Navbar() {
               type="button"
               onClick={openCart}
               aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}
-              className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-cocoa transition-colors hover:bg-cocoa/5 hover:text-spice"
+              className="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-cocoa transition-colors hover:bg-cocoa/5 hover:text-spice"
             >
-              <IconBag className="h-6 w-6" />
+              <IconBag className="h-7 w-7" />
               {count > 0 && (
                 <motion.span
                   key={count}
@@ -137,9 +137,9 @@ export function Navbar() {
               }}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-cocoa transition-colors hover:bg-cocoa/5 md:hidden"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-cocoa transition-colors hover:bg-cocoa/5 md:hidden"
             >
-              {mobileOpen ? <IconX className="h-6 w-6" /> : <IconMenu className="h-6 w-6" />}
+              {mobileOpen ? <IconX className="h-7 w-7" /> : <IconMenu className="h-7 w-7" />}
             </button>
           </div>
         </nav>

@@ -38,7 +38,7 @@ function Card({
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-1.5 text-[15px]">
+    <div className="flex items-center justify-between gap-4 py-1.5 text-base">
       <span className="font-medium text-cocoa-soft">{label}</span>
       <span className="text-right font-medium text-cocoa">{value}</span>
     </div>
@@ -64,7 +64,7 @@ export default async function AdminOrderDetailPage({
       <div className="flex flex-wrap items-center gap-3">
         <Link
           href="/admin/orders"
-          className="inline-flex items-center gap-1 text-[15px] font-medium text-cocoa-soft transition-colors hover:text-spice"
+          className="inline-flex items-center gap-1 text-base font-medium text-cocoa-soft transition-colors hover:text-spice"
         >
           <IconArrowRight className="h-4 w-4 rotate-180" /> Orders
         </Link>
@@ -118,7 +118,7 @@ export default async function AdminOrderDetailPage({
               />
               <button
                 type="submit"
-                className="cursor-pointer rounded-full bg-spice px-5 py-2 text-[15px] font-semibold text-cream transition-colors hover:bg-spice-dark"
+                className="cursor-pointer rounded-full bg-spice px-5 py-2 text-base font-semibold text-cream transition-colors hover:bg-spice-dark"
               >
                 Update
               </button>
@@ -130,13 +130,13 @@ export default async function AdminOrderDetailPage({
         <div className="space-y-6">
           <Card title="Customer">
             <p className="font-semibold text-cocoa">{order.customer_name}</p>
-            <p className="mt-1 text-[15px] font-medium text-cocoa-soft">{order.email}</p>
-            <p className="text-[15px] font-medium text-cocoa-soft">{order.phone}</p>
+            <p className="mt-1 text-base font-medium text-cocoa-soft">{order.email}</p>
+            <p className="text-base font-medium text-cocoa-soft">{order.phone}</p>
           </Card>
 
           <Card title="Shipping address">
-            <p className="text-[15px] font-medium text-cocoa">{order.address}</p>
-            <p className="text-[15px] font-medium text-cocoa">
+            <p className="text-base font-medium text-cocoa">{order.address}</p>
+            <p className="text-base font-medium text-cocoa">
               {order.city}
               {order.postal_code ? `, ${order.postal_code}` : ""}
             </p>

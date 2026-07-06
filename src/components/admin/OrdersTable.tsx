@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { cn, formatLKR, formatSLDate, formatSLTime } from "@/lib/utils";
 import { StatusBadge } from "@/components/admin/StatusBadge";
@@ -41,11 +41,6 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
     });
   }, [orders, tab, query]);
 
-  // Reset to the first page whenever the filters change the result set.
-  useEffect(() => {
-    setPage(1);
-  }, [tab, query]);
-
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, pageCount);
   const paginated = filtered.slice(
@@ -63,9 +58,13 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
               <button
                 key={t.value}
                 type="button"
-                onClick={() => setTab(t.value)}
+                onClick={() => {
+                  setTab(t.value);
+                  // Filters change the result set, so jump back to page one.
+                  setPage(1);
+                }}
                 className={cn(
-                  "-mb-px cursor-pointer border-b-2 px-4 py-2.5 text-[15px] font-semibold transition-colors",
+                  "-mb-px cursor-pointer border-b-2 px-4 py-2.5 text-base font-semibold transition-colors",
                   active
                     ? "border-spice text-cocoa"
                     : "border-transparent text-cocoa-soft hover:text-cocoa",
@@ -82,9 +81,12 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
           <input
             type="search"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setPage(1);
+            }}
             placeholder="Search ref, name or email"
-            className="w-full rounded-full border border-clay bg-cream py-2 pl-9 pr-4 text-[15px] font-medium text-cocoa placeholder:font-normal placeholder:text-cocoa-soft focus-visible:border-spice focus-visible:outline-none"
+            className="w-full rounded-full border border-clay bg-cream py-2 pl-9 pr-4 text-base font-medium text-cocoa placeholder:font-normal placeholder:text-cocoa-soft focus-visible:border-spice focus-visible:outline-none"
           />
         </div>
       </div>
@@ -94,70 +96,98 @@ export function OrdersTable({ orders }: { orders: OrderRecord[] }) {
           {query.trim() ? "No orders match your search." : "No orders in this view."}
         </div>
       ) : (
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-clay bg-cream">
-          <table className="w-full min-w-180 text-left text-[15px]">
-            <thead>
-              <tr className="border-b border-clay text-xs font-semibold uppercase tracking-wide text-cocoa-soft">
-                <th className="px-5 py-3.5">Order</th>
-                <th className="px-5 py-3.5">Customer</th>
-                <th className="px-5 py-3.5">Date</th>
-                <th className="px-5 py-3.5">Total</th>
-                <th className="px-5 py-3.5">Payment</th>
-                <th className="px-5 py-3.5">Status</th>
-                <th className="px-5 py-3.5" />
-              </tr>
-            </thead>
-            <tbody>
-              {paginated.map((o) => {
-                const items = (o.items as CartItem[]) ?? [];
-                return (
-                  <tr
-                    key={o.id}
-                    className="border-b border-clay/60 last:border-0 transition-colors hover:bg-sand/40"
-                  >
-                    <td className="px-5 py-4 font-display font-semibold text-cocoa">
-                      {o.order_ref}
-                    </td>
-                    <td className="px-5 py-4">
-                      <div className="font-semibold text-cocoa">{o.customer_name}</div>
-                      <div className="text-sm text-cocoa-soft">{o.email}</div>
-                    </td>
-                    <td className="px-5 py-4 font-medium text-cocoa">
-                      <div>{formatSLDate(o.created_at)}</div>
-                      <div className="text-sm font-normal text-cocoa-soft">
-                        {formatSLTime(o.created_at)}
-                      </div>
-                    </td>
-                    <td className="px-5 py-4 font-semibold text-cocoa">
-                      {formatLKR(Number(o.total))}
-                    </td>
-                    <td className="px-5 py-4">
-                      <span className="rounded-full border border-clay bg-sand/60 px-2.5 py-1 text-xs font-semibold text-cocoa-soft">
-                        {PAYMENT_LABELS[o.payment_method] ?? o.payment_method}
-                      </span>
-                    </td>
-                    <td className="px-5 py-4">
-                      <StatusBadge status={o.status} />
-                    </td>
-                    <td className="px-5 py-4 text-right">
-                      <Link
-                        href={`/admin/orders/${o.order_ref}`}
-                        className="inline-flex items-center gap-1 text-[15px] font-semibold text-spice hover:text-spice-dark"
-                        title={`${items.length} item${items.length === 1 ? "" : "s"}`}
-                      >
-                        View <IconArrowRight className="h-4 w-4" />
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <>
+          {/* Mobile: stacked list */}
+          <ul className="mt-4 divide-y divide-clay overflow-hidden rounded-2xl border border-clay bg-cream sm:hidden">
+            {paginated.map((o) => (
+              <li key={o.id}>
+                <Link
+                  href={`/admin/orders/${o.order_ref}`}
+                  className="flex items-center justify-between gap-3 px-5 py-4"
+                >
+                  <div className="min-w-0">
+                    <p className="font-display font-semibold text-cocoa">{o.order_ref}</p>
+                    <p className="truncate text-sm font-medium text-cocoa">{o.customer_name}</p>
+                    <p className="mt-0.5 text-sm text-cocoa-soft">
+                      {formatSLDate(o.created_at)} · {formatSLTime(o.created_at)} ·{" "}
+                      {PAYMENT_LABELS[o.payment_method] ?? o.payment_method}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-end gap-1.5">
+                    <span className="font-semibold text-cocoa">{formatLKR(Number(o.total))}</span>
+                    <StatusBadge status={o.status} />
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop: table */}
+          <div className="mt-4 hidden overflow-x-auto rounded-2xl border border-clay bg-cream sm:block">
+            <table className="w-full min-w-180 text-left text-base">
+              <thead>
+                <tr className="border-b border-clay text-[13px] font-semibold uppercase tracking-wide text-cocoa-soft">
+                  <th className="px-5 py-3.5">Order</th>
+                  <th className="px-5 py-3.5">Customer</th>
+                  <th className="px-5 py-3.5">Date</th>
+                  <th className="px-5 py-3.5">Total</th>
+                  <th className="px-5 py-3.5">Payment</th>
+                  <th className="px-5 py-3.5">Status</th>
+                  <th className="px-5 py-3.5" />
+                </tr>
+              </thead>
+              <tbody>
+                {paginated.map((o) => {
+                  const items = (o.items as CartItem[]) ?? [];
+                  return (
+                    <tr
+                      key={o.id}
+                      className="border-b border-clay/60 last:border-0 transition-colors hover:bg-sand/40"
+                    >
+                      <td className="px-5 py-4 font-display font-semibold text-cocoa">
+                        {o.order_ref}
+                      </td>
+                      <td className="px-5 py-4">
+                        <div className="font-semibold text-cocoa">{o.customer_name}</div>
+                        <div className="text-sm text-cocoa-soft">{o.email}</div>
+                      </td>
+                      <td className="px-5 py-4 font-medium text-cocoa">
+                        <div>{formatSLDate(o.created_at)}</div>
+                        <div className="text-sm font-normal text-cocoa-soft">
+                          {formatSLTime(o.created_at)}
+                        </div>
+                      </td>
+                      <td className="px-5 py-4 font-semibold text-cocoa">
+                        {formatLKR(Number(o.total))}
+                      </td>
+                      <td className="px-5 py-4">
+                        <span className="rounded-full border border-clay bg-sand/60 px-2.5 py-1 text-xs font-semibold text-cocoa-soft">
+                          {PAYMENT_LABELS[o.payment_method] ?? o.payment_method}
+                        </span>
+                      </td>
+                      <td className="px-5 py-4">
+                        <StatusBadge status={o.status} />
+                      </td>
+                      <td className="px-5 py-4 text-right">
+                        <Link
+                          href={`/admin/orders/${o.order_ref}`}
+                          className="inline-flex items-center gap-1 text-base font-semibold text-spice hover:text-spice-dark"
+                          title={`${items.length} item${items.length === 1 ? "" : "s"}`}
+                        >
+                          View <IconArrowRight className="h-4 w-4" />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       {filtered.length > 0 && (
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-[15px] font-medium text-cocoa-soft">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-base font-medium text-cocoa-soft">
           <span>
             Showing {(currentPage - 1) * PAGE_SIZE + 1}–
             {Math.min(currentPage * PAGE_SIZE, filtered.length)} of {filtered.length}

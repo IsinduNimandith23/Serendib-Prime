@@ -31,7 +31,7 @@ export function StatusSelect({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-44 cursor-pointer items-center justify-between gap-2 rounded-full border border-clay bg-cream px-4 py-2 text-[15px] font-semibold capitalize text-cocoa transition-colors hover:border-spice focus-visible:outline-spice"
+        className="flex w-44 cursor-pointer items-center justify-between gap-2 rounded-full border border-clay bg-cream px-4 py-2 text-base font-semibold capitalize text-cocoa transition-colors hover:border-spice focus-visible:outline-spice"
       >
         {value}
         <IconChevronDown
@@ -52,7 +52,7 @@ export function StatusSelect({
                     setOpen(false);
                   }}
                   className={cn(
-                    "w-full cursor-pointer rounded-xl px-3 py-2 text-left text-[15px] font-medium capitalize transition-colors",
+                    "w-full cursor-pointer rounded-xl px-3 py-2 text-left text-base font-medium capitalize transition-colors",
                     active
                       ? "bg-spice text-cream"
                       : "text-cocoa hover:bg-sand/60",

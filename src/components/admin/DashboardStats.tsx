@@ -8,9 +8,11 @@ import type { OrderRecord } from "@/lib/types";
 export function DashboardStats({
   orders,
   activeProducts,
+  heading,
 }: {
   orders: OrderRecord[];
   activeProducts: number;
+  heading?: React.ReactNode;
 }) {
   const [month, setMonth] = useState("all");
   const [open, setOpen] = useState(false);
@@ -55,53 +57,58 @@ export function DashboardStats({
   ];
 
   return (
-    <div className="mt-8">
-      <div ref={ref} className="relative flex justify-end">
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          className="flex w-44 cursor-pointer items-center justify-between gap-2 rounded-full border border-clay bg-cream px-4 py-2 text-[15px] font-semibold text-cocoa transition-colors hover:border-spice focus-visible:outline-spice"
-        >
-          {selected.label}
-          <IconChevronDown
-            className={cn("h-4 w-4 text-cocoa-soft transition-transform", open && "rotate-180")}
-          />
-        </button>
+    <div>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        {heading}
+        <div ref={ref} className="relative w-full sm:w-auto">
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-full border border-clay bg-cream px-4 py-2 text-base font-semibold text-cocoa transition-colors hover:border-spice focus-visible:outline-spice sm:w-44"
+          >
+            {selected.label}
+            <IconChevronDown
+              className={cn("h-4 w-4 text-cocoa-soft transition-transform", open && "rotate-180")}
+            />
+          </button>
 
-        {open && (
-          <ul className="absolute right-0 top-full z-10 mt-2 max-h-72 w-44 overflow-y-auto rounded-2xl border border-clay bg-cream p-1 shadow-lg shadow-cocoa/5">
-            {options.map((opt) => {
-              const active = opt.value === month;
-              return (
-                <li key={opt.value}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setMonth(opt.value);
-                      setOpen(false);
-                    }}
-                    className={cn(
-                      "w-full cursor-pointer rounded-xl px-3 py-2 text-left text-[15px] font-medium transition-colors",
-                      active ? "bg-spice text-cream" : "text-cocoa hover:bg-sand/60",
-                    )}
-                  >
-                    {opt.label}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+          {open && (
+            <ul className="absolute right-0 top-full z-10 mt-2 max-h-72 w-full overflow-y-auto rounded-2xl border border-clay bg-cream p-1 shadow-lg shadow-cocoa/5 sm:w-44">
+              {options.map((opt) => {
+                const active = opt.value === month;
+                return (
+                  <li key={opt.value}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMonth(opt.value);
+                        setOpen(false);
+                      }}
+                      className={cn(
+                        "w-full cursor-pointer rounded-xl px-3 py-2 text-left text-base font-medium transition-colors",
+                        active ? "bg-spice text-cream" : "text-cocoa hover:bg-sand/60",
+                      )}
+                    >
+                      {opt.label}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </div>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {stats.map(({ label, value, Icon, scoped }) => (
-          <div key={label} className="rounded-2xl border border-clay bg-cream p-5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-spice/10 text-spice">
-              <Icon className="h-5 w-5" />
+          <div key={label} className="rounded-2xl border border-clay bg-cream p-4 sm:p-5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-spice/10 text-spice sm:h-10 sm:w-10">
+              <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
             </span>
-            <p className="mt-4 font-display text-3xl font-semibold text-cocoa">{value}</p>
-            <p className="text-[15px] font-medium text-cocoa-soft">
+            <p className="mt-3 font-display text-2xl font-semibold text-cocoa sm:mt-4 sm:text-4xl">
+              {value}
+            </p>
+            <p className="mt-0.5 text-sm font-semibold text-cocoa-soft sm:text-base">
               {label}
               {scoped && month !== "all" && (
                 <span className="font-normal"> · {selected.label}</span>

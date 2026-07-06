@@ -9,7 +9,7 @@ export default async function AdminOrdersPage() {
   return (
     <div>
       <h1 className="font-display text-3xl font-semibold text-cocoa">Orders</h1>
-      <p className="mt-1 text-[15px] text-cocoa-soft">
+      <p className="mt-1 text-base text-cocoa-soft">
         {orders.length} order{orders.length === 1 ? "" : "s"}
       </p>
 
