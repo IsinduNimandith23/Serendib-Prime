@@ -1,5 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
 import { getProducts } from "@/lib/data";
+import { sendOrderPlacedEmails } from "@/lib/email";
 import { createOrder } from "@/lib/orders";
 import { shippingFor } from "@/lib/shipping";
 import { makeOrderRef } from "@/lib/utils";
@@ -109,7 +110,27 @@ export async function POST(request: NextRequest) {
 
   // COD / bank transfer skip the gateway entirely - the order is recorded as
   // pending and confirmed manually by an admin once payment is received.
+  // PayHere orders are emailed from the notify webhook once payment succeeds.
   if (paymentMethod !== "payhere") {
+    if (persisted) {
+      after(() =>
+        sendOrderPlacedEmails({
+          orderRef,
+          customerName: customer.name,
+          email: customer.email,
+          phone: customer.phone,
+          address: customer.address,
+          city: customer.city,
+          postalCode: customer.postalCode ?? "",
+          items: validated,
+          subtotal,
+          shipping,
+          total,
+          paymentMethod,
+          bankAccount,
+        }),
+      );
+    }
     return NextResponse.json({ mode: "manual", orderRef, persisted, total });
   }
 

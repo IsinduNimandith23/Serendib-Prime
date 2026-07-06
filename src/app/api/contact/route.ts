@@ -1,4 +1,5 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
+import { sendContactEmail } from "@/lib/email";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Persist to a `messages` table when Supabase is configured; safe to ignore
-  // if the table doesn't exist yet. Wire up an email notification in production.
+  // if the table doesn't exist yet.
   const admin = createSupabaseAdminClient();
   if (admin) {
     try {
@@ -28,6 +29,9 @@ export async function POST(request: NextRequest) {
   } else {
     console.log("Contact message (demo):", { name, email });
   }
+
+  // Forward to the store inbox without delaying the response.
+  after(() => sendContactEmail({ name, email, message }));
 
   return NextResponse.json({ ok: true });
 }

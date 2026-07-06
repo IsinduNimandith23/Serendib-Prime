@@ -38,6 +38,26 @@ export function formatSLTime(value: string | Date): string {
   });
 }
 
+/** Year-month key of a timestamp in Sri Lanka time, e.g. "2026-06". */
+export function slMonthKey(value: string | Date): string {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: SL_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+  }).formatToParts(new Date(value));
+  const part = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return `${part("year")}-${part("month")}`;
+}
+
+/** Format a timestamp as a Sri Lanka month name, e.g. "June 2026". */
+export function formatSLMonth(value: string | Date): string {
+  return new Date(value).toLocaleDateString("en-LK", {
+    timeZone: SL_TIME_ZONE,
+    month: "long",
+    year: "numeric",
+  });
+}
+
 /** Generate a human-friendly order reference, e.g. "CPC-7F3K9Q". */
 export function makeOrderRef(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

@@ -1,25 +1,15 @@
 import Link from "next/link";
 import { getOrders } from "@/lib/orders";
 import { getAdminProducts } from "@/lib/data";
-import { formatLKR, formatSLDate } from "@/lib/utils";
+import { formatLKR, formatSLDate, formatSLTime } from "@/lib/utils";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { IconBag, IconTruck, IconClock, IconArrowRight } from "@/components/icons";
+import { DashboardStats } from "@/components/admin/DashboardStats";
+import { IconArrowRight } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   const [orders, products] = await Promise.all([getOrders(), getAdminProducts()]);
-
-  const paid = orders.filter((o) => o.status === "paid");
-  const pending = orders.filter((o) => o.status === "pending");
-  const revenue = paid.reduce((sum, o) => sum + Number(o.total), 0);
-
-  const stats = [
-    { label: "Total orders", value: orders.length.toString(), Icon: IconBag },
-    { label: "Revenue (paid)", value: formatLKR(revenue), Icon: IconTruck },
-    { label: "Awaiting payment", value: pending.length.toString(), Icon: IconClock },
-    { label: "Active products", value: products.filter((p) => p.inStock).length.toString(), Icon: IconBag },
-  ];
 
   return (
     <div>
@@ -28,17 +18,10 @@ export default async function AdminDashboard() {
         <p className="mt-1 text-[15px] text-cocoa-soft">Welcome back - here&apos;s your store at a glance.</p>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map(({ label, value, Icon }) => (
-          <div key={label} className="rounded-2xl border border-clay bg-cream p-5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-spice/10 text-spice">
-              <Icon className="h-5 w-5" />
-            </span>
-            <p className="mt-4 font-display text-3xl font-semibold text-cocoa">{value}</p>
-            <p className="text-[15px] font-medium text-cocoa-soft">{label}</p>
-          </div>
-        ))}
-      </div>
+      <DashboardStats
+        orders={orders}
+        activeProducts={products.filter((p) => p.inStock).length}
+      />
 
       <div className="mt-10 rounded-2xl border border-clay bg-cream">
         <div className="flex items-center justify-between border-b border-clay px-5 py-4">
@@ -77,7 +60,8 @@ export default async function AdminDashboard() {
                       <StatusBadge status={o.status} />
                     </td>
                     <td className="px-5 py-3.5 font-medium text-cocoa-soft">
-                      {formatSLDate(o.created_at)}
+                      <div>{formatSLDate(o.created_at)}</div>
+                      <div className="text-sm font-normal">{formatSLTime(o.created_at)}</div>
                     </td>
                   </tr>
                 ))}

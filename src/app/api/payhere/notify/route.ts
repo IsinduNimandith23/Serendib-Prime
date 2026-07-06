@@ -1,5 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { markOrderStatus } from "@/lib/orders";
+import { after, NextResponse, type NextRequest } from "next/server";
+import { orderEmailDataFromRecord, sendOrderPaidEmails } from "@/lib/email";
+import { getOrderByRef, markOrderStatus } from "@/lib/orders";
 import {
   payhereStatusToOrderStatus,
   verifyNotifySignature,
@@ -39,7 +40,14 @@ export async function POST(request: NextRequest) {
   }
 
   const status = payhereStatusToOrderStatus(statusCode);
+  // Snapshot the order before updating so we only email on the transition to
+  // "paid" - PayHere retries notifications, and retries must not re-send.
+  const order = await getOrderByRef(orderId);
   await markOrderStatus(orderId, status, paymentId || undefined);
+
+  if (status === "paid" && order && order.status !== "paid") {
+    after(() => sendOrderPaidEmails(orderEmailDataFromRecord(order)));
+  }
 
   // PayHere expects a 200 acknowledgement.
   return new NextResponse("OK", { status: 200 });
