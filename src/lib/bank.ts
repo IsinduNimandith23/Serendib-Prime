@@ -17,16 +17,16 @@ export interface BankAccount {
 
 const ACCOUNTS: Omit<BankAccount, "id">[] = [
   {
-    bankName: "Bank of Ceylon",
-    accountName: "Serendib Prime (Pvt) Ltd",
-    accountNumber: "0012345678",
-    branch: "Colombo Main",
+    bankName: "Commercial Bank",
+    accountName: "Serendib Prime Seafood (Pvt) Ltd",
+    accountNumber: "1000493465",
+    branch: "Negombo",
   },
   {
-    bankName: "Commercial Bank",
-    accountName: "Serendib Prime (Pvt) Ltd",
-    accountNumber: "0012387654",
-    branch: "Homagama",
+    bankName: "HNB Bank",
+    accountName: "Serendib Prime Seafood (Pvt) Ltd",
+    accountNumber: "024010044632",
+    branch: "Negombo",
   },
 ];
 
@@ -40,7 +40,7 @@ export function getBankAccountById(id: string): BankAccount | undefined {
   return getBankAccounts().find((a) => a.id === id);
 }
 
-/** Short human label stored on the order, e.g. "BOC · 1234567890". */
+/** Short human label stored on the order, e.g. "Commercial Bank · 1000493465". */
 export function bankAccountLabel(account: BankAccount): string {
   return `${account.bankName} · ${account.accountNumber}`;
 }
