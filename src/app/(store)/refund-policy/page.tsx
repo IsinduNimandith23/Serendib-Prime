@@ -22,7 +22,7 @@ export default function RefundPolicyPage() {
         title="Refund & Return Policy"
         intro="Thank you for shopping with Serendib Prime - Sri Lanka's trusted range of premium ready-to-eat canned seafood products. Please read this policy carefully before placing your order."
       >
-        <p className="text-sm text-cocoa-soft/80">Last updated: June 23, 2026</p>
+        <p className="text-sm text-cocoa-soft/80">Last updated: July 10, 2026</p>
       </PageHero>
 
       <LegalBody>
@@ -65,7 +65,22 @@ export default function RefundPolicyPage() {
           </p>
         </LegalSection>
 
-        <LegalSection n="3" title="Non-Returnable Items">
+        <LegalSection n="3" title="Refund Method">
+          <p>
+            All approved refunds are issued back to the original payment method
+            used at checkout - that is, the same payment-initiated media,
+            whether a credit/debit card, mobile wallet, or bank account -
+            through PayHere, our secure payment gateway. We do not issue
+            refunds in cash or to a different account or card.
+          </p>
+          <p>
+            Refunds are processed within 7 to 10 business days of approval.
+            Depending on your bank or card provider, it may take additional
+            time for the refunded amount to appear in your account.
+          </p>
+        </LegalSection>
+
+        <LegalSection n="4" title="Non-Returnable Items">
           <p>
             The following items cannot be returned or refunded under any
             circumstances:
@@ -80,16 +95,22 @@ export default function RefundPolicyPage() {
           />
         </LegalSection>
 
-        <LegalSection n="4" title="Order Cancellations">
+        <LegalSection n="5" title="Order Cancellations">
           <p>
             Orders cannot be cancelled once they have been confirmed and
             dispatched. If you wish to cancel before dispatch, please contact us
             immediately at the email above. Cancellation before dispatch is
             subject to availability and is not guaranteed.
           </p>
+          <p>
+            Where a cancellation is accepted and payment has already been made,
+            the refund will be issued to your original payment method (the
+            payment-initiated media) through PayHere, as described in Section 3
+            above.
+          </p>
         </LegalSection>
 
-        <LegalSection n="5" title="Delivery Issues">
+        <LegalSection n="6" title="Delivery Issues">
           <p>
             If your order has not arrived within 7 business days of dispatch,
             please contact us and we will investigate with our logistics
@@ -97,7 +118,7 @@ export default function RefundPolicyPage() {
           </p>
         </LegalSection>
 
-        <LegalSection n="6" title="Contact Us">
+        <LegalSection n="7" title="Contact Us">
           <p>
             For any concerns regarding your order, please reach out to us at{" "}
             <MailLink />. We aim to respond within 2 business days.

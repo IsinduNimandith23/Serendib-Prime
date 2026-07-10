@@ -22,7 +22,7 @@ export default function TermsPage() {
         title="Terms & Conditions"
         intro="These Terms & Conditions govern your use of the Serendib Prime website and your purchase of products from Serendib Prime. By placing an order, you agree to be bound by these terms."
       >
-        <p className="text-sm text-cocoa-soft/80">Last updated: June 23, 2026</p>
+        <p className="text-sm text-cocoa-soft/80">Last updated: July 10, 2026</p>
       </PageHero>
 
       <LegalBody>
@@ -67,7 +67,8 @@ export default function TermsPage() {
           <p>
             Orders are confirmed only upon successful payment. We reserve the
             right to cancel or refuse any order at our discretion, in which case
-            a full refund will be issued.
+            a full refund will be issued to your original payment method (the
+            payment-initiated media) through PayHere.
           </p>
           <p>
             All payments are processed securely through PayHere, our third-party
