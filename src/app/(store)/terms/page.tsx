@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
     "The terms governing your use of the Serendib Prime website and your purchase of our premium ready-to-eat canned seafood products.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

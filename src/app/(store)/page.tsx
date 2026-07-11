@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getFeaturedProducts } from "@/lib/data";
 import { Hero } from "@/components/home/Hero";
 import { Marquee } from "@/components/home/Marquee";
@@ -8,6 +9,11 @@ import { ReelsSection } from "@/components/home/ReelsSection";
 import { StorySection } from "@/components/home/StorySection";
 import { Testimonials } from "@/components/home/Testimonials";
 import { CTASection } from "@/components/home/CTASection";
+
+// Title/description inherit the root defaults, which are home-appropriate.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function HomePage() {
   const featured = await getFeaturedProducts();

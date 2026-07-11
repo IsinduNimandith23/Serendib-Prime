@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Refund & Return Policy",
   description:
     "How returns, refunds and order cancellations work at Serendib Prime. Due to the perishable nature of our products, all sales are final except for damaged or defective goods.",
+  alternates: { canonical: "/refund-policy" },
 };
 
 export default function RefundPolicyPage() {

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Karla } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -16,16 +18,8 @@ const karla = Karla({
   display: "swap",
 });
 
-// Prefer the explicit app URL, then Vercel's production domain, so og:image
-// and other absolute URLs resolve even before serendibprime.lk goes live.
-const baseUrl =
-  process.env.NEXT_PUBLIC_APP_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://serendibprime.lk");
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Serendib Prime - Premium Sri Lankan Tinned Seafood, Ready in Minutes",
     template: "%s · Serendib Prime",
@@ -50,6 +44,15 @@ export const metadata: Metadata = {
     description:
       "Ready-to-eat Sri Lankan tinned sprats - tempered & curried, sealed fresh. Ready in minutes.",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Serendib Prime - Premium Sri Lankan Tinned Seafood",
+    description:
+      "Ready-to-eat Sri Lankan tinned sprats - tempered & curried, sealed fresh. Ready in minutes.",
+  },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -63,7 +66,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${playfair.variable} ${karla.variable}`}>
-      <body className="flex min-h-screen flex-col" suppressHydrationWarning>{children}</body>
+      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Questions about our tinned sprats, wholesale or delivery? Get in touch with the Serendib Prime team.",
+  alternates: { canonical: "/contact" },
 };
 
 const DETAILS = [

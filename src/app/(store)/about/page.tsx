@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Our Story",
   description:
     "Serendib Prime captures the everyday flavour of the Sri Lankan coast - dried sprats tempered and curried in small batches, then sealed fresh. Real island taste, ready in minutes.",
+  alternates: { canonical: "/about" },
 };
 
 const STATS = [

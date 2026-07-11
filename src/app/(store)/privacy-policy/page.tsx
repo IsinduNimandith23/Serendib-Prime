@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How Serendib Prime collects, uses, and protects your personal information when you visit our website or place an order.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

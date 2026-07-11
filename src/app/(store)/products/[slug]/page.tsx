@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/data";
-import { PRODUCTS } from "@/lib/products";
+import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 import { formatLKR } from "@/lib/utils";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/motion";
 import { ProductImage } from "@/components/product/ProductImage";
@@ -20,8 +21,9 @@ import {
   IconLeaf,
 } from "@/components/icons";
 
-export function generateStaticParams() {
-  return PRODUCTS.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -32,10 +34,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return { title: "Product not found" };
+  const description =
+    `${product.shortDescription} ${product.tagline}. Net ${product.weight}, islandwide delivery in Sri Lanka.`.slice(
+      0,
+      160,
+    );
   return {
     title: product.name,
-    description: product.shortDescription,
-    openGraph: { title: product.name, description: product.shortDescription },
+    description,
+    alternates: { canonical: `/products/${slug}` },
+    // A page-level openGraph replaces the root's entirely (per-key shallow
+    // merge), so siteName/locale/type must be re-declared here.
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      locale: "en_LK",
+      url: `/products/${slug}`,
+      title: product.name,
+      description: product.shortDescription,
+      ...(product.image
+        ? { images: [{ url: product.image, alt: product.name }] }
+        : {}),
+    },
   };
 }
 
@@ -63,8 +83,41 @@ export default async function ProductDetailPage({
     ["Sodium", product.nutrition.sodium],
   ];
 
+  const productUrl = `${SITE_URL}/products/${product.slug}`;
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    name: product.name,
+    description: product.shortDescription,
+    ...(product.image ? { image: absoluteUrl(product.image) } : {}),
+    sku: product.id,
+    brand: { "@type": "Brand", name: SITE_NAME },
+    offers: {
+      "@type": "Offer",
+      url: productUrl,
+      priceCurrency: "LKR",
+      price: product.price,
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Shop", item: `${SITE_URL}/products` },
+      { "@type": "ListItem", position: 3, name: product.name },
+    ],
+  };
+
   return (
     <div className="pb-8">
+      <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       {/* Breadcrumb */}
       <Container className="pt-8">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-cocoa-soft">

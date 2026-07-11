@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Shop the Pantry",
   description:
     "Browse our range of ready-to-eat Sri Lankan tinned sprats - tempered sprats and dried sprats curries. Sealed fresh, ready in minutes.",
+  alternates: { canonical: "/products" },
 };
 
 export default async function ProductsPage({
