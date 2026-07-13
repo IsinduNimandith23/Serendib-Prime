@@ -1,0 +1,23 @@
+-- ============================================================
+-- Serendib Prime - Clear all orders (fresh start)
+-- Removes every test order so production starts with a clean
+-- orders table. Schema, RLS policies, and indexes are untouched.
+-- Paste into the Supabase SQL Editor and run.
+--
+-- NOTE: This does NOT delete uploaded bank-transfer receipts from
+-- the private 'payment-receipts' storage bucket. Clear those
+-- separately (see below) if you want a fully clean slate.
+-- ============================================================
+truncate table public.orders;
+
+-- ---------- Receipt files: delete via the dashboard, NOT SQL ----------
+-- Bank-transfer receipts live in the private 'payment-receipts' bucket.
+-- Supabase blocks direct DELETE from storage.objects
+-- (ERROR 42501: storage.protect_delete). Do NOT add such a line here --
+-- it will fail and, because the SQL Editor runs the whole script in one
+-- transaction, it would ROLL BACK the truncate above.
+--
+-- To clear the files, use one of:
+--   * Dashboard -> Storage -> payment-receipts bucket -> select -> Delete
+--   * The Storage API with the service-role key, e.g.:
+--       supabase.storage.from('payment-receipts').remove([ ...paths ])
