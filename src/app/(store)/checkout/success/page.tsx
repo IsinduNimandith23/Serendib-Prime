@@ -33,12 +33,13 @@ type View = "paid" | "pending" | "failed" | "demo" | "unknown";
 
 function viewFor(status: OrderStatus): View {
   switch (status) {
-    case "paid":
-      return "paid";
     case "pending":
       return "pending";
+    case "failed":
+    case "cancelled":
+      return "failed";
     default:
-      return "failed"; // failed | cancelled
+      return "paid"; // paid | processing | dispatched | completed
   }
 }
 

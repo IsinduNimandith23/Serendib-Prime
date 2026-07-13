@@ -1,6 +1,7 @@
 import { after, NextResponse, type NextRequest } from "next/server";
 import { orderEmailDataFromRecord, sendOrderPaidEmails } from "@/lib/email";
 import { getOrderByRef, markOrderStatus } from "@/lib/orders";
+import { FULFILLMENT_STATUSES } from "@/lib/order-status";
 import {
   payhereStatusToOrderStatus,
   verifyNotifySignature,
@@ -43,6 +44,17 @@ export async function POST(request: NextRequest) {
   // Snapshot the order before updating so we only email on the transition to
   // "paid" - PayHere retries notifications, and retries must not re-send.
   const order = await getOrderByRef(orderId);
+
+  // Once an order is paid the admin owns its fulfillment. A late or duplicate
+  // notify must not drag a processing/dispatched/completed order back to
+  // paid/pending (that would also re-send the confirmation emails). A genuine
+  // reversal (cancelled/failed, e.g. a chargeback) is still recorded.
+  const alreadyInFulfillment =
+    order != null && FULFILLMENT_STATUSES.includes(order.status);
+  if (alreadyInFulfillment && (status === "paid" || status === "pending")) {
+    return new NextResponse("OK", { status: 200 });
+  }
+
   await markOrderStatus(orderId, status, paymentId || undefined);
 
   if (status === "paid" && order && order.status !== "paid") {

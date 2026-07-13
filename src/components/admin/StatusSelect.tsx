@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { IconChevronDown } from "@/components/icons";
-import { ALL_ORDER_STATUSES } from "@/lib/order-status";
+import { MANUAL_ORDER_STATUSES } from "@/lib/order-status";
 import type { OrderStatus } from "@/lib/types";
 
 export function StatusSelect({
   defaultValue,
-  options = ALL_ORDER_STATUSES,
+  options = MANUAL_ORDER_STATUSES,
 }: {
   defaultValue: OrderStatus;
   options?: OrderStatus[];

@@ -54,7 +54,14 @@ export interface CartItem {
   quantity: number;
 }
 
-export type OrderStatus = "pending" | "paid" | "failed" | "cancelled";
+export type OrderStatus =
+  | "pending"
+  | "paid"
+  | "processing"
+  | "dispatched"
+  | "completed"
+  | "failed"
+  | "cancelled";
 
 /** How the customer chose to pay. */
 export type PaymentMethod = "cod" | "bank" | "payhere";

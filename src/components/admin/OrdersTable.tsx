@@ -19,6 +19,9 @@ const TABS: { value: "all" | OrderStatus; label: string }[] = [
   { value: "all", label: "All" },
   { value: "pending", label: "Pending" },
   { value: "paid", label: "Paid" },
+  { value: "processing", label: "Processing" },
+  { value: "dispatched", label: "Dispatched" },
+  { value: "completed", label: "Completed" },
   { value: "failed", label: "Failed" },
   { value: "cancelled", label: "Cancelled" },
 ];

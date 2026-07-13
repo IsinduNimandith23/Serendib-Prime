@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn, formatLKR, formatSLMonth, slMonthKey } from "@/lib/utils";
 import { IconBag, IconTruck, IconClock, IconChevronDown } from "@/components/icons";
+import { REVENUE_STATUSES } from "@/lib/order-status";
 import type { OrderRecord } from "@/lib/types";
 
 export function DashboardStats({
@@ -43,7 +44,7 @@ export function DashboardStats({
   const inPeriod =
     month === "all" ? orders : orders.filter((o) => slMonthKey(o.created_at) === month);
   const revenue = inPeriod
-    .filter((o) => o.status === "paid")
+    .filter((o) => REVENUE_STATUSES.includes(o.status))
     .reduce((sum, o) => sum + Number(o.total), 0);
   // Awaiting payment and active products are "right now" numbers, so the
   // month filter deliberately leaves them alone.
@@ -51,7 +52,7 @@ export function DashboardStats({
 
   const stats = [
     { label: "Total orders", value: inPeriod.length.toString(), Icon: IconBag, scoped: true },
-    { label: "Revenue (paid)", value: formatLKR(revenue), Icon: IconTruck, scoped: true },
+    { label: "Revenue", value: formatLKR(revenue), Icon: IconTruck, scoped: true },
     { label: "Awaiting payment", value: pending.toString(), Icon: IconClock, scoped: false },
     { label: "Active products", value: activeProducts.toString(), Icon: IconBag, scoped: false },
   ];
