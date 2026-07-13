@@ -4,6 +4,7 @@ import { sendOrderPlacedEmails } from "@/lib/email";
 import { createOrder } from "@/lib/orders";
 import { shippingFor } from "@/lib/shipping";
 import { makeOrderRef } from "@/lib/utils";
+import { ONLINE_PAYMENT_ENABLED } from "@/lib/site";
 import type { CartItem, PaymentMethod } from "@/lib/types";
 import {
   CURRENCY,
@@ -56,6 +57,13 @@ export async function POST(request: NextRequest) {
   const paymentMethod: PaymentMethod = PAYMENT_METHODS.includes(body.paymentMethod as PaymentMethod)
     ? (body.paymentMethod as PaymentMethod)
     : "payhere";
+
+  // Online card payment is switched off while the PayHere account is being
+  // verified. Reject any (e.g. stale/cached) request that still asks for it so
+  // no card order can slip through.
+  if (paymentMethod === "payhere" && !ONLINE_PAYMENT_ENABLED) {
+    return bad("Online payment is temporarily unavailable. Please choose bank transfer or cash on delivery.");
+  }
 
   // Bank transfers complete the payment up front: the customer must pick an
   // account and upload a receipt before placing the order.

@@ -19,6 +19,7 @@ import {
   IconChevronDown,
 } from "@/components/icons";
 import type { PaymentMethod } from "@/lib/types";
+import { ONLINE_PAYMENT_ENABLED } from "@/lib/site";
 
 type Customer = {
   name: string;
@@ -64,8 +65,21 @@ const ALL_PAYMENT_OPTIONS: PaymentOption[] = [
 export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }) {
   const router = useRouter();
   const { items, clear } = useCart();
+
+  // Bank transfer is hidden entirely when no owner accounts are configured.
+  // Online payment stays visible but is shown disabled ("coming soon") while
+  // PayHere is switched off, so it can't be selected. The default method is the
+  // first option that is actually selectable.
+  const paymentOptions = ALL_PAYMENT_OPTIONS.filter(
+    (o) => o.value !== "bank" || bankAccounts.length > 0,
+  );
+  const isMethodDisabled = (value: PaymentMethod) =>
+    value === "payhere" && !ONLINE_PAYMENT_ENABLED;
+
   const [form, setForm] = useState<Customer>(EMPTY);
-  const [method, setMethod] = useState<PaymentMethod>("payhere");
+  const [method, setMethod] = useState<PaymentMethod>(
+    paymentOptions.find((o) => !isMethodDisabled(o.value))?.value ?? "cod",
+  );
   const [bankAccountId, setBankAccountId] = useState<string>(bankAccounts[0]?.id ?? "");
   const [receipt, setReceipt] = useState<File | null>(null);
   const [receiptError, setReceiptError] = useState<string | null>(null);
@@ -82,10 +96,6 @@ export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }
   const shipping = shippingFor(subtotal);
   const total = subtotal + shipping;
 
-  // Hide bank transfer entirely when no owner accounts are configured.
-  const paymentOptions = ALL_PAYMENT_OPTIONS.filter(
-    (o) => o.value !== "bank" || bankAccounts.length > 0,
-  );
   const selectedAccount = bankAccounts.find((a) => a.id === bankAccountId);
 
   // Bank transfers need an account picked and a receipt attached before placing.
@@ -285,29 +295,47 @@ export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }
               Payment method
             </legend>
             <div className="space-y-3">
-              {paymentOptions.map((opt) => (
-                <label
-                  key={opt.value}
-                  className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition-colors ${
-                    method === opt.value
-                      ? "border-spice bg-spice/5"
-                      : "border-clay hover:border-cocoa-soft/40"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value={opt.value}
-                    checked={method === opt.value}
-                    onChange={() => setMethod(opt.value)}
-                    className="mt-1 h-4 w-4 shrink-0 accent-spice"
-                  />
-                  <span>
-                    <span className="block text-sm font-medium text-cocoa">{opt.label}</span>
-                    <span className="block text-sm text-cocoa-soft">{opt.description}</span>
-                  </span>
-                </label>
-              ))}
+              {paymentOptions.map((opt) => {
+                const disabled = isMethodDisabled(opt.value);
+                return (
+                  <label
+                    key={opt.value}
+                    aria-disabled={disabled}
+                    className={`flex items-start gap-3 rounded-2xl border p-4 transition-colors ${
+                      disabled
+                        ? "cursor-not-allowed border-clay bg-sand/30 opacity-70"
+                        : method === opt.value
+                          ? "cursor-pointer border-spice bg-spice/5"
+                          : "cursor-pointer border-clay hover:border-cocoa-soft/40"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value={opt.value}
+                      checked={method === opt.value}
+                      onChange={() => setMethod(opt.value)}
+                      disabled={disabled}
+                      className="mt-1 h-4 w-4 shrink-0 accent-spice disabled:cursor-not-allowed"
+                    />
+                    <span className="min-w-0">
+                      <span className="flex flex-wrap items-center gap-2">
+                        <span className="text-sm font-medium text-cocoa">{opt.label}</span>
+                        {disabled && (
+                          <span className="rounded-full bg-cocoa/10 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-cocoa-soft">
+                            Coming soon
+                          </span>
+                        )}
+                      </span>
+                      <span className="mt-0.5 block text-sm text-cocoa-soft">
+                        {disabled
+                          ? "Temporarily unavailable - we're finalising secure card payments."
+                          : opt.description}
+                      </span>
+                    </span>
+                  </label>
+                );
+              })}
             </div>
 
             {/* Bank transfer: pick an account, see the reference, upload receipt. */}
