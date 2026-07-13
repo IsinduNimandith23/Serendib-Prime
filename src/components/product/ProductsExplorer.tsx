@@ -9,13 +9,12 @@ import { IconSearch, IconSliders, IconX } from "@/components/icons";
 
 const CATEGORIES = ["All", "Tempered", "Curries"] as const;
 
-type Sort = "featured" | "price-asc" | "price-desc" | "rating";
+type Sort = "featured" | "price-asc" | "price-desc";
 
 const SORTS: { value: Sort; label: string }[] = [
   { value: "featured", label: "Featured" },
   { value: "price-asc", label: "Price: low to high" },
   { value: "price-desc", label: "Price: high to low" },
-  { value: "rating", label: "Top rated" },
 ];
 
 export function ProductsExplorer({
@@ -74,15 +73,11 @@ export function ProductsExplorer({
       case "price-desc":
         sorted.sort((a, b) => b.price - a.price);
         break;
-      case "rating":
-        sorted.sort((a, b) => b.rating - a.rating);
-        break;
       default:
         sorted.sort(
           (a, b) =>
             Number(b.inStock) - Number(a.inStock) ||
-            Number(b.featured) - Number(a.featured) ||
-            b.rating - a.rating,
+            Number(b.featured) - Number(a.featured),
         );
     }
     return sorted;

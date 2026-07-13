@@ -5,7 +5,6 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { Stars } from "@/components/product/Stars";
 
 const REVIEWS = [
   {
@@ -36,8 +35,7 @@ const TRACK_COPIES = 6;
 function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
   return (
     <SpotlightCard className="flex h-full flex-col rounded-3xl border border-clay bg-cream p-7 transition-colors hover:border-spice/30">
-      <Stars rating={5} />
-      <p className="mt-4 flex-1 text-base leading-relaxed text-cocoa">
+      <p className="flex-1 text-base leading-relaxed text-cocoa">
         “{review.quote}”
       </p>
       <div className="mt-6 border-t border-clay pt-4">

@@ -27,8 +27,6 @@ create table if not exists public.products (
   featured           boolean not null default false,
   active             boolean not null default true,
   in_stock           boolean not null default true,
-  rating             numeric not null default 0,
-  reviews            int not null default 0,
   sort_order         int not null default 100,
   created_at         timestamptz not null default now()
 );

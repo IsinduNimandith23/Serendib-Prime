@@ -33,8 +33,6 @@ function rowToProduct(row: any): Product {
     servingSuggestion: row.serving_suggestion ?? "",
     featured: Boolean(row.featured),
     inStock: row.in_stock ?? true,
-    rating: Number(row.rating ?? 0),
-    reviews: Number(row.reviews ?? 0),
     active: row.active ?? true,
     sortOrder: row.sort_order ?? 100,
   };

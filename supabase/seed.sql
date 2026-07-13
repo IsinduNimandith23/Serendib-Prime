@@ -8,7 +8,7 @@ insert into public.products
   (slug, name, name_si, name_ta, tagline, image_url, category, price, weight,
    short_description, description, ingredients, nutrition, spice_level, badges,
    accent, prep_steps, serving_suggestion, featured, active, in_stock,
-   rating, reviews, sort_order)
+   sort_order)
 values
 (
   'tempered-sprats', 'Tempered Sprats',
@@ -21,7 +21,7 @@ values
   $${"servingSize":"100g","calories":210,"protein":"22g","carbs":"7g","fat":"11g","sodium":"640mg"}$$::jsonb,
   3, $$["Ready to Eat","No Preservatives","High Protein"]$$::jsonb, '#f15b2b',
   $$["Open the easy-peel tin","Eat as-is, or warm in a pan for 1–2 minutes","Finish with a squeeze of lime"]$$::jsonb,
-  $$Brilliant with rice and dhal, or stuffed into a warm roll.$$, true, true, true, 4.9, 188, 1
+  $$Brilliant with rice and dhal, or stuffed into a warm roll.$$, true, true, true, 1
 ),
 (
   'dried-sprats-curry', 'Dried Sprats Curry',
@@ -34,7 +34,7 @@ values
   $${"servingSize":"100g","calories":190,"protein":"20g","carbs":"8g","fat":"9g","sodium":"610mg"}$$::jsonb,
   2, $$["Ready to Eat","No Preservatives","Heat & Serve"]$$::jsonb, '#074a6d',
   $$["Empty into a saucepan","Warm through for 2–3 minutes","Serve hot with rice or bread"]$$::jsonb,
-  $$Lovely with red rice, pol sambol and a coconut roti.$$, true, true, true, 4.8, 154, 2
+  $$Lovely with red rice, pol sambol and a coconut roti.$$, true, true, true, 2
 ),
 (
   'dried-sprats-curry-premium', 'Dried Sprats Curry - Premium',
@@ -47,5 +47,5 @@ values
   $${"servingSize":"100g","calories":240,"protein":"19g","carbs":"9g","fat":"15g","sodium":"560mg"}$$::jsonb,
   2, $$["Premium","Ready to Eat","Coconut-Rich"]$$::jsonb, '#229ba7',
   $$["Tip into a pan","Warm gently for 2–3 minutes - do not boil hard","Serve with rice, hoppers or string hoppers"]$$::jsonb,
-  $$Beautiful over steamed rice or with soft hoppers.$$, true, true, true, 5.0, 96, 3
+  $$Beautiful over steamed rice or with soft hoppers.$$, true, true, true, 3
 );

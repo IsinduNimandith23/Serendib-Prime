@@ -11,7 +11,7 @@ The two priorities: **showcase the product details beautifully** and **take paym
 ## ✨ Features
 
 - **Elegant, fast storefront** - animated hero, bestsellers, story, categories, testimonials. Animations are transform/opacity only and respect `prefers-reduced-motion`, so they're smooth on any device.
-- **Rich product pages** - full descriptions, ingredients, nutrition table, prep steps, spice meter, ratings.
+- **Rich product pages** - full descriptions, ingredients, nutrition table, prep steps, spice meter.
 - **Cart + slide-out drawer** with free-shipping progress, persisted to `localStorage`.
 - **PayHere checkout** - server-side hash generation and a verified payment-notification webhook.
 - **Custom admin dashboard** - Supabase-auth login, product CRUD, order management.

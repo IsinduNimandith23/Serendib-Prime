@@ -50,8 +50,6 @@ export const PRODUCTS: Product[] = [
     servingSuggestion: "Brilliant with rice and dhal, or stuffed into a warm roll.",
     featured: true,
     inStock: true,
-    rating: 4.9,
-    reviews: 188,
   },
   {
     id: "dried-sprats-curry",
@@ -96,8 +94,6 @@ export const PRODUCTS: Product[] = [
     servingSuggestion: "Lovely with red rice, pol sambol and a coconut roti.",
     featured: true,
     inStock: true,
-    rating: 4.8,
-    reviews: 154,
   },
   {
     id: "dried-sprats-curry-premium",
@@ -142,8 +138,6 @@ export const PRODUCTS: Product[] = [
     servingSuggestion: "Beautiful over steamed rice or with soft hoppers.",
     featured: true,
     inStock: true,
-    rating: 5.0,
-    reviews: 96,
   },
 ];
 

@@ -38,8 +38,6 @@ export interface Product {
   servingSuggestion: string;
   featured: boolean;
   inStock: boolean;
-  rating: number;
-  reviews: number;
   /** DB-only fields (optional on the seed catalogue). */
   active?: boolean;
   sortOrder?: number;
