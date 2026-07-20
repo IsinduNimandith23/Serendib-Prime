@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  cartSubtotal,
-  shippingFor,
-  FREE_SHIPPING_THRESHOLD,
-  useCart,
-} from "@/lib/cart-store";
+import { cartSubtotal, shippingFor, useCart } from "@/lib/cart-store";
 import { formatLKR } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { buttonClass } from "@/components/ui/Button";
@@ -17,14 +12,12 @@ import {
   IconBag,
   IconTrash,
   IconLock,
-  IconTruck,
 } from "@/components/icons";
 
 export default function CartPage() {
   const { items, setQuantity, removeItem } = useCart();
   const subtotal = cartSubtotal(items);
   const shipping = shippingFor(subtotal);
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
   if (items.length === 0) {
     return (
@@ -115,16 +108,8 @@ export default function CartPage() {
             </div>
             <div className="flex justify-between">
               <dt className="text-cocoa-soft">Delivery</dt>
-              <dd className="font-medium text-cocoa">
-                {shipping === 0 ? "Free" : formatLKR(shipping)}
-              </dd>
+              <dd className="font-medium text-cocoa">{formatLKR(shipping)}</dd>
             </div>
-            {remaining > 0 && (
-              <p className="flex items-center gap-2 rounded-xl bg-cream px-3 py-2 text-xs text-cocoa-soft">
-                <IconTruck className="h-4 w-4 text-leaf" />
-                Add {formatLKR(remaining)} more for free delivery
-              </p>
-            )}
           </dl>
           <div className="mt-4 flex items-center justify-between border-t border-clay pt-4">
             <span className="font-display text-lg font-semibold text-cocoa">Total</span>

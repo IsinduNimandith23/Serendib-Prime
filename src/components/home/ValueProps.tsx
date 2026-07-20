@@ -27,7 +27,7 @@ const PROPS = [
   {
     Icon: IconTruck,
     title: "Islandwide delivery",
-    text: "Shipped within 24 hours in protective packaging, with free delivery on orders over Rs 5,000.",
+    text: "Shipped within 24 hours in protective packaging, with flat-rate delivery anywhere in Sri Lanka.",
   },
 ];
 

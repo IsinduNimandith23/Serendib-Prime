@@ -199,7 +199,7 @@ export default async function ProductDetailPage({
 
             <div className="mt-5 flex items-center justify-center gap-2 rounded-2xl bg-sand/60 px-4 py-3 text-sm text-cocoa-soft">
               <IconLock className="h-4 w-4 text-leaf" />
-              Secure checkout via PayHere · Free delivery over Rs 5,000
+              Secure checkout via PayHere · Islandwide delivery
             </div>
 
             {/* Detail sections */}

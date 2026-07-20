@@ -4,24 +4,17 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { cn, formatLKR } from "@/lib/utils";
-import {
-  cartSubtotal,
-  FREE_SHIPPING_THRESHOLD,
-  shippingFor,
-  useCart,
-} from "@/lib/cart-store";
+import { cartSubtotal, shippingFor, useCart } from "@/lib/cart-store";
 import { buttonClass } from "@/components/ui/Button";
 import { ProductImage } from "@/components/product/ProductImage";
 import { QuantityStepper } from "@/components/product/QuantityStepper";
-import { IconX, IconBag, IconTrash, IconArrowRight, IconTruck } from "@/components/icons";
+import { IconX, IconBag, IconTrash, IconArrowRight } from "@/components/icons";
 import { startLenis, stopLenis } from "@/lib/smooth-scroll";
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, setQuantity, removeItem } = useCart();
   const subtotal = cartSubtotal(items);
   const shipping = shippingFor(subtotal);
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
-  const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -90,29 +83,6 @@ export function CartDrawer() {
               </div>
             ) : (
               <>
-                {/* free-shipping progress */}
-                <div className="border-b border-clay bg-sand/50 px-5 py-3">
-                  <p className="flex items-center gap-2 text-xs text-cocoa-soft">
-                    <IconTruck className="h-4 w-4 text-leaf" />
-                    {remaining > 0 ? (
-                      <span>
-                        Add <strong className="text-cocoa">{formatLKR(remaining)}</strong> more for
-                        free delivery
-                      </span>
-                    ) : (
-                      <span className="font-medium text-leaf">
-                        You&apos;ve unlocked free islandwide delivery!
-                      </span>
-                    )}
-                  </p>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-clay">
-                    <div
-                      className="h-full rounded-full bg-leaf transition-all duration-500"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                </div>
-
                 <ul className="flex-1 divide-y divide-clay overflow-y-auto px-5">
                   {items.map((item) => (
                     <li key={item.slug} className="flex gap-4 py-4">
@@ -170,7 +140,7 @@ export function CartDrawer() {
                   <div className="mt-1 flex items-center justify-between text-sm text-cocoa-soft">
                     <span>Delivery</span>
                     <span className="font-medium text-cocoa">
-                      {shipping === 0 ? "Free" : formatLKR(shipping)}
+                      {formatLKR(shipping)}
                     </span>
                   </div>
                   <div className="mt-3 flex items-center justify-between border-t border-clay pt-3">

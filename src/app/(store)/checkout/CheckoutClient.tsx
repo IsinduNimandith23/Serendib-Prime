@@ -494,9 +494,7 @@ export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }
             </div>
             <div className="flex justify-between">
               <dt className="text-cocoa-soft">Delivery</dt>
-              <dd className="font-medium text-cocoa">
-                {shipping === 0 ? "Free" : formatLKR(shipping)}
-              </dd>
+              <dd className="font-medium text-cocoa">{formatLKR(shipping)}</dd>
             </div>
           </dl>
           <div className="mt-3 flex items-center justify-between border-t border-clay pt-3">

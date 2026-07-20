@@ -22,8 +22,8 @@ export function CTASection() {
             Bring Sri Lanka to your table tonight
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-cream/70 sm:text-lg">
-            Stock your pantry with real island seafood. Free islandwide delivery
-            over Rs 5,000, and a flavour guarantee on every tin.
+            Stock your pantry with real island seafood. Islandwide delivery, and
+            a flavour guarantee on every tin.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Link href="/products" className={buttonClass({ variant: "gold", size: "lg" })}>

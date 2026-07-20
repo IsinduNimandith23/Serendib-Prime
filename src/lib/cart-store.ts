@@ -83,8 +83,4 @@ export function cartSubtotal(items: CartItem[]): number {
 }
 
 // Re-exported from the server-safe shipping module for convenience.
-export {
-  FREE_SHIPPING_THRESHOLD,
-  SHIPPING_FLAT,
-  shippingFor,
-} from "./shipping";
+export { SHIPPING_FLAT, shippingFor } from "./shipping";
