@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { cartSubtotal, shippingFor, useCart } from "@/lib/cart-store";
+import { cartSubtotal, shippingFor, shippingNote, useCart } from "@/lib/cart-store";
 import { formatLKR, makeOrderRef } from "@/lib/utils";
 import type { BankAccount } from "@/lib/bank";
 import { Container } from "@/components/ui/Container";
@@ -93,7 +93,7 @@ export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }
   const [orderRef] = useState<string>(() => makeOrderRef());
 
   const subtotal = cartSubtotal(items);
-  const shipping = shippingFor(subtotal);
+  const shipping = shippingFor(subtotal, items);
   const total = subtotal + shipping;
 
   const selectedAccount = bankAccounts.find((a) => a.id === bankAccountId);
@@ -496,6 +496,7 @@ export function CheckoutClient({ bankAccounts }: { bankAccounts: BankAccount[] }
               <dt className="text-cocoa-soft">Delivery</dt>
               <dd className="font-medium text-cocoa">{formatLKR(shipping)}</dd>
             </div>
+            <p className="text-xs text-cocoa-soft">{shippingNote(items)}</p>
           </dl>
           <div className="mt-3 flex items-center justify-between border-t border-clay pt-3">
             <span className="font-display text-lg font-semibold text-cocoa">Total</span>

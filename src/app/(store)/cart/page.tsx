@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { cartSubtotal, shippingFor, useCart } from "@/lib/cart-store";
+import { cartSubtotal, shippingFor, shippingNote, useCart } from "@/lib/cart-store";
 import { formatLKR } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { buttonClass } from "@/components/ui/Button";
@@ -17,7 +17,7 @@ import {
 export default function CartPage() {
   const { items, setQuantity, removeItem } = useCart();
   const subtotal = cartSubtotal(items);
-  const shipping = shippingFor(subtotal);
+  const shipping = shippingFor(subtotal, items);
 
   if (items.length === 0) {
     return (
@@ -110,6 +110,7 @@ export default function CartPage() {
               <dt className="text-cocoa-soft">Delivery</dt>
               <dd className="font-medium text-cocoa">{formatLKR(shipping)}</dd>
             </div>
+            <p className="text-xs text-cocoa-soft">{shippingNote(items)}</p>
           </dl>
           <div className="mt-4 flex items-center justify-between border-t border-clay pt-4">
             <span className="font-display text-lg font-semibold text-cocoa">Total</span>

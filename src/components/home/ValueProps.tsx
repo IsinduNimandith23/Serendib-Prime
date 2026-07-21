@@ -27,7 +27,7 @@ const PROPS = [
   {
     Icon: IconTruck,
     title: "Islandwide delivery",
-    text: "Shipped within 24 hours in protective packaging, with flat-rate delivery anywhere in Sri Lanka.",
+    text: "Shipped within 24 hours in protective packaging. Rs. 425 anywhere in Sri Lanka, plus Rs. 100 for parcels over 1kg.",
   },
 ];
 

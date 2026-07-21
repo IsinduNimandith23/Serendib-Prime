@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
   if (validated.length === 0) return bad("None of the items are available.");
 
   const subtotal = validated.reduce((s, i) => s + i.price * i.quantity, 0);
-  const shipping = shippingFor(subtotal);
+  const shipping = shippingFor(subtotal, validated);
   const total = subtotal + shipping;
   // For bank transfers the customer already saw a reference and used it for the
   // transfer, so honour that ref (if well-formed); otherwise mint a fresh one.

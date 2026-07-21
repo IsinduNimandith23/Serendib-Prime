@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { cn, formatLKR } from "@/lib/utils";
-import { cartSubtotal, shippingFor, useCart } from "@/lib/cart-store";
+import { cartSubtotal, shippingFor, shippingNote, useCart } from "@/lib/cart-store";
 import { buttonClass } from "@/components/ui/Button";
 import { ProductImage } from "@/components/product/ProductImage";
 import { QuantityStepper } from "@/components/product/QuantityStepper";
@@ -14,7 +14,7 @@ import { startLenis, stopLenis } from "@/lib/smooth-scroll";
 export function CartDrawer() {
   const { items, isOpen, closeCart, setQuantity, removeItem } = useCart();
   const subtotal = cartSubtotal(items);
-  const shipping = shippingFor(subtotal);
+  const shipping = shippingFor(subtotal, items);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -143,6 +143,7 @@ export function CartDrawer() {
                       {formatLKR(shipping)}
                     </span>
                   </div>
+                  <p className="mt-1 text-xs text-cocoa-soft">{shippingNote(items)}</p>
                   <div className="mt-3 flex items-center justify-between border-t border-clay pt-3">
                     <span className="font-display text-lg font-semibold text-cocoa">Total</span>
                     <span className="font-display text-lg font-semibold text-spice">

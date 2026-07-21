@@ -85,6 +85,13 @@ export default function TermsPage() {
             2 to 5 business days depending on your location within Sri Lanka.
           </p>
           <p>
+            Delivery is charged at a flat Rs. 425 anywhere in Sri Lanka. Orders
+            whose total net weight exceeds 1kg carry an additional Rs. 100
+            handling charge, applied once regardless of how much the 1kg is
+            exceeded. The exact delivery charge is shown in your cart and at
+            checkout before you pay.
+          </p>
+          <p>
             Delivery timelines are estimates and may be affected by factors
             outside our control, including weather, carrier delays, or public
             holidays. We are not liable for delays beyond our reasonable
