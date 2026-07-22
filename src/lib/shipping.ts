@@ -7,6 +7,15 @@ export const SHIPPING_BASE = 425;
 export const HEAVY_SURCHARGE = 100;
 /** Parcels heavier than this (1kg, in grams) pay the surcharge. */
 export const HEAVY_THRESHOLD_G = 1000;
+/**
+ * Empty tin + label + outer packaging, per item. The weight stored on a
+ * product is the NET content weight, but the courier charges on GROSS (shipped)
+ * weight, so we add the tare back per unit. From the client's weight sheet the
+ * tare is effectively constant (400g net -> 458g gross = 58g; 250g -> 311g =
+ * 61g), so a single ~60g constant reproduces gross to within a couple of grams
+ * and never changes which side of the 1kg threshold a real cart lands on.
+ */
+export const PACKAGING_TARE_G = 60;
 
 /**
  * Parse a net-weight label ("400g", "1kg", "1.2 KG") into grams.
@@ -22,9 +31,16 @@ export function parseWeightGrams(label: string | undefined): number {
   return match[2].toLowerCase() === "kg" ? value * 1000 : value;
 }
 
-/** Total net weight of the cart in grams. */
+/**
+ * Total GROSS (shipped) weight of the cart in grams - i.e. net content plus the
+ * per-item PACKAGING_TARE_G. This is the figure the courier weighs, so it is
+ * what the 1kg surcharge threshold is measured against.
+ */
 export function cartWeightGrams(items: CartItem[]): number {
-  return items.reduce((g, i) => g + parseWeightGrams(i.weight) * i.quantity, 0);
+  return items.reduce(
+    (g, i) => g + (parseWeightGrams(i.weight) + PACKAGING_TARE_G) * i.quantity,
+    0,
+  );
 }
 
 /**

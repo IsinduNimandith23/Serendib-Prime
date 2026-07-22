@@ -16,8 +16,8 @@ export const PRODUCTS: Product[] = [
     tagline: "Crispy dried sprats stir-fried with onion, chilli & curry leaf",
     image: "/products/tempered-sprats.png",
     category: "Tempered",
-    price: 690,
-    weight: "400g",
+    price: 750,
+    weight: "250g",
     shortDescription:
       "Golden dried sprats tempered with onions, chilli and curry leaves - bold, crunchy and ready the moment you open the tin.",
     description:
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
     tagline: "Dried sprats simmered in a roasted Sri Lankan spice gravy",
     image: "/products/dried-sprats-curry.png",
     category: "Curries",
-    price: 790,
+    price: 540,
     weight: "400g",
     shortDescription:
       "Dried sprats slow-simmered in a dark, roasted curry with goraka and chilli - deep, savoury and full of home.",
@@ -104,7 +104,7 @@ export const PRODUCTS: Product[] = [
     tagline: "Dried sprats in a creamy roasted-coconut gravy",
     image: "/products/dried-sprats-curry-premium.png",
     category: "Curries",
-    price: 890,
+    price: 750,
     weight: "400g",
     shortDescription:
       "Our premium dried sprats curry, finished in a rich roasted-coconut milk gravy with whole spices - mellow, fragrant and indulgent.",
